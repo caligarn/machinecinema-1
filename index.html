@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GenJam — Learn. Create. Play.</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,600;1,700&display=swap');
 
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -14,13 +14,18 @@
     --bg-white: #FFFFFF;
     --dark: #1a1a2e;
     --dark-navy: #0d0d1a;
+    --dark-char: #161316;
     --text-primary: #1a1a1a;
     --text-secondary: #4a4a5a;
     --pink: #FF2D55;
     --lime: #C8FF00;
     --yellow: #FFD600;
-    --teal: #2D3436;
+    --orange: #FF904D;
+    --purple: #CB6BE6;
+    --blue: #0074B1;
+    --green: #6ACB9D;
     --font-primary: 'Space Grotesk', -apple-system, sans-serif;
+    --font-display: 'Montserrat', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
     --border: 3px solid var(--dark-navy);
     --radius: 16px;
@@ -34,7 +39,7 @@
     font-family: var(--font-primary);
   }
 
-  /* ---- Canvas for confetti/shapes ---- */
+  /* ---- Canvas for particles ---- */
   #particle-canvas {
     position: fixed; top: 0; left: 0;
     width: 100%; height: 100%;
@@ -42,39 +47,26 @@
   }
 
   /* ---- Slide container ---- */
-  #deck {
-    position: relative; z-index: 1;
-    width: 100%; height: 100%;
-  }
+  #deck { position: relative; z-index: 1; width: 100%; height: 100%; }
 
   .slide {
     position: absolute; inset: 0;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    padding: 60px 80px;
+    padding: 50px 70px;
     opacity: 0;
     transform: translateY(30px) scale(0.98);
     transition: opacity 0.5s cubic-bezier(.4,0,.2,1), transform 0.5s cubic-bezier(.4,0,.2,1);
     pointer-events: none;
     will-change: opacity, transform;
   }
-  .slide.active {
-    opacity: 1; transform: translateY(0) scale(1);
-    pointer-events: auto;
-  }
-  .slide.exit-up {
-    opacity: 0; transform: translateY(-30px) scale(0.98);
-  }
+  .slide.active { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+  .slide.exit-up { opacity: 0; transform: translateY(-30px) scale(0.98); }
 
   /* ---- Slide backgrounds ---- */
-  .slide-dark {
-    background: var(--dark-navy);
-    color: #f0f0f5;
-  }
-  .slide-dark .text-secondary,
-  .slide-dark p,
-  .slide-dark li { color: #b0b0c8; }
-  .slide-dark h1, .slide-dark h2, .slide-dark h3 { color: #f0f0f5; }
+  .slide-dark { background: var(--dark-char); color: #f0f0f5; }
+  .slide-dark p, .slide-dark li { color: #b0b0c8; }
+  .slide-dark h1, .slide-dark h2, .slide-dark h3, .slide-dark h4 { color: #f0f0f5; }
 
   .slide-pink { background: var(--pink); color: #fff; }
   .slide-pink p, .slide-pink li { color: rgba(255,255,255,0.85); }
@@ -86,81 +78,90 @@
   .slide-yellow { background: var(--yellow); color: var(--dark-navy); }
   .slide-yellow p, .slide-yellow li { color: rgba(13,13,26,0.7); }
 
+  .slide-orange { background: var(--orange); color: #fff; }
+  .slide-orange p, .slide-orange li { color: rgba(255,255,255,0.9); }
+  .slide-orange h1, .slide-orange h2, .slide-orange h3 { color: #fff; }
+
   /* ---- Typography ---- */
   h1 {
-    font-size: clamp(3rem, 7vw, 6rem); font-weight: 800;
+    font-family: var(--font-primary);
+    font-size: clamp(2.8rem, 6.5vw, 5.5rem); font-weight: 800;
     line-height: 1.0; letter-spacing: -0.03em;
     text-transform: uppercase;
   }
   h2 {
-    font-size: clamp(2rem, 4.5vw, 3.8rem); font-weight: 700;
+    font-family: var(--font-primary);
+    font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 700;
     line-height: 1.1; letter-spacing: -0.02em;
     text-transform: uppercase;
   }
-  h3 { font-size: clamp(1.3rem, 2.2vw, 1.8rem); font-weight: 600; }
+  h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 700;
+  }
+  h4 {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 1.5vw, 1.3rem); font-weight: 700;
+  }
   p, li {
-    font-size: clamp(1rem, 1.4vw, 1.25rem);
-    line-height: 1.7; color: var(--text-secondary);
+    font-size: clamp(0.9rem, 1.3vw, 1.15rem);
+    line-height: 1.65; color: var(--text-secondary);
   }
 
   .color-pink { color: var(--pink); }
   .color-lime { color: var(--lime); }
   .color-yellow { color: var(--yellow); }
+  .color-orange { color: var(--orange); }
+  .color-purple { color: var(--purple); }
+  .color-white { color: #fff; }
 
   .mono { font-family: var(--font-mono); }
+  .display { font-family: var(--font-display); }
 
   /* ---- Accent bar ---- */
-  .accent-bar {
-    width: 80px; height: 5px; border-radius: 3px;
-    margin: 16px 0 28px;
-  }
+  .accent-bar { width: 70px; height: 4px; border-radius: 2px; margin: 12px 0 22px; }
   .accent-bar.pink { background: var(--pink); }
   .accent-bar.lime { background: var(--lime); }
   .accent-bar.yellow { background: var(--yellow); }
   .accent-bar.dark { background: var(--dark-navy); }
+  .accent-bar.white { background: #fff; }
+  .accent-bar.orange { background: var(--orange); }
 
-  /* ---- Pill badge (Machine Cinema style) ---- */
+  /* ---- Pill badge ---- */
   .pill {
-    display: inline-block; padding: 6px 16px;
-    border-radius: 6px; font-size: 0.8rem;
+    display: inline-block; padding: 5px 14px;
+    border-radius: 6px; font-size: 0.75rem;
     font-family: var(--font-mono); font-weight: 600;
     text-transform: uppercase; letter-spacing: 0.08em;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
   .pill-pink { background: var(--pink); color: #fff; }
   .pill-lime { background: var(--lime); color: var(--dark-navy); }
   .pill-yellow { background: var(--yellow); color: var(--dark-navy); }
   .pill-dark { background: var(--dark-navy); color: #fff; }
-  .pill-outline {
-    background: transparent;
-    border: 2px solid var(--dark-navy);
-    color: var(--dark-navy);
-  }
+  .pill-outline { background: transparent; border: 2px solid var(--dark-navy); color: var(--dark-navy); }
+  .pill-white { background: rgba(255,255,255,0.2); color: #fff; }
+  .pill-orange { background: var(--orange); color: #fff; }
 
-  /* ---- Bento cards (thick borders) ---- */
+  /* ---- Bento cards ---- */
   .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px; width: 100%; max-width: 1100px; margin-top: 20px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px; width: 100%; max-width: 1100px; margin-top: 16px;
   }
   .card {
-    background: var(--bg-white);
-    border: var(--border);
-    border-radius: var(--radius);
-    padding: 32px 28px;
+    background: var(--bg-white); border: var(--border);
+    border-radius: var(--radius); padding: 28px 24px;
     position: relative; overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
   }
-  .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 6px 6px 0 var(--dark-navy);
-  }
-  .card h3 { margin-bottom: 10px; }
-  .card p { font-size: 1rem; }
+  .card:hover { transform: translateY(-3px); box-shadow: 5px 5px 0 var(--dark-navy); }
+  .card h3 { margin-bottom: 8px; }
+  .card h4 { margin-bottom: 6px; }
+  .card p { font-size: 0.95rem; }
 
   .card-pink { background: var(--pink); color: #fff; border-color: var(--dark-navy); }
   .card-pink p { color: rgba(255,255,255,0.85); }
-  .card-pink h3 { color: #fff; }
+  .card-pink h3, .card-pink h4 { color: #fff; }
 
   .card-lime { background: var(--lime); color: var(--dark-navy); border-color: var(--dark-navy); }
   .card-lime p { color: rgba(13,13,26,0.7); }
@@ -170,36 +171,30 @@
 
   .card-dark { background: var(--dark-navy); color: #f0f0f5; border-color: var(--dark-navy); }
   .card-dark p { color: #b0b0c8; }
-  .card-dark h3 { color: #f0f0f5; }
+  .card-dark h3, .card-dark h4 { color: #f0f0f5; }
 
-  /* ---- Timeline ---- */
-  .timeline {
-    display: flex; flex-direction: column; gap: 0;
-    width: 100%; max-width: 900px; margin-top: 10px;
+  .card-orange { background: var(--orange); color: #fff; border-color: var(--dark-navy); }
+  .card-orange p { color: rgba(255,255,255,0.9); }
+  .card-orange h3, .card-orange h4 { color: #fff; }
+
+  /* ---- Numbered list (schedule) ---- */
+  .schedule-list {
+    list-style: none; padding: 0; width: 100%; max-width: 600px;
   }
-  .timeline-item {
-    display: flex; align-items: flex-start; gap: 24px;
-    padding: 22px 0;
-    border-left: 4px solid var(--dark-navy);
-    padding-left: 28px;
-    position: relative;
-    opacity: 0; transform: translateX(-20px);
-    transition: opacity 0.5s, transform 0.5s;
+  .schedule-list li {
+    display: flex; align-items: center; gap: 16px;
+    padding: 10px 0;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 1.6vw, 1.3rem);
+    font-weight: 600;
   }
-  .timeline-item.visible { opacity: 1; transform: translateX(0); }
-  .timeline-item::before {
-    content: ''; position: absolute; left: -10px; top: 28px;
-    width: 16px; height: 16px; border-radius: 50%;
-    border: 3px solid var(--dark-navy);
-  }
-  .timeline-item:nth-child(1)::before { background: var(--yellow); }
-  .timeline-item:nth-child(2)::before { background: var(--pink); }
-  .timeline-item:nth-child(3)::before { background: var(--lime); }
-  .timeline-item:nth-child(4)::before { background: var(--dark-navy); }
-  .time-label {
-    font-family: var(--font-mono); font-size: 0.9rem; font-weight: 600;
-    min-width: 100px; padding-top: 2px;
-    text-transform: uppercase;
+  .schedule-list .num {
+    font-family: var(--font-mono); font-weight: 700;
+    font-size: 0.85rem;
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 6px; flex-shrink: 0;
   }
 
   /* ---- Marquee ---- */
@@ -208,48 +203,44 @@
     position: absolute; bottom: 0; left: 0;
     background: var(--yellow);
     border-top: var(--border);
-    padding: 12px 0;
+    padding: 10px 0;
   }
   .marquee-track {
-    display: flex; gap: 40px;
+    display: flex; gap: 36px;
     animation: marquee 25s linear infinite;
     width: max-content;
   }
   .marquee-track span {
-    font-family: var(--font-mono);
-    font-size: 0.85rem; font-weight: 600;
-    color: var(--dark-navy);
-    white-space: nowrap; text-transform: uppercase; letter-spacing: 0.1em;
+    font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600;
+    color: var(--dark-navy); white-space: nowrap;
+    text-transform: uppercase; letter-spacing: 0.1em;
   }
-  .marquee-track .dot {
-    color: var(--pink);
-  }
+  .marquee-track .dot { color: var(--pink); }
   @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
   /* ---- Big number ---- */
   .big-num {
-    font-size: clamp(3.5rem, 9vw, 7rem); font-weight: 800;
+    font-size: clamp(3rem, 8vw, 6rem); font-weight: 800;
     line-height: 1; letter-spacing: -0.03em;
-  }
-
-  /* ---- Phase icon ---- */
-  .phase-icon {
-    font-size: 2.5rem; margin-bottom: 10px;
   }
 
   /* ---- Staggered children animation ---- */
   .slide.active .stagger > * {
     animation: fadeSlideUp 0.45s ease both;
   }
-  .slide.active .stagger > *:nth-child(1) { animation-delay: 0.08s; }
-  .slide.active .stagger > *:nth-child(2) { animation-delay: 0.16s; }
-  .slide.active .stagger > *:nth-child(3) { animation-delay: 0.24s; }
-  .slide.active .stagger > *:nth-child(4) { animation-delay: 0.32s; }
-  .slide.active .stagger > *:nth-child(5) { animation-delay: 0.40s; }
-  .slide.active .stagger > *:nth-child(6) { animation-delay: 0.48s; }
-  .slide.active .stagger > *:nth-child(7) { animation-delay: 0.56s; }
+  .slide.active .stagger > *:nth-child(1) { animation-delay: 0.06s; }
+  .slide.active .stagger > *:nth-child(2) { animation-delay: 0.12s; }
+  .slide.active .stagger > *:nth-child(3) { animation-delay: 0.18s; }
+  .slide.active .stagger > *:nth-child(4) { animation-delay: 0.24s; }
+  .slide.active .stagger > *:nth-child(5) { animation-delay: 0.30s; }
+  .slide.active .stagger > *:nth-child(6) { animation-delay: 0.36s; }
+  .slide.active .stagger > *:nth-child(7) { animation-delay: 0.42s; }
+  .slide.active .stagger > *:nth-child(8) { animation-delay: 0.48s; }
+  .slide.active .stagger > *:nth-child(9) { animation-delay: 0.54s; }
+  .slide.active .stagger > *:nth-child(10) { animation-delay: 0.60s; }
+  .slide.active .stagger > *:nth-child(11) { animation-delay: 0.66s; }
   @keyframes fadeSlideUp {
-    from { opacity: 0; transform: translateY(24px); }
+    from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
@@ -262,66 +253,37 @@
 
   /* ---- Nav dots ---- */
   #nav-dots {
-    position: fixed; right: 24px; top: 50%; transform: translateY(-50%);
-    display: flex; flex-direction: column; gap: 10px; z-index: 100;
+    position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 8px; z-index: 100;
   }
   .nav-dot {
-    width: 12px; height: 12px; border-radius: 50%;
-    background: rgba(26,26,26,0.15);
-    cursor: pointer;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(26,26,26,0.15); cursor: pointer;
     transition: background 0.3s, transform 0.3s;
     border: 2px solid transparent; padding: 0;
   }
   .nav-dot:hover { background: rgba(26,26,26,0.35); transform: scale(1.3); }
-  .nav-dot.active {
-    background: var(--pink);
-    border-color: var(--dark-navy);
-    transform: scale(1.3);
-  }
-  /* Invert dots on dark slides */
+  .nav-dot.active { background: var(--pink); border-color: var(--dark-navy); transform: scale(1.3); }
+
   .dots-light .nav-dot { background: rgba(255,255,255,0.2); }
   .dots-light .nav-dot:hover { background: rgba(255,255,255,0.5); }
   .dots-light .nav-dot.active { background: var(--yellow); border-color: #fff; }
 
-  /* ---- Keyboard hint ---- */
+  /* ---- Key hint ---- */
   .key-hint {
-    position: fixed; bottom: 16px; right: 24px;
-    font-family: var(--font-mono); font-size: 0.7rem;
-    color: rgba(26,26,26,0.25); z-index: 100;
+    position: fixed; bottom: 14px; right: 20px;
+    font-family: var(--font-mono); font-size: 0.65rem;
+    color: rgba(26,26,26,0.2); z-index: 100;
   }
 
-  /* ---- Stamp / pop animation ---- */
-  .stamp {
-    animation: stampIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  /* ---- Decorative elements ---- */
+  .deco-dot {
+    position: absolute; border-radius: 50%; pointer-events: none;
   }
-  @keyframes stampIn {
-    0% { transform: scale(1.8) rotate(-8deg); opacity: 0; }
-    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  .deco-circle {
+    position: absolute; border-radius: 50%;
+    border: var(--border); pointer-events: none; opacity: 0.08;
   }
-
-  /* ---- Bounce in ---- */
-  .slide.active .bounce-in {
-    animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-  }
-  @keyframes bounceIn {
-    0% { transform: scale(0); opacity: 0; }
-    60% { transform: scale(1.1); }
-    100% { transform: scale(1); opacity: 1; }
-  }
-
-  /* ---- Responsive ---- */
-  @media (max-width: 768px) {
-    .slide { padding: 40px 24px; }
-    .cards { grid-template-columns: 1fr; }
-    .timeline-item { flex-direction: column; gap: 6px; }
-    .time-label { min-width: auto; }
-    #nav-dots { right: 10px; }
-    .two-col { grid-template-columns: 1fr !important; gap: 24px !important; }
-    .bento-hero { grid-template-columns: 1fr !important; }
-  }
-
-  /* ---- Centered content ---- */
-  .centered { text-align: center; display: flex; flex-direction: column; align-items: center; }
 
   /* ---- Two-col layout ---- */
   .two-col {
@@ -329,114 +291,183 @@
     gap: 50px; width: 100%; max-width: 1100px; align-items: center;
   }
 
-  /* ---- Bento hero grid ---- */
-  .bento-hero {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    grid-template-rows: auto auto;
-    gap: 16px;
-    width: 100%; max-width: 1100px;
+  /* ---- Three-col layout ---- */
+  .three-col {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px; width: 100%; max-width: 1100px;
   }
-  .bento-main {
-    grid-row: 1 / 3;
-    background: var(--bg-white);
-    border: var(--border);
-    border-radius: var(--radius);
-    padding: 48px 40px;
-    display: flex; flex-direction: column;
-    justify-content: center;
+
+  /* ---- Centered ---- */
+  .centered { text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+  /* ---- Bio card ---- */
+  .bio-card {
+    background: var(--bg-white); border: var(--border);
+    border-radius: var(--radius); padding: 32px 28px;
+    text-align: center;
   }
-  .bento-stat {
-    background: var(--pink);
-    border: var(--border);
-    border-radius: var(--radius);
-    padding: 28px 32px;
-    color: #fff;
-    display: flex; flex-direction: column;
-    justify-content: center;
+  .bio-card .bio-name {
+    font-family: var(--font-primary); font-weight: 800;
+    font-size: 1.4rem; text-transform: uppercase;
+    letter-spacing: -0.01em; margin-bottom: 4px;
   }
-  .bento-stat .big-num { color: #fff; }
-  .bento-stat-sub {
-    font-family: var(--font-mono); font-size: 0.85rem;
-    font-weight: 600; text-transform: uppercase;
-    letter-spacing: 0.1em; margin-top: 4px;
-    color: rgba(255,255,255,0.9);
-  }
-  .bento-counts {
-    display: flex; gap: 12px;
-  }
-  .bento-count-box {
-    border: 2px solid rgba(255,255,255,0.4);
-    border-radius: 10px; padding: 14px 20px;
-    text-align: center; flex: 1;
-  }
-  .bento-count-num {
-    font-size: 1.6rem; font-weight: 800; color: #fff;
-  }
-  .bento-count-label {
+  .bio-card .bio-title {
     font-family: var(--font-mono); font-size: 0.7rem;
     text-transform: uppercase; letter-spacing: 0.1em;
-    color: rgba(255,255,255,0.8); margin-top: 2px;
+    color: var(--pink); margin-bottom: 12px;
+  }
+  .bio-card ul {
+    list-style: none; padding: 0; text-align: left;
+  }
+  .bio-card ul li {
+    font-size: 0.85rem; padding: 4px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    color: var(--text-secondary);
+  }
+  .bio-card ul li:last-child { border-bottom: none; }
+
+  /* ---- Process flow ---- */
+  .process-flow {
+    display: flex; align-items: center; gap: 8px;
+    flex-wrap: wrap; justify-content: center; margin-top: 16px;
+  }
+  .process-step {
+    background: var(--bg-white); border: var(--border);
+    border-radius: 10px; padding: 14px 20px;
+    font-family: var(--font-mono); font-size: 0.85rem;
+    font-weight: 600; text-transform: uppercase;
+    text-align: center;
+  }
+  .process-arrow {
+    font-size: 1.5rem; color: var(--pink); font-weight: 800;
   }
 
-  /* ---- Quote ---- */
-  .quote {
-    font-size: clamp(1.3rem, 2.5vw, 2rem);
-    font-weight: 600; line-height: 1.5;
-    max-width: 750px; position: relative;
-    padding-left: 28px;
-    border-left: 5px solid var(--pink);
+  /* ---- Tips grid ---- */
+  .tips-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px; width: 100%; max-width: 1000px; margin-top: 16px;
   }
-  .quote-attr {
-    margin-top: 20px; font-size: 0.95rem;
-    font-weight: 400; color: var(--text-secondary);
-  }
-
-  /* ---- Decorative shapes ---- */
-  .deco-circle {
-    position: absolute; border-radius: 50%;
-    border: var(--border); pointer-events: none;
-    opacity: 0.08;
-  }
-  .deco-dot {
-    position: absolute; width: 16px; height: 16px;
-    border-radius: 50%; pointer-events: none;
+  .tip {
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 12px; padding: 18px 20px;
+    font-family: var(--font-display);
+    font-size: clamp(0.85rem, 1.2vw, 1rem);
+    font-weight: 600;
   }
 
-  /* ---- Stat row for dark slide ---- */
-  .stat-row {
-    display: flex; gap: 40px; margin-top: 30px;
-    flex-wrap: wrap; justify-content: center;
+  /* ---- Genre tags ---- */
+  .tag-cloud {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    justify-content: center; margin-top: 12px;
   }
-  .stat-item { text-align: center; }
-  .stat-num {
-    font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800;
-    line-height: 1;
+  .tag {
+    padding: 6px 16px; border-radius: 8px;
+    font-family: var(--font-mono); font-size: 0.8rem;
+    font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 2px solid var(--dark-navy);
   }
-  .stat-label {
+  .tag-pink { background: var(--pink); color: #fff; border-color: var(--dark-navy); }
+  .tag-lime { background: var(--lime); color: var(--dark-navy); }
+  .tag-yellow { background: var(--yellow); color: var(--dark-navy); }
+  .tag-dark { background: var(--dark-navy); color: #fff; }
+  .tag-orange { background: var(--orange); color: #fff; border-color: var(--dark-navy); }
+  .tag-white { background: var(--bg-white); color: var(--dark-navy); }
+
+  /* ---- Countdown (15 min) ---- */
+  .countdown {
+    font-family: var(--font-mono); font-weight: 800;
+    font-size: clamp(4rem, 12vw, 10rem);
+    letter-spacing: -0.02em; line-height: 1;
+  }
+  .countdown-label {
+    font-family: var(--font-mono); font-size: clamp(0.8rem, 1.2vw, 1rem);
+    text-transform: uppercase; letter-spacing: 0.15em;
+    margin-top: 8px;
+  }
+
+  /* ---- Discussion list ---- */
+  .discussion-list {
+    list-style: none; padding: 0;
+    width: 100%; max-width: 700px;
+  }
+  .discussion-list li {
+    padding: 14px 0;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+    font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+    line-height: 1.5;
+  }
+  .discussion-list li:last-child { border-bottom: none; }
+
+  /* ---- Submit info ---- */
+  .submit-code {
+    font-family: var(--font-mono); font-size: clamp(0.8rem, 1.1vw, 1rem);
+    background: rgba(0,0,0,0.08); border-radius: 8px;
+    padding: 12px 20px; margin-top: 12px;
+    display: inline-block;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 768px) {
+    .slide { padding: 36px 22px; }
+    .cards { grid-template-columns: 1fr; }
+    .two-col, .three-col { grid-template-columns: 1fr !important; gap: 20px !important; }
+    #nav-dots { right: 8px; }
+    .tips-grid { grid-template-columns: 1fr; }
+    .process-flow { flex-direction: column; }
+    .process-arrow { transform: rotate(90deg); }
+    .schedule-list li { font-size: 0.95rem; }
+  }
+
+  /* ---- Pulse animation for countdown ---- */
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+  }
+  .pulse { animation: pulse 2s ease-in-out infinite; }
+
+  /* ---- Role card mini ---- */
+  .role-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px; width: 100%; max-width: 900px; margin-top: 16px;
+  }
+  .role-card {
+    border: var(--border); border-radius: 12px;
+    padding: 20px 16px; text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .role-card:hover { transform: translateY(-3px); box-shadow: 4px 4px 0 var(--dark-navy); }
+  .role-icon { font-size: 1.8rem; margin-bottom: 6px; }
+  .role-name {
     font-family: var(--font-mono); font-size: 0.75rem;
-    text-transform: uppercase; letter-spacing: 0.12em;
-    margin-top: 6px; opacity: 0.7;
+    font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ---- What-if big text ---- */
+  .whatif {
+    font-family: var(--font-primary); font-weight: 800;
+    font-size: clamp(4rem, 12vw, 10rem);
+    text-transform: uppercase; letter-spacing: -0.04em;
+    line-height: 0.95;
   }
 
   /* ---- CTA button ---- */
   .btn {
-    display: inline-block; padding: 14px 32px;
+    display: inline-block; padding: 12px 28px;
     border: var(--border); border-radius: 10px;
-    font-family: var(--font-primary); font-size: 1rem;
+    font-family: var(--font-primary); font-size: 0.95rem;
     font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.05em;
-    cursor: pointer; text-decoration: none;
+    letter-spacing: 0.05em; cursor: pointer;
+    text-decoration: none;
     transition: transform 0.2s, box-shadow 0.2s;
-    margin-top: 20px;
+    margin-top: 16px;
   }
-  .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 4px 4px 0 var(--dark-navy);
-  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 4px 4px 0 var(--dark-navy); }
   .btn-dark { background: var(--dark-navy); color: #fff; }
   .btn-pink { background: var(--pink); color: #fff; border-color: var(--dark-navy); }
-  .btn-outline { background: transparent; color: var(--dark-navy); }
+  .btn-lime { background: var(--lime); color: var(--dark-navy); border-color: var(--dark-navy); }
 </style>
 </head>
 <body>
@@ -444,40 +475,43 @@
 <canvas id="particle-canvas"></canvas>
 <div id="progress" style="width: 0%"></div>
 <div id="nav-dots"></div>
-<div class="key-hint">← → navigate</div>
+<div class="key-hint">&larr; &rarr; navigate</div>
 
 <div id="deck">
 
-  <!-- SLIDE 0: Title (Bento Hero) -->
-  <div class="slide active" data-slide="0">
-    <div class="bento-hero stagger">
-      <div class="bento-main">
-        <div>
-          <span class="pill pill-pink">AI Creativity</span>
-          <span class="pill pill-lime" style="margin-left: 8px;">Community</span>
+  <!-- SLIDE 0: Welcome / Wifi -->
+  <div class="slide active centered" data-slide="0">
+    <div class="deco-dot" style="top:12%;left:8%;background:var(--pink);width:24px;height:24px;opacity:0.5;"></div>
+    <div class="deco-dot" style="bottom:18%;right:10%;background:var(--lime);width:20px;height:20px;opacity:0.5;"></div>
+    <div class="stagger">
+      <span class="pill pill-pink">Welcome</span>
+      <h2>Welcome to the<br><span class="color-pink">GenJam</span></h2>
+      <div class="accent-bar pink" style="margin: 12px auto 22px;"></div>
+      <p style="max-width: 600px; text-align: center; font-size: clamp(1rem, 1.5vw, 1.2rem);">
+        While you wait, sign up for the tools and credits we'll use today.
+      </p>
+      <div class="cards" style="max-width: 500px; margin-top: 24px; grid-template-columns: 1fr 1fr;">
+        <div class="card card-dark centered" style="padding: 20px;">
+          <h4 style="font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6;">Wifi</h4>
+          <p style="color: #fff; font-size: 1.1rem; font-weight: 700; margin-top: 4px;">________</p>
         </div>
-        <h1 style="margin-top: 16px;">Learn.<br>Create.<br>Play.</h1>
-        <p style="margin-top: 20px; max-width: 420px; font-size: 1.15rem;">
-          The future of storytelling is being written right now. You can be part of it.
-        </p>
-      </div>
-      <div class="bento-stat">
-        <div style="font-size: 1.5rem; margin-bottom: 8px;">&#9734;</div>
-        <div class="big-num" id="counter-creators" data-target="3000" style="font-size: clamp(3rem, 6vw, 5rem);">0</div>
-        <div class="bento-stat-sub">Creators Worldwide</div>
-      </div>
-      <div class="bento-stat" style="padding: 20px 24px;">
-        <div class="bento-counts">
-          <div class="bento-count-box">
-            <div class="bento-count-num" id="counter-events" data-target="170">0</div>
-            <div class="bento-count-label">Events</div>
-          </div>
-          <div class="bento-count-box">
-            <div class="bento-count-num" id="counter-countries" data-target="30">0</div>
-            <div class="bento-count-label">Countries</div>
-          </div>
+        <div class="card card-dark centered" style="padding: 20px;">
+          <h4 style="font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6;">Password</h4>
+          <p style="color: #fff; font-size: 1.1rem; font-weight: 700; margin-top: 4px;">________</p>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 1: Title -->
+  <div class="slide slide-dark centered" data-slide="1" data-dots="light">
+    <div class="deco-dot" style="top:10%;right:12%;background:var(--pink);width:30px;height:30px;opacity:0.4;"></div>
+    <div class="deco-dot" style="bottom:15%;left:8%;background:var(--lime);width:22px;height:22px;opacity:0.4;"></div>
+    <div class="stagger">
+      <span class="pill pill-yellow">Game Edition</span>
+      <h1 style="font-size: clamp(3.5rem, 9vw, 8rem); margin-top: 8px;">Machine<br><span style="letter-spacing: 0.25em; font-size: 0.55em;">C I N E M A</span></h1>
+      <div class="accent-bar pink" style="margin: 16px auto 20px;"></div>
+      <h3 style="font-weight: 400; color: #b0b0c8; text-transform: none; font-style: italic;">Learn, Create, Play.</h3>
     </div>
     <div class="marquee-wrap">
       <div class="marquee-track">
@@ -507,275 +541,446 @@
     </div>
   </div>
 
-  <!-- SLIDE 1: What is a GenJam -->
-  <div class="slide centered" data-slide="1">
-    <div class="deco-circle" style="width:300px;height:300px;top:-5%;right:-5%;border-color:var(--pink);"></div>
-    <div class="deco-circle" style="width:200px;height:200px;bottom:10%;left:-3%;border-color:var(--lime);opacity:0.15;"></div>
+  <!-- SLIDE 2: Schedule -->
+  <div class="slide slide-dark centered" data-slide="2" data-dots="light">
     <div class="stagger">
-      <span class="pill pill-dark">The Format</span>
-      <h2>What is a<br><span class="color-pink">GenJam</span>?</h2>
-      <div class="accent-bar pink" style="margin: 16px auto 28px;"></div>
-      <p style="max-width: 640px; text-align: center; font-size: clamp(1.1rem, 1.6vw, 1.3rem);">
-        Part workshop, part creative sprint, part underground showcase.
-        A GenJam is a <strong style="color:var(--text-primary);">live collaborative jam session</strong>
-        where artists, filmmakers, and technologists create together using AI &mdash; in real time.
-      </p>
-      <p style="max-width: 640px; text-align: center; margin-top: 14px;">
-        Not a panel. Not a lecture. A hands-on creative experiment in human + machine collaboration.
-      </p>
+      <span class="pill pill-pink">The Plan</span>
+      <h1 style="font-size: clamp(2.5rem, 6vw, 5rem);">Sched<span class="color-pink">ule</span></h1>
+      <div class="accent-bar yellow" style="margin: 12px auto 20px;"></div>
+      <ol class="schedule-list">
+        <li><span class="num" style="background:var(--yellow);color:var(--dark-navy);">1</span><span style="color:#f0f0f5;">Intro</span></li>
+        <li><span class="num" style="background:var(--pink);color:#fff;">2</span><span style="color:#f0f0f5;">Demo</span></li>
+        <li><span class="num" style="background:var(--lime);color:var(--dark-navy);">3</span><span style="color:#f0f0f5;">Q&amp;A</span></li>
+        <li><span class="num" style="background:var(--yellow);color:var(--dark-navy);">4</span><span style="color:#f0f0f5;">Form Groups of 3</span></li>
+        <li><span class="num" style="background:var(--pink);color:#fff;">5</span><span style="color:#f0f0f5;">Ideate &amp; Generate</span></li>
+        <li><span class="num" style="background:var(--lime);color:var(--dark-navy);">6</span><span style="color:#f0f0f5;">Submit Films</span></li>
+        <li><span class="num" style="background:var(--yellow);color:var(--dark-navy);">7</span><span style="color:#f0f0f5;">Watch Films</span></li>
+        <li><span class="num" style="background:var(--pink);color:#fff;">8</span><span style="color:#f0f0f5;">Vote!</span></li>
+        <li><span class="num" style="background:var(--lime);color:var(--dark-navy);">9</span><span style="color:#f0f0f5;">Good Bye</span></li>
+      </ol>
     </div>
   </div>
 
-  <!-- SLIDE 2: Three Phases -->
-  <div class="slide centered" data-slide="2">
+  <!-- SLIDE 3: Machine Cinema Is -->
+  <div class="slide centered" data-slide="3">
+    <div class="deco-circle" style="width:250px;height:250px;top:-5%;right:-4%;border-color:var(--pink);"></div>
     <div class="stagger">
-      <span class="pill pill-outline">The Flow</span>
-      <h2>Three Phases,<br>One Session</h2>
-      <div class="accent-bar dark" style="margin: 16px auto 28px;"></div>
-      <div class="cards" style="max-width: 1000px;">
+      <span class="pill pill-dark">Who We Are</span>
+      <h2>Machine Cinema <span class="color-pink">Is</span></h2>
+      <div class="accent-bar dark" style="margin: 12px auto 20px;"></div>
+      <div class="cards" style="max-width: 1000px; grid-template-columns: repeat(2, 1fr);">
         <div class="card card-yellow centered">
-          <div class="phase-icon">&#x1F9E0;</div>
-          <h3>Learn</h3>
-          <p>Get a crash course in cutting-edge generative AI tools from expert practitioners.</p>
+          <h4>Education Network</h4>
         </div>
         <div class="card card-pink centered">
-          <div class="phase-icon">&#x1F3A8;</div>
-          <h3>Create</h3>
-          <p>Break into teams and make something original &mdash; a short film, game trailer, or visual experiment.</p>
+          <h4>Community &amp; Collective</h4>
         </div>
         <div class="card card-lime centered">
-          <div class="phase-icon">&#x1F3AC;</div>
-          <h3>Play</h3>
-          <p>Return to the main room, share your work, and vote for the most inventive creation.</p>
+          <h4>Advocacy Group</h4>
+        </div>
+        <div class="card card-dark centered">
+          <h4>Events Series</h4>
+        </div>
+      </div>
+      <div style="margin-top: 24px; text-align: center;">
+        <h3 style="margin-bottom: 10px;">For:</h3>
+        <div class="tag-cloud">
+          <span class="tag tag-pink">AI Artists &amp; Filmmakers</span>
+          <span class="tag tag-dark">Studios &amp; Agencies</span>
+          <span class="tag tag-yellow">Tool Companies &amp; Founders</span>
+          <span class="tag tag-lime">Business Owners</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 3: Timeline -->
-  <div class="slide" data-slide="3">
-    <div class="stagger" style="width:100%;display:flex;flex-direction:column;align-items:center;">
-      <span class="pill pill-yellow">The Schedule</span>
-      <h2 style="text-align:center;">Hour by Hour</h2>
-      <div class="accent-bar pink" style="margin: 16px auto 20px;"></div>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="time-label" style="color:var(--dark-navy);">Hour 1</div>
-          <div>
-            <h3 style="color: var(--dark-navy);">Learn</h3>
-            <p>Crash course in a generative AI tool. See what's possible, get hands-on demos, and ask questions.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="time-label" style="color:var(--pink);">Hours 2&ndash;3</div>
-          <div>
-            <h3 class="color-pink">Create</h3>
-            <p>Form small teams with new creative allies. Ideate, generate, iterate. Make something you're proud of.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="time-label" style="color:var(--dark-navy);">Hour 4</div>
-          <div>
-            <h3 style="color: var(--dark-navy);">Play</h3>
-            <p>Screening and showcase. Watch or play each team's creation. Vote. Celebrate. Connect.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="time-label" style="color: var(--text-secondary);">After</div>
-          <div>
-            <h3 style="color: var(--text-primary);">Connect</h3>
-            <p>New ideas, new skills, new creative allies. Take what you made and keep building.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 4: Learn deep-dive -->
-  <div class="slide slide-yellow" data-slide="4">
-    <div class="deco-dot" style="top:15%;left:12%;background:var(--pink);width:24px;height:24px;"></div>
-    <div class="deco-dot" style="bottom:20%;right:10%;background:var(--dark-navy);width:18px;height:18px;"></div>
-    <div class="two-col">
-      <div class="stagger">
-        <span class="pill pill-dark">Phase 1</span>
-        <h2>Learn</h2>
-        <div class="accent-bar dark" style="margin: 12px 0 24px;"></div>
-        <p>Every GenJam begins with a focused tool demo from an expert practitioner. This isn't a sales pitch &mdash; it's a working session.</p>
-        <ul style="margin-top: 14px; padding-left: 20px; display: flex; flex-direction: column; gap: 6px;">
-          <li>Live walkthrough of a generative AI tool</li>
-          <li>Real-time creative demos</li>
-          <li>Tips, tricks, and creative workflows</li>
-          <li>Q&A with the presenter</li>
-        </ul>
-      </div>
-      <div class="centered">
-        <div class="big-num" style="opacity: 0.12; font-size: clamp(8rem, 18vw, 14rem);">01</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 5: Create deep-dive -->
-  <div class="slide slide-pink" data-slide="5">
-    <div class="deco-dot" style="top:10%;right:15%;background:var(--yellow);width:24px;height:24px;"></div>
-    <div class="deco-dot" style="bottom:15%;left:8%;background:var(--lime);width:20px;height:20px;"></div>
-    <div class="two-col">
-      <div class="centered">
-        <div class="big-num" style="opacity: 0.15; font-size: clamp(8rem, 18vw, 14rem); color: #fff;">02</div>
-      </div>
-      <div class="stagger">
-        <span class="pill" style="background:rgba(255,255,255,0.2); color:#fff;">Phase 2</span>
-        <h2>Create</h2>
-        <div class="accent-bar" style="background: #fff; margin: 12px 0 24px;"></div>
-        <p>This is the heart of the GenJam. Teams form organically, ideas collide, and creations emerge from the chaos.</p>
-        <ul style="margin-top: 14px; padding-left: 20px; display: flex; flex-direction: column; gap: 6px;">
-          <li>Form teams of 3&ndash;5 people</li>
-          <li>2 hours to ideate, generate, and refine</li>
-          <li>Mentors float between teams</li>
-          <li>AI tools provided and ready to go</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 6: Play deep-dive -->
-  <div class="slide slide-lime" data-slide="6">
-    <div class="deco-dot" style="top:12%;left:10%;background:var(--pink);width:22px;height:22px;"></div>
-    <div class="deco-dot" style="bottom:18%;right:12%;background:var(--yellow);width:16px;height:16px;"></div>
-    <div class="two-col">
-      <div class="stagger">
-        <span class="pill pill-dark">Phase 3</span>
-        <h2>Play</h2>
-        <div class="accent-bar dark" style="margin: 12px 0 24px;"></div>
-        <p>The finale. Every team presents their creation to the room. It's part screening, part celebration, part friendly competition.</p>
-        <ul style="margin-top: 14px; padding-left: 20px; display: flex; flex-direction: column; gap: 6px;">
-          <li>Live screening of all team creations</li>
-          <li>Audience voting for favorites</li>
-          <li>Awards and recognition</li>
-          <li>Networking and celebration</li>
-        </ul>
-      </div>
-      <div class="centered">
-        <div class="big-num" style="opacity: 0.1; font-size: clamp(8rem, 18vw, 14rem);">03</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 7: Quote -->
-  <div class="slide centered" data-slide="7">
-    <div class="deco-circle" style="width:400px;height:400px;top:-8%;left:-8%;border-color:var(--yellow);opacity:0.1;"></div>
+  <!-- SLIDE 4: Partners -->
+  <div class="slide centered" data-slide="4">
     <div class="stagger">
-      <span class="pill pill-pink" style="margin-bottom: 24px;">&#9734; Philosophy</span>
-      <div class="quote" style="text-align: left;">
-        "We believe AI unlocks the creativity in everyone. Not by replacing imagination, but by giving it new tools."
-        <div class="quote-attr">&mdash; Minh Do, Co-Founder, Machine Cinema</div>
+      <span class="pill pill-outline">Collaborators</span>
+      <h2><span class="color-pink">Partners</span></h2>
+      <div class="accent-bar pink" style="margin: 12px auto 20px;"></div>
+      <div class="cards" style="max-width: 900px; grid-template-columns: repeat(3, 1fr);">
+        <div class="card card-dark centered">
+          <h4 style="font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.6; margin-bottom: 12px;">Organizing Partner</h4>
+          <p style="color: #fff; font-size: 1rem; font-weight: 600;">&mdash;</p>
+        </div>
+        <div class="card card-pink centered">
+          <h4 style="font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.8; margin-bottom: 12px;">Venue Partners</h4>
+          <p style="color: #fff; font-size: 1rem; font-weight: 600;">&mdash;</p>
+        </div>
+        <div class="card card-yellow centered">
+          <h4 style="font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 12px;">Tool Partner</h4>
+          <p style="font-size: 1rem; font-weight: 600;">&mdash;</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 8: AIRL -->
+  <!-- SLIDE 5: Who Are You / Icebreaker -->
+  <div class="slide slide-pink centered" data-slide="5" data-dots="light">
+    <div class="deco-dot" style="top:10%;left:10%;background:var(--yellow);width:28px;height:28px;opacity:0.6;"></div>
+    <div class="deco-dot" style="bottom:20%;right:12%;background:var(--lime);width:20px;height:20px;opacity:0.6;"></div>
+    <div class="stagger">
+      <span class="pill pill-white">Get to Know</span>
+      <h1 style="font-size: clamp(2.5rem, 6vw, 5rem);">Who Are<br>You?</h1>
+      <div class="accent-bar white" style="margin: 12px auto 24px;"></div>
+      <div class="tag-cloud" style="max-width: 600px;">
+        <span class="tag" style="background:#fff;color:var(--pink);border-color:#fff;font-size:0.9rem;padding:10px 20px;">Beginner?</span>
+        <span class="tag" style="background:#fff;color:var(--pink);border-color:#fff;font-size:0.9rem;padding:10px 20px;">Intermediate?</span>
+        <span class="tag" style="background:#fff;color:var(--pink);border-color:#fff;font-size:0.9rem;padding:10px 20px;">Advanced?</span>
+      </div>
+      <div class="tag-cloud" style="max-width: 600px; margin-top: 12px;">
+        <span class="tag" style="background:rgba(255,255,255,0.2);color:#fff;border-color:rgba(255,255,255,0.3);font-size:0.85rem;">Editors?</span>
+        <span class="tag" style="background:rgba(255,255,255,0.2);color:#fff;border-color:rgba(255,255,255,0.3);font-size:0.85rem;">Traditional Filmmakers?</span>
+      </div>
+      <h2 style="margin-top: 30px; font-size: clamp(1.5rem, 3vw, 2.5rem);"><span class="color-yellow">Icebreaker!</span></h2>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: Schnozzo -->
+  <div class="slide slide-yellow centered" data-slide="6">
+    <div class="stagger">
+      <h1 style="font-size: clamp(3rem, 8vw, 7rem);">Schnozzo</h1>
+      <div class="accent-bar dark" style="margin: 12px auto 20px;"></div>
+      <h3 style="font-weight: 400; text-transform: none; color: var(--dark-navy); opacity: 0.7;">our mascot</h3>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: Meet the Founders -->
+  <div class="slide" data-slide="7">
+    <div class="stagger" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+      <span class="pill pill-dark">Your Hosts</span>
+      <h2 style="text-align: center;">Meet the <span class="color-pink">Founders</span></h2>
+      <div class="accent-bar pink" style="margin: 12px auto 20px;"></div>
+      <div class="two-col" style="max-width: 900px; gap: 24px;">
+        <div class="bio-card">
+          <div class="bio-name">Fred Grinstein</div>
+          <div class="bio-title">Co-Founder, Machine Cinema</div>
+          <ul>
+            <li>20-year Film/TV executive (xA&amp;E, xVice, xAnonymous Content)</li>
+            <li>AI Educator with Curious Refuge and Chapman University</li>
+            <li>Consultant/Strategist with major broadcast networks &amp; prodcos</li>
+          </ul>
+        </div>
+        <div class="bio-card">
+          <div class="bio-name">Minh Do</div>
+          <div class="bio-title">Co-Founder, Machine Cinema</div>
+          <ul>
+            <li>Cofounder of Fantastic Day, an AI-first film studio</li>
+            <li>Producer at Fairground.tv, an AI TV channel</li>
+            <li>Currently hiring AI creators &amp; AI studios</li>
+            <li style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--pink);">@minhsmind</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: Our Model - AIRL -->
   <div class="slide slide-dark centered" data-slide="8" data-dots="light">
     <div class="stagger">
-      <span class="pill pill-yellow">The Philosophy</span>
-      <h2 style="margin-top: 8px;"><span class="color-yellow">AIRL</span></h2>
-      <h3 style="font-weight: 400; color: #b0b0c8; margin-top: 4px; text-transform: none;">AI In Real Life</h3>
-      <div class="accent-bar yellow" style="margin: 16px auto 28px;"></div>
-      <p style="max-width: 600px; text-align: center; font-size: clamp(1.05rem, 1.5vw, 1.2rem);">
-        AIRL is about more than talking &mdash; it's about <strong style="color:#f0f0f5;">doing</strong>.
-        Our events are designed for hands-on collaboration, where creators leave with something tangible.
+      <span class="pill pill-yellow">Our Model</span>
+      <h1 style="font-size: clamp(3rem, 8vw, 7rem);"><span class="color-yellow">&ldquo;</span>AIRL<span class="color-yellow">&rdquo;</span></h1>
+      <h3 style="font-weight: 400; color: #b0b0c8; text-transform: none; margin-top: 4px;">AI In Real Life</h3>
+      <div class="accent-bar yellow" style="margin: 16px auto 24px;"></div>
+      <p style="max-width: 700px; text-align: center; font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: #c0c0d8; line-height: 1.75;">
+        Through our in-person event series we want to create the resource for anyone with a baseline level of curiosity and love for creativity, of any skill level, to sit alongside fellow creators to learn about the tools, experiment with them, share about our projects, and demo and discuss the industry where these tools are evolving.
       </p>
-      <div class="cards" style="margin-top: 28px; max-width: 800px;">
-        <div class="card card-yellow centered">
-          <h3>Not Passive</h3>
-          <p>No sitting and watching. Every attendee is a creator.</p>
-        </div>
-        <div class="card card-pink centered">
-          <h3>Not Theoretical</h3>
-          <p>You leave with something you made, not just notes.</p>
-        </div>
-        <div class="card card-lime centered">
-          <h3>Not Solo</h3>
-          <p>You create with others. New friends, new collaborators.</p>
-        </div>
-      </div>
     </div>
   </div>
 
-  <!-- SLIDE 9: Community -->
+  <!-- SLIDE 9: Join the Community -->
   <div class="slide centered" data-slide="9">
+    <div class="deco-circle" style="width:200px;height:200px;bottom:5%;left:-3%;border-color:var(--lime);opacity:0.12;"></div>
     <div class="stagger">
-      <span class="pill pill-lime">The Community</span>
-      <h2>Join a Global Community<br>of <span class="color-pink">AI Creators</span></h2>
-      <div class="accent-bar pink" style="margin: 16px auto 28px;"></div>
-      <p style="max-width: 550px; text-align: center; font-size: clamp(1.05rem, 1.5vw, 1.2rem);">
-        From beginners to experts, everyone's welcome to learn, make, and experiment.
-      </p>
-      <div class="stat-row" style="margin-top: 36px;">
-        <div class="stat-item">
-          <div class="stat-num color-pink" id="counter-creators2" data-target="3000">0</div>
-          <div class="stat-label" style="color: var(--text-secondary);">Creators</div>
+      <span class="pill pill-lime">Get Involved</span>
+      <h2>Join the<br><span class="color-pink">Community</span></h2>
+      <div class="accent-bar pink" style="margin: 12px auto 20px;"></div>
+      <div class="cards" style="max-width: 1000px; grid-template-columns: repeat(3, 1fr);">
+        <div class="card card-pink centered" style="padding: 18px 16px;">
+          <h4 style="font-size: 0.9rem;">AIRL Events</h4>
         </div>
-        <div class="stat-item">
-          <div class="stat-num" style="color: var(--dark-navy);" id="counter-events2" data-target="170">0</div>
-          <div class="stat-label" style="color: var(--text-secondary);">Events</div>
+        <div class="card card-yellow centered" style="padding: 18px 16px;">
+          <h4 style="font-size: 0.9rem;">Online Community</h4>
         </div>
-        <div class="stat-item">
-          <div class="stat-num color-yellow" style="-webkit-text-stroke: 2px var(--dark-navy);" id="counter-countries2" data-target="30">0</div>
-          <div class="stat-label" style="color: var(--text-secondary);">Countries</div>
+        <div class="card card-dark centered" style="padding: 18px 16px;">
+          <h4 style="font-size: 0.9rem;">Gen&amp;Juice</h4>
+        </div>
+        <div class="card card-lime centered" style="padding: 18px 16px;">
+          <h4 style="font-size: 0.9rem;">GenTalks</h4>
+        </div>
+        <div class="card card-orange centered" style="padding: 18px 16px;">
+          <h4 style="font-size: 0.9rem;">Monthly GenJams</h4>
+        </div>
+        <div class="card centered" style="padding: 18px 16px;">
+          <h4 style="font-size: 0.9rem;">Weekly Newsletter</h4>
+        </div>
+        <div class="card card-yellow centered" style="padding: 18px 16px;">
+          <h4 style="font-size: 0.9rem;">Walk&amp;Jam</h4>
+        </div>
+        <div class="card card-pink centered" style="padding: 18px 16px;">
+          <h4 style="font-size: 0.9rem;">Online Jams</h4>
+        </div>
+        <div class="card card-dark centered" style="padding: 18px 16px;">
+          <h4 style="font-size: 0.9rem;">WIP Salon / Jobs</h4>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 10: GenJam Editions -->
-  <div class="slide centered" data-slide="10">
+  <!-- SLIDE 10: Today's Workflow & Tools -->
+  <div class="slide slide-lime centered" data-slide="10">
     <div class="stagger">
-      <span class="pill pill-pink">Editions</span>
-      <h2>GenJam <span class="color-pink">Flavors</span></h2>
-      <div class="accent-bar dark" style="margin: 16px auto 28px;"></div>
-      <div class="cards" style="max-width: 1000px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-        <div class="card centered">
-          <div class="phase-icon">&#x1F3AC;</div>
-          <h3 style="font-size: 1.1rem;">Classic</h3>
-          <p style="font-size: 0.9rem;">AI filmmaking &amp; visual storytelling</p>
+      <span class="pill pill-dark">Workshop</span>
+      <h2>Today's Workflow<br>&amp; <span style="color: var(--pink);">Tools</span></h2>
+      <div class="accent-bar dark" style="margin: 12px auto 20px;"></div>
+      <div class="cards" style="max-width: 800px; grid-template-columns: repeat(3, 1fr);">
+        <div class="card card-dark centered">
+          <h4 style="margin-bottom: 4px;">Writing</h4>
+          <p style="font-size: 0.85rem;">Scripts &amp; prompts</p>
         </div>
         <div class="card card-pink centered">
-          <div class="phase-icon">&#x1F3AE;</div>
-          <h3 style="font-size: 1.1rem;">Game Edition</h3>
-          <p style="font-size: 0.9rem;">Create games &amp; interactive experiences</p>
+          <h4 style="margin-bottom: 4px;">T2V &amp; I2V</h4>
+          <p style="font-size: 0.85rem;">Text/Image to Video</p>
         </div>
+        <div class="card centered">
+          <h4 style="margin-bottom: 4px;">Sound &amp; Edit</h4>
+          <p style="font-size: 0.85rem;">Audio &amp; post-production</p>
+        </div>
+      </div>
+      <p style="margin-top: 20px; font-size: 0.95rem; font-style: italic; color: rgba(13,13,26,0.6); max-width: 500px;">
+        Feel free to use your own workflow or tools that you're used to!
+      </p>
+    </div>
+  </div>
+
+  <!-- SLIDE 11: Roles -->
+  <div class="slide centered" data-slide="11">
+    <div class="stagger">
+      <span class="pill pill-pink">Team Up</span>
+      <h2><span class="color-pink">Roles</span></h2>
+      <div class="accent-bar dark" style="margin: 12px auto 20px;"></div>
+      <div class="role-grid">
+        <div class="role-card" style="background: var(--yellow);">
+          <div class="role-icon">&#x2702;&#xFE0F;</div>
+          <div class="role-name">Editor</div>
+        </div>
+        <div class="role-card" style="background: var(--pink); color: #fff;">
+          <div class="role-icon">&#x1F3B5;</div>
+          <div class="role-name" style="color: #fff;">Sound &amp; Music</div>
+        </div>
+        <div class="role-card" style="background: var(--lime);">
+          <div class="role-icon">&#x1F5BC;&#xFE0F;</div>
+          <div class="role-name">Imager</div>
+        </div>
+        <div class="role-card" style="background: var(--bg-white);">
+          <div class="role-icon">&#x1F3AC;</div>
+          <div class="role-name">Video Prompter</div>
+        </div>
+        <div class="role-card" style="background: var(--orange); color: #fff;">
+          <div class="role-icon">&#x1F399;&#xFE0F;</div>
+          <div class="role-name" style="color: #fff;">Voice Actor</div>
+        </div>
+      </div>
+      <p style="margin-top: 18px; font-size: 0.9rem; font-style: italic; max-width: 500px;">
+        Also, please come up with a fun team name for submissions.
+      </p>
+    </div>
+  </div>
+
+  <!-- SLIDE 12: The Process -->
+  <div class="slide slide-dark centered" data-slide="12" data-dots="light">
+    <div class="stagger">
+      <span class="pill pill-yellow">The Method</span>
+      <h2>The <span class="color-yellow">Process</span></h2>
+      <div class="accent-bar yellow" style="margin: 12px auto 20px;"></div>
+      <div class="process-flow">
+        <div class="process-step" style="background:var(--yellow);color:var(--dark-navy);">Idea / Script</div>
+        <div class="process-arrow" style="color:var(--yellow);">&rarr;</div>
+        <div class="process-step" style="background:var(--pink);color:#fff;">Shotlist</div>
+        <div class="process-arrow" style="color:var(--pink);">&rarr;</div>
+        <div class="process-step" style="background:var(--lime);color:var(--dark-navy);">TXT &rarr; IMG</div>
+        <div class="process-arrow" style="color:var(--lime);">&rarr;</div>
+        <div class="process-step" style="background:var(--orange);color:#fff;">IMG &rarr; VID</div>
+        <div class="process-arrow" style="color:var(--orange);">&rarr;</div>
+        <div class="process-step" style="background:var(--bg-white);color:var(--dark-navy);">Sound &amp; Edit</div>
+      </div>
+      <div style="margin-top: 30px; max-width: 700px;">
+        <p style="font-family: var(--font-mono); font-size: 0.8rem; color: rgba(255,255,255,0.4); text-align: center;">
+          SHOT 1 &rarr; IMG &rarr; VID &nbsp;|&nbsp; SHOT 2 &rarr; IMG &rarr; VID &nbsp;|&nbsp; SHOT 3 &rarr; IMG &rarr; VID &nbsp;|&nbsp; ...
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 13: Let's Dig In -->
+  <div class="slide slide-pink centered" data-slide="13" data-dots="light">
+    <div class="deco-dot" style="top:15%;right:15%;background:var(--yellow);width:30px;height:30px;opacity:0.5;"></div>
+    <div class="deco-dot" style="bottom:20%;left:10%;background:var(--lime);width:24px;height:24px;opacity:0.5;"></div>
+    <div class="stagger">
+      <h1 style="font-size: clamp(3.5rem, 10vw, 8rem);">Let's<br>Dig In</h1>
+    </div>
+  </div>
+
+  <!-- SLIDE 14: Tips for Group Work -->
+  <div class="slide slide-dark centered" data-slide="14" data-dots="light">
+    <div class="stagger">
+      <span class="pill pill-lime">Pro Tips</span>
+      <h2>Tips for<br><span class="color-lime">Group Work</span></h2>
+      <div class="accent-bar lime" style="margin: 12px auto 20px;"></div>
+      <div class="tips-grid">
+        <div class="tip" style="color: #fff;">Pitch your ideas quick! Decide on an idea ASAP</div>
+        <div class="tip" style="color: #fff;">Work together as a team to make a great film</div>
+        <div class="tip" style="color: var(--yellow);">Have fun &amp; make friends!</div>
+        <div class="tip" style="color: var(--lime);">Learning is the priority</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 15: Story Elements -->
+  <div class="slide centered" data-slide="15">
+    <div class="stagger">
+      <span class="pill pill-pink">Storytelling</span>
+      <h2>Story <span class="color-pink">Elements</span></h2>
+      <div class="accent-bar dark" style="margin: 12px auto 16px;"></div>
+      <p style="max-width: 550px; text-align: center; font-size: 0.95rem; margin-bottom: 16px;">
+        Spend some time discussing these things before AND during prompting.
+      </p>
+      <div class="cards" style="max-width: 900px; grid-template-columns: repeat(3, 1fr);">
         <div class="card card-yellow centered">
-          <div class="phase-icon">&#x1F30D;</div>
-          <h3 style="font-size: 1.1rem;">360&deg;</h3>
-          <p style="font-size: 0.9rem;">Immersive AI for dome &amp; VR</p>
+          <h4>Premise &amp; Story Arc</h4>
         </div>
-        <div class="card card-lime centered">
-          <div class="phase-icon">&#x1F9D8;</div>
-          <h3 style="font-size: 1.1rem;">Meditation</h3>
-          <p style="font-size: 0.9rem;">Create &amp; experience AI meditation</p>
+        <div class="card card-pink centered">
+          <h4>Aesthetics &amp; World</h4>
+        </div>
+        <div class="card card-dark centered">
+          <h4>Theme</h4>
+        </div>
+      </div>
+      <h4 style="margin-top: 20px; text-transform: uppercase; letter-spacing: 0.08em;">Genre:</h4>
+      <div class="tag-cloud" style="max-width: 700px; margin-top: 8px;">
+        <span class="tag tag-pink">Horror</span>
+        <span class="tag tag-dark">Sci-Fi</span>
+        <span class="tag tag-yellow">Fantasy</span>
+        <span class="tag tag-lime">Drama</span>
+        <span class="tag tag-orange">Comedy</span>
+        <span class="tag tag-white">Romance</span>
+        <span class="tag tag-dark">Mashup?</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 16: What If? -->
+  <div class="slide slide-yellow centered" data-slide="16">
+    <div class="stagger">
+      <span class="pill pill-dark">Start Here</span>
+      <h3 style="text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-bottom: 8px;">Start with a question:</h3>
+      <div class="whatif">What<br>If?</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 17: More Tips -->
+  <div class="slide slide-dark centered" data-slide="17" data-dots="light">
+    <div class="stagger">
+      <span class="pill pill-orange">Remember</span>
+      <h2><span class="color-orange">Tips</span></h2>
+      <div class="accent-bar orange" style="margin: 12px auto 20px;"></div>
+      <div class="tips-grid" style="max-width: 900px;">
+        <div class="tip" style="color: var(--lime);">Generate &amp; ideate at the same time</div>
+        <div class="tip" style="color: var(--orange);">Be careful of: famous people, violence, explicit content, children, blood, etc.</div>
+        <div class="tip" style="color: var(--yellow);">Start editing within an hour</div>
+        <div class="tip" style="color: #fff;">Make clear roles: Editor, Image Generator, etc.</div>
+        <div class="tip" style="color: var(--pink);">Use chat for prompts if needed</div>
+        <div class="tip" style="color: var(--lime);">Need help? Raise your hand! Don't be shy!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 18: Any Questions? -->
+  <div class="slide slide-lime centered" data-slide="18">
+    <div class="stagger">
+      <h1 style="font-size: clamp(3rem, 8vw, 7rem);">Any<br>Questions?</h1>
+    </div>
+  </div>
+
+  <!-- SLIDE 19: Watch Examples -->
+  <div class="slide slide-dark centered" data-slide="19" data-dots="light">
+    <div class="deco-dot" style="top:12%;left:15%;background:var(--pink);width:26px;height:26px;opacity:0.4;"></div>
+    <div class="deco-dot" style="bottom:15%;right:12%;background:var(--yellow);width:20px;height:20px;opacity:0.5;"></div>
+    <div class="stagger">
+      <span class="pill pill-pink">Inspiration</span>
+      <h1 style="font-size: clamp(3rem, 8vw, 7rem);">Watch!</h1>
+      <div class="accent-bar pink" style="margin: 12px auto 20px;"></div>
+      <h3 style="font-weight: 400; color: #b0b0c8; text-transform: none;">Examples from past GenJams</h3>
+    </div>
+  </div>
+
+  <!-- SLIDE 20: 15 Minutes Left -->
+  <div class="slide slide-pink centered" data-slide="20" data-dots="light">
+    <div class="stagger">
+      <div class="countdown pulse" id="countdown-display">15:00</div>
+      <div class="countdown-label" style="color: rgba(255,255,255,0.7);">Minutes Remaining</div>
+      <h2 style="margin-top: 24px; font-size: clamp(1.5rem, 3vw, 2.5rem);">&ldquo;15 Minutes Left!!!!&rdquo;</h2>
+    </div>
+  </div>
+
+  <!-- SLIDE 21: Showcase & Discussion -->
+  <div class="slide slide-dark centered" data-slide="21" data-dots="light">
+    <div class="stagger">
+      <span class="pill pill-yellow">Reflect</span>
+      <h1 style="font-size: clamp(2.5rem, 6vw, 5rem);">Show<span class="color-pink">case</span></h1>
+      <div class="accent-bar yellow" style="margin: 12px auto 20px;"></div>
+      <h3 style="font-weight: 400; color: #b0b0c8; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;">Discussion</h3>
+      <ul class="discussion-list">
+        <li style="color: #f0f0f5;">What challenges did you face?</li>
+        <li style="color: #f0f0f5;">What &ldquo;ah ha&rdquo; moments did you have?</li>
+        <li style="color: #f0f0f5;">How do you think AI will be a part of your content production moving forward?</li>
+        <li style="color: #f0f0f5;">What would you tell yourself 2 hrs ago to prep?</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SLIDE 22: Submissions -->
+  <div class="slide centered" data-slide="22">
+    <div class="stagger">
+      <span class="pill pill-pink">Submit</span>
+      <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem);">Sub<span class="color-pink">missions</span></h1>
+      <div class="accent-bar dark" style="margin: 12px auto 20px;"></div>
+      <div class="cards" style="max-width: 700px; grid-template-columns: 1fr;">
+        <div class="card" style="text-align: left;">
+          <h4 style="margin-bottom: 12px;">File Naming:</h4>
+          <div class="submit-code">FilmName_Teammate1_Teammate2_Teammate3.mp4</div>
+          <div style="margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap;">
+            <span class="tag tag-pink" style="font-size: 0.75rem;">Film Name</span>
+            <span class="tag tag-dark" style="font-size: 0.75rem;">Teammates Names</span>
+            <span class="tag tag-yellow" style="font-size: 0.75rem;">MP4 Format</span>
+          </div>
+          <p style="margin-top: 14px; font-size: 0.9rem;">
+            Submit with: Google Drive, Airdrop, or USB Drive.
+          </p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 11: CTA -->
-  <div class="slide slide-dark centered" data-slide="11" data-dots="light">
-    <div class="deco-dot" style="top:15%;left:10%;background:var(--pink);width:30px;height:30px;opacity:0.6;"></div>
-    <div class="deco-dot" style="bottom:20%;right:8%;background:var(--lime);width:24px;height:24px;opacity:0.6;"></div>
-    <div class="deco-dot" style="top:25%;right:20%;background:var(--yellow);width:18px;height:18px;opacity:0.5;"></div>
+  <!-- SLIDE 23: Goodbye / Community -->
+  <div class="slide slide-dark centered" data-slide="23" data-dots="light">
+    <div class="deco-dot" style="top:10%;left:8%;background:var(--pink);width:28px;height:28px;opacity:0.5;"></div>
+    <div class="deco-dot" style="bottom:20%;right:10%;background:var(--lime);width:22px;height:22px;opacity:0.5;"></div>
+    <div class="deco-dot" style="top:25%;right:18%;background:var(--yellow);width:18px;height:18px;opacity:0.4;"></div>
     <div class="stagger">
-      <h1 style="color: #fff;">Ready to<br><span class="color-pink">Jam</span><span class="color-yellow">?</span></h1>
-      <div class="accent-bar pink" style="margin: 16px auto 28px;"></div>
-      <p style="max-width: 500px; text-align: center; font-size: clamp(1.05rem, 1.5vw, 1.2rem); color: #b0b0c8;">
-        Bring a GenJam to your community, company, or festival. Or join the next one.
+      <h2 style="font-size: clamp(1.3rem, 2.5vw, 2rem); color: #b0b0c8; margin-bottom: 8px;">Join Us in Building the Community!</h2>
+      <h1 style="color: #fff; margin-top: 8px;">We Hope You Use<br>These Tools to<br>Achieve Your<br><span class="color-pink">Creative Dreams!</span></h1>
+      <div class="accent-bar pink" style="margin: 16px auto 20px;"></div>
+      <p style="font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: #b0b0c8; max-width: 550px; text-align: center;">
+        That was a few hours &mdash; imagine what you can do in a few days, weeks, months!
       </p>
-      <div style="display: flex; gap: 14px; margin-top: 24px; flex-wrap: wrap; justify-content: center;">
-        <span class="btn btn-pink">Join Us</span>
-        <span class="btn" style="background:var(--lime);color:var(--dark-navy);border-color:var(--lime);">Learn More</span>
+      <div style="display: flex; gap: 14px; margin-top: 20px; flex-wrap: wrap; justify-content: center;">
+        <span class="btn btn-pink">Discord</span>
+        <span class="btn btn-lime">machinecinema.ai</span>
       </div>
-      <p style="margin-top: 36px; font-family: var(--font-mono); font-size: 0.95rem; color: rgba(255,255,255,0.4);">
-        machinecinema.ai
-      </p>
-      <p style="margin-top: 16px; font-size: 1.3rem; color: #fff; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">
+      <p style="margin-top: 28px; font-size: 1.2rem; color: #fff; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;">
         Learn. Create. Play.
       </p>
     </div>
@@ -803,11 +1008,11 @@
 (function() {
   'use strict';
 
-  // ---- Floating shapes particle system (colorful dots, on-brand) ----
-  const canvas = document.getElementById('particle-canvas');
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-  const PARTICLE_COUNT = 35;
+  // ---- Floating shapes particle system ----
+  var canvas = document.getElementById('particle-canvas');
+  var ctx = canvas.getContext('2d');
+  var particles = [];
+  var PARTICLE_COUNT = 30;
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -816,110 +1021,108 @@
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  const brandColors = [
-    { r: 255, g: 45, b: 85 },   // pink
-    { r: 200, g: 255, b: 0 },   // lime
-    { r: 255, g: 214, b: 0 },   // yellow
-    { r: 13, g: 13, b: 26 },    // dark navy
+  var brandColors = [
+    { r: 255, g: 45, b: 85 },
+    { r: 200, g: 255, b: 0 },
+    { r: 255, g: 214, b: 0 },
+    { r: 13, g: 13, b: 26 },
   ];
 
-  class Particle {
-    constructor() { this.reset(); }
-    reset() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.size = Math.random() * 6 + 3;
-      this.speedX = (Math.random() - 0.5) * 0.3;
-      this.speedY = (Math.random() - 0.5) * 0.3;
-      this.opacity = Math.random() * 0.08 + 0.03;
-      this.color = brandColors[Math.floor(Math.random() * brandColors.length)];
-      this.rotation = Math.random() * Math.PI * 2;
-      this.rotSpeed = (Math.random() - 0.5) * 0.01;
-      // shape: 0 = circle, 1 = square, 2 = triangle
-      this.shape = Math.floor(Math.random() * 3);
+  function Particle() { this.reset(); }
+  Particle.prototype.reset = function() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 5 + 3;
+    this.speedX = (Math.random() - 0.5) * 0.25;
+    this.speedY = (Math.random() - 0.5) * 0.25;
+    this.opacity = Math.random() * 0.06 + 0.02;
+    this.color = brandColors[Math.floor(Math.random() * brandColors.length)];
+    this.rotation = Math.random() * Math.PI * 2;
+    this.rotSpeed = (Math.random() - 0.5) * 0.008;
+    this.shape = Math.floor(Math.random() * 3);
+  };
+  Particle.prototype.update = function() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.rotation += this.rotSpeed;
+    if (this.x < -20 || this.x > canvas.width + 20 || this.y < -20 || this.y > canvas.height + 20) this.reset();
+  };
+  Particle.prototype.draw = function() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    ctx.globalAlpha = this.opacity;
+    ctx.fillStyle = 'rgb(' + this.color.r + ',' + this.color.g + ',' + this.color.b + ')';
+    if (this.shape === 0) {
+      ctx.beginPath();
+      ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (this.shape === 1) {
+      ctx.fillRect(-this.size, -this.size, this.size * 2, this.size * 2);
+    } else {
+      ctx.beginPath();
+      ctx.moveTo(0, -this.size);
+      ctx.lineTo(this.size, this.size);
+      ctx.lineTo(-this.size, this.size);
+      ctx.closePath();
+      ctx.fill();
     }
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      this.rotation += this.rotSpeed;
-      if (this.x < -20 || this.x > canvas.width + 20 || this.y < -20 || this.y > canvas.height + 20) this.reset();
-    }
-    draw() {
-      ctx.save();
-      ctx.translate(this.x, this.y);
-      ctx.rotate(this.rotation);
-      ctx.globalAlpha = this.opacity;
-      ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
+    ctx.restore();
+  };
 
-      if (this.shape === 0) {
-        ctx.beginPath();
-        ctx.arc(0, 0, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      } else if (this.shape === 1) {
-        ctx.fillRect(-this.size, -this.size, this.size * 2, this.size * 2);
-      } else {
-        ctx.beginPath();
-        ctx.moveTo(0, -this.size);
-        ctx.lineTo(this.size, this.size);
-        ctx.lineTo(-this.size, this.size);
-        ctx.closePath();
-        ctx.fill();
-      }
-      ctx.restore();
-    }
-  }
-
-  for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+  for (var i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
 
   function animateParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => { p.update(); p.draw(); });
+    for (var i = 0; i < particles.length; i++) {
+      particles[i].update();
+      particles[i].draw();
+    }
     requestAnimationFrame(animateParticles);
   }
   animateParticles();
 
   // ---- Slide navigation ----
-  const slides = document.querySelectorAll('.slide');
-  const totalSlides = slides.length;
-  let currentSlide = 0;
-  let isTransitioning = false;
+  var slides = document.querySelectorAll('.slide');
+  var totalSlides = slides.length;
+  var currentSlide = 0;
+  var isTransitioning = false;
 
-  const progressBar = document.getElementById('progress');
-  const navDotsContainer = document.getElementById('nav-dots');
+  var progressBar = document.getElementById('progress');
+  var navDotsContainer = document.getElementById('nav-dots');
 
-  // Create nav dots
-  slides.forEach((_, i) => {
-    const dot = document.createElement('button');
-    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
-    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-    dot.addEventListener('click', function() { goToSlide(i); });
-    navDotsContainer.appendChild(dot);
-  });
+  for (var i = 0; i < totalSlides; i++) {
+    (function(idx) {
+      var dot = document.createElement('button');
+      dot.className = 'nav-dot' + (idx === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to slide ' + (idx + 1));
+      dot.addEventListener('click', function() { goToSlide(idx); });
+      navDotsContainer.appendChild(dot);
+    })(i);
+  }
 
   function updateProgress() {
-    const pct = (currentSlide / (totalSlides - 1)) * 100;
+    var pct = (currentSlide / (totalSlides - 1)) * 100;
     progressBar.style.width = pct + '%';
 
-    // Update nav dots
-    const dots = document.querySelectorAll('.nav-dot');
-    dots.forEach(function(d, i) {
-      d.classList.toggle('active', i === currentSlide);
-    });
+    var dots = document.querySelectorAll('.nav-dot');
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].classList.toggle('active', i === currentSlide);
+    }
 
-    // Update dot color scheme based on slide background
-    const activeSlide = slides[currentSlide];
-    if (activeSlide.dataset.dots === 'light' || activeSlide.classList.contains('slide-dark')) {
+    var activeSlide = slides[currentSlide];
+    var isDark = activeSlide.dataset.dots === 'light' ||
+      activeSlide.classList.contains('slide-dark') ||
+      activeSlide.classList.contains('slide-pink') ||
+      activeSlide.classList.contains('slide-orange');
+
+    if (isDark) {
       navDotsContainer.classList.add('dots-light');
     } else {
       navDotsContainer.classList.remove('dots-light');
     }
 
-    // Update progress bar color on dark slides
-    if (activeSlide.classList.contains('slide-dark')) {
-      progressBar.style.background = 'var(--yellow)';
-    } else {
-      progressBar.style.background = 'var(--pink)';
-    }
+    progressBar.style.background = isDark ? 'var(--yellow)' : 'var(--pink)';
   }
 
   function goToSlide(index) {
@@ -932,13 +1135,12 @@
     prev.classList.remove('active');
     if (direction > 0) prev.classList.add('exit-up');
 
-    // Reset stagger animations
     var staggerEls = next.querySelectorAll('.stagger > *');
-    staggerEls.forEach(function(el) {
-      el.style.animation = 'none';
-      el.offsetHeight;
-      el.style.animation = '';
-    });
+    for (var i = 0; i < staggerEls.length; i++) {
+      staggerEls[i].style.animation = 'none';
+      staggerEls[i].offsetHeight;
+      staggerEls[i].style.animation = '';
+    }
 
     next.classList.remove('exit-up');
     next.classList.add('active');
@@ -946,17 +1148,16 @@
     currentSlide = index;
     updateProgress();
 
-    // Trigger timeline animations
-    if (next.querySelector('.timeline')) {
-      var items = next.querySelectorAll('.timeline-item');
-      items.forEach(function(item, i) {
-        item.classList.remove('visible');
-        setTimeout(function() { item.classList.add('visible'); }, 200 + i * 180);
-      });
+    // Trigger counter animations
+    var counters = next.querySelectorAll('[data-target]');
+    for (var i = 0; i < counters.length; i++) {
+      animateCounter(counters[i]);
     }
 
-    // Trigger counter animations
-    next.querySelectorAll('[data-target]').forEach(function(el) { animateCounter(el); });
+    // Start countdown timer on slide 20
+    if (next.dataset.slide === '20') {
+      startCountdown();
+    }
 
     setTimeout(function() {
       prev.classList.remove('exit-up');
@@ -967,7 +1168,6 @@
   function nextSlide() { goToSlide(currentSlide + 1); }
   function prevSlide() { goToSlide(currentSlide - 1); }
 
-  // Keyboard
   document.addEventListener('keydown', function(e) {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); nextSlide(); }
     if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevSlide(); }
@@ -975,7 +1175,6 @@
     if (e.key === 'End') { e.preventDefault(); goToSlide(totalSlides - 1); }
   });
 
-  // Touch / swipe
   var touchStartX = 0, touchStartY = 0;
   document.addEventListener('touchstart', function(e) {
     touchStartX = e.touches[0].clientX;
@@ -991,7 +1190,6 @@
     }
   }, { passive: true });
 
-  // Mouse wheel
   var wheelTimeout;
   document.addEventListener('wheel', function(e) {
     e.preventDefault();
@@ -1016,28 +1214,45 @@
     requestAnimationFrame(tick);
   }
 
-  // Animate counters on first slide
-  slides[0].querySelectorAll('[data-target]').forEach(function(el) {
-    setTimeout(function() { animateCounter(el); }, 400);
-  });
+  // Countdown timer
+  var countdownInterval = null;
+  function startCountdown() {
+    if (countdownInterval) clearInterval(countdownInterval);
+    var totalSeconds = 15 * 60;
+    var display = document.getElementById('countdown-display');
+    if (!display) return;
+
+    function update() {
+      var m = Math.floor(totalSeconds / 60);
+      var s = totalSeconds % 60;
+      display.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+      if (totalSeconds <= 0) {
+        clearInterval(countdownInterval);
+        display.textContent = "TIME!";
+        display.style.color = 'var(--yellow)';
+      }
+      totalSeconds--;
+    }
+    update();
+    countdownInterval = setInterval(update, 1000);
+  }
 
   // Animate decorative dots floating
   var decoDots = document.querySelectorAll('.deco-dot');
-  decoDots.forEach(function(dot) {
-    var baseX = parseFloat(dot.style.left || dot.style.right) || 10;
-    var baseY = parseFloat(dot.style.top || dot.style.bottom) || 10;
-    var phase = Math.random() * Math.PI * 2;
-    var speed = 0.5 + Math.random() * 0.5;
-    var amp = 8 + Math.random() * 12;
-
-    function float(t) {
-      var dx = Math.sin(t * speed * 0.001 + phase) * amp;
-      var dy = Math.cos(t * speed * 0.0013 + phase) * amp * 0.7;
-      dot.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+  for (var i = 0; i < decoDots.length; i++) {
+    (function(dot) {
+      var phase = Math.random() * Math.PI * 2;
+      var speed = 0.4 + Math.random() * 0.4;
+      var amp = 6 + Math.random() * 10;
+      function float(t) {
+        var dx = Math.sin(t * speed * 0.001 + phase) * amp;
+        var dy = Math.cos(t * speed * 0.0013 + phase) * amp * 0.7;
+        dot.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+        requestAnimationFrame(float);
+      }
       requestAnimationFrame(float);
-    }
-    requestAnimationFrame(float);
-  });
+    })(decoDots[i]);
+  }
 
   updateProgress();
 })();
