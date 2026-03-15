@@ -360,35 +360,19 @@
     100% { opacity: 1; transform: perspective(600px) rotateX(0deg) translateY(0); }
   }
 
-  /* ---- Story world category pill pop ---- */
-  .slide.active .sw-categories .sw-cat {
-    animation: catPillPop 0.5s cubic-bezier(.175,.885,.32,1.275) both;
+  /* ---- Story world card pop-in ---- */
+  .slide.active .sw-grid .sw-card {
+    animation: cardPopIn 0.5s cubic-bezier(.175,.885,.32,1.275) both;
   }
-  .slide.active .sw-categories .sw-cat:nth-child(1) { animation-delay: 0.1s; }
-  .slide.active .sw-categories .sw-cat:nth-child(2) { animation-delay: 0.18s; }
-  .slide.active .sw-categories .sw-cat:nth-child(3) { animation-delay: 0.26s; }
-  .slide.active .sw-categories .sw-cat:nth-child(4) { animation-delay: 0.34s; }
-  .slide.active .sw-categories .sw-cat:nth-child(5) { animation-delay: 0.42s; }
-  .slide.active .sw-categories .sw-cat:nth-child(6) { animation-delay: 0.50s; }
-  @keyframes catPillPop {
-    0%   { opacity: 0; transform: scale(0) rotate(-10deg); }
-    70%  { opacity: 1; transform: scale(1.1) rotate(2deg); }
-    100% { opacity: 1; transform: scale(1) rotate(0deg); }
-  }
-
-  /* ---- Story world columns fade up ---- */
-  .slide.active .sw-columns .sw-col {
-    animation: colFadeUp 0.6s ease both;
-  }
-  .slide.active .sw-columns .sw-col:nth-child(1) { animation-delay: 0.5s; }
-  .slide.active .sw-columns .sw-col:nth-child(2) { animation-delay: 0.6s; }
-  .slide.active .sw-columns .sw-col:nth-child(3) { animation-delay: 0.7s; }
-  .slide.active .sw-columns .sw-col:nth-child(4) { animation-delay: 0.8s; }
-  .slide.active .sw-columns .sw-col:nth-child(5) { animation-delay: 0.9s; }
-  .slide.active .sw-columns .sw-col:nth-child(6) { animation-delay: 1.0s; }
-  @keyframes colFadeUp {
-    0%   { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
+  .slide.active .sw-grid .sw-card:nth-child(1) { animation-delay: 0.1s; }
+  .slide.active .sw-grid .sw-card:nth-child(2) { animation-delay: 0.2s; }
+  .slide.active .sw-grid .sw-card:nth-child(3) { animation-delay: 0.3s; }
+  .slide.active .sw-grid .sw-card:nth-child(4) { animation-delay: 0.4s; }
+  .slide.active .sw-grid .sw-card:nth-child(5) { animation-delay: 0.5s; }
+  .slide.active .sw-grid .sw-card:nth-child(6) { animation-delay: 0.6s; }
+  @keyframes cardPopIn {
+    0%   { opacity: 0; transform: translateY(20px) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
   }
 
   /* ---- Storytelling typewriter cursor ---- */
@@ -639,10 +623,9 @@
   /* ---- Story World slide ---- */
   .story-world-slide {
     font-family: 'Gaegu', cursive;
-    text-align: left;
     padding: 40px 5% !important;
-    align-items: flex-start !important;
-    justify-content: flex-start !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
   .story-world-slide h1.sw-title {
     font-family: 'Gaegu', cursive;
@@ -650,7 +633,7 @@
     font-size: clamp(2.5rem, 6vw, 4.5rem);
     text-align: center;
     width: 100%;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
     text-transform: uppercase;
   }
   .story-world-slide .sw-subtitle {
@@ -658,43 +641,41 @@
     font-size: clamp(0.9rem, 1.6vw, 1.2rem);
     text-align: center;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    max-width: 700px;
   }
-  .sw-categories {
-    display: flex;
-    gap: clamp(6px, 1.2vw, 14px);
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-bottom: 16px;
-  }
-  .sw-cat {
-    font-family: 'Gaegu', cursive;
-    font-weight: 700;
-    font-size: clamp(1rem, 2vw, 1.6rem);
-    background: #f0ebe0;
-    color: #1a1a2e;
-    border: 2px solid #bbb;
-    border-radius: 999px;
-    padding: 8px clamp(14px, 2vw, 28px);
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-  .sw-columns {
+  .sw-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
     width: 100%;
-    margin-top: 8px;
+    max-width: 960px;
   }
-  .sw-col {
-    font-family: 'Gaegu', cursive;
-    font-size: clamp(0.75rem, 1.3vw, 1.1rem);
-    line-height: 1.6;
+  .sw-card {
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 16px 14px 14px;
     text-align: center;
   }
+  .sw-card-title {
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+    font-size: clamp(1rem, 1.8vw, 1.4rem);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid rgba(255,255,255,0.15);
+  }
+  .sw-card p {
+    font-family: 'Gaegu', cursive;
+    font-size: clamp(0.8rem, 1.3vw, 1.05rem);
+    line-height: 1.5;
+    margin: 2px 0;
+    opacity: 0.85;
+  }
   @media (max-width: 800px) {
-    .sw-columns { grid-template-columns: repeat(3, 1fr); }
+    .sw-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   /* ---- Storytelling tips slide ---- */
@@ -911,8 +892,21 @@
     </div>
   </div>
 
-  <!-- SLIDE 3: Machine Cinema Is -->
-  <div class="slide centered" data-slide="3">
+  <!-- SLIDE 3: Our Model - AIRL -->
+  <div class="slide slide-dark centered" data-slide="3" data-dots="light">
+    <div class="stagger">
+      <span class="pill pill-yellow">Our Model</span>
+      <h1 style="font-size: clamp(3rem, 8vw, 7rem);"><span class="color-yellow">&ldquo;</span>AIRL<span class="color-yellow">&rdquo;</span></h1>
+      <h3 style="font-weight: 400; color: #b0b0c8; text-transform: none; margin-top: 4px;">AI In Real Life</h3>
+      <div class="accent-bar yellow" style="margin: 16px auto 24px;"></div>
+      <p style="max-width: 700px; text-align: center; font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: #c0c0d8; line-height: 1.75;">
+        Through our in-person event series we want to create the resource for anyone with a baseline level of curiosity and love for creativity, of any skill level, to sit alongside fellow creators to learn about the tools, experiment with them, share about our projects, and demo and discuss the industry where these tools are evolving.
+      </p>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: Machine Cinema Is -->
+  <div class="slide centered" data-slide="4">
     <div class="deco-circle" style="width:250px;height:250px;top:-5%;right:-4%;border-color:var(--pink);"></div>
     <div class="stagger">
       <span class="pill pill-dark">Who We Are</span>
@@ -953,8 +947,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 4: Who Are You / Icebreaker -->
-  <div class="slide slide-pink centered" data-slide="4" data-dots="light">
+  <!-- SLIDE 5: Who Are You / Icebreaker -->
+  <div class="slide slide-pink centered" data-slide="5" data-dots="light">
     <div class="deco-dot" style="top:10%;left:10%;background:var(--yellow);width:28px;height:28px;opacity:0.6;"></div>
     <div class="deco-dot" style="bottom:20%;right:12%;background:var(--lime);width:20px;height:20px;opacity:0.6;"></div>
     <div class="stagger">
@@ -974,68 +968,42 @@
     </div>
   </div>
 
-  <!-- SLIDE 5: Schnozzo -->
-  <div class="slide slide-yellow centered" data-slide="5">
+  <!-- SLIDE 6: Schnozzo -->
+  <div class="slide slide-dark centered" data-slide="6" data-dots="light">
     <div class="stagger">
-      <h1 style="font-size: clamp(3rem, 8vw, 7rem);">Schnozzo</h1>
-      <div class="accent-bar dark" style="margin: 12px auto 20px;"></div>
-      <h3 style="font-weight: 400; text-transform: none; color: var(--dark-navy); opacity: 0.7;">our mascot</h3>
-      <img src="schnozzo/In_a_minimalist_graphic_style_a_white_line_IDfYvjQ6.png" alt="Schnozzo sitting and reading" style="max-height: 280px; margin-top: 24px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));">
+      <h1 style="font-size: clamp(3rem, 8vw, 7rem); color: #fff;">Schnozzo</h1>
+      <div class="accent-bar pink" style="margin: 12px auto 20px;"></div>
+      <h3 style="font-weight: 400; text-transform: none; color: rgba(255,255,255,0.6);">our mascot</h3>
+      <img src="schnozzo/In_a_minimalist_graphic_style_a_white_line_IDfYvjQ6.png" alt="Schnozzo sitting and reading" style="max-height: 560px; margin-top: 24px; filter: drop-shadow(0 4px 24px rgba(255,45,85,0.3));">
     </div>
   </div>
 
-  <!-- SLIDE 6: Meet the Founders -->
-  <div class="slide" data-slide="6">
+  <!-- SLIDE 7: Meet the Team -->
+  <div class="slide" data-slide="7">
     <div class="stagger" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
       <span class="pill pill-dark">Your Hosts</span>
-      <h2 style="text-align: center;">Meet the <span class="color-pink">Founders</span></h2>
+      <h2 style="text-align: center;">Meet the <span class="color-pink">Team</span></h2>
       <div class="accent-bar pink" style="margin: 12px auto 20px;"></div>
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); max-width: 1050px; gap: 24px;">
-        <div class="bio-card">
-          <img class="bio-photo" src="cofounders/fred.avif" alt="Fred Grinstein">
-          <div class="bio-name">Fred Grinstein</div>
-          <div class="bio-title">Co-Founder, Machine Cinema</div>
-          <ul>
-            <li>20-year Film/TV executive (xA&amp;E, xVice, xAnonymous Content)</li>
-            <li>AI Educator with Curious Refuge and Chapman University</li>
-            <li>Consultant/Strategist with major broadcast networks &amp; prodcos</li>
-          </ul>
-        </div>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); max-width: 750px; gap: 24px;">
         <div class="bio-card">
           <img class="bio-photo" src="cofounders/minh.avif" alt="Minh Do">
           <div class="bio-name">Minh Do</div>
-          <div class="bio-title">Co-Founder, Machine Cinema</div>
+          <div class="bio-title">Cofounder, CEO of Machine Cinema</div>
           <ul>
-            <li>Cofounder of Fantastic Day, an AI-first film studio</li>
-            <li>Producer at Fairground.tv, an AI TV channel</li>
-            <li>Currently hiring AI creators &amp; AI studios</li>
+            <li>Cofounder of Fantastic Day</li>
+            <li>Head of AI</li>
             <li style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--pink);">@minhsmind</li>
           </ul>
         </div>
         <div class="bio-card">
           <img class="bio-photo" src="cofounders/affan.avif" alt="Affan Imran">
           <div class="bio-name">Affan Imran</div>
-          <div class="bio-title">Co-Founder, Machine Cinema</div>
+          <div class="bio-title">Cofounder, CEO of Fantastic Day</div>
           <ul>
-            <li>Serial entrepreneur &amp; technologist</li>
-            <li>AI product builder &amp; creative technologist</li>
-            <li>Bridging engineering and storytelling</li>
+            <li>Head of Partnerships for Machine Cinema</li>
           </ul>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 7: Our Model - AIRL -->
-  <div class="slide slide-dark centered" data-slide="7" data-dots="light">
-    <div class="stagger">
-      <span class="pill pill-yellow">Our Model</span>
-      <h1 style="font-size: clamp(3rem, 8vw, 7rem);"><span class="color-yellow">&ldquo;</span>AIRL<span class="color-yellow">&rdquo;</span></h1>
-      <h3 style="font-weight: 400; color: #b0b0c8; text-transform: none; margin-top: 4px;">AI In Real Life</h3>
-      <div class="accent-bar yellow" style="margin: 16px auto 24px;"></div>
-      <p style="max-width: 700px; text-align: center; font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: #c0c0d8; line-height: 1.75;">
-        Through our in-person event series we want to create the resource for anyone with a baseline level of curiosity and love for creativity, of any skill level, to sit alongside fellow creators to learn about the tools, experiment with them, share about our projects, and demo and discuss the industry where these tools are evolving.
-      </p>
     </div>
   </div>
 
@@ -1110,7 +1078,7 @@
     <div class="deco-dot" style="bottom:12%;right:14%;background:var(--lime);width:18px;height:18px;opacity:0.5;"></div>
     <div class="stagger">
       <span class="pill pill-white">Partner</span>
-      <img src="pixverse-logo-1.svg" alt="PixVerse" style="max-width: 600px; width: 85%;">
+      <img src="pixverse-logo-1.svg" alt="PixVerse" style="max-width: 800px; width: 90%;">
     </div>
   </div>
 
@@ -1120,7 +1088,7 @@
     <div class="deco-dot" style="bottom:15%;left:10%;background:var(--dark-navy);width:20px;height:20px;opacity:0.3;"></div>
     <div class="stagger">
       <span class="pill pill-dark">Partner</span>
-      <img src="gmi-cloud-logo.svg" alt="GMI Cloud" style="max-width: 600px; width: 85%;">
+      <img src="gmi-cloud-logo.svg" alt="GMI Cloud" style="max-width: 800px; width: 90%;">
     </div>
   </div>
 
@@ -1257,61 +1225,46 @@
   </div>
 
   <!-- SLIDE 19: Story World -->
-  <div class="slide story-world-slide" data-slide="19">
-    <h1 class="sw-title">Story World</h1>
-    <p class="sw-subtitle">Spend some time discussing these things before AND DURING prompting for images and videos.</p>
-    <div class="sw-categories">
-      <span class="sw-cat">Story Arc</span>
-      <span class="sw-cat">Aesthetics</span>
-      <span class="sw-cat">Genre</span>
-      <span class="sw-cat">World</span>
-      <span class="sw-cat">Theme</span>
-      <span class="sw-cat">Premise</span>
-    </div>
-    <div class="sw-columns">
-      <div class="sw-col">
+  <div class="slide slide-dark story-world-slide" data-slide="19" data-dots="light">
+    <h1 class="sw-title" style="color: #fff;">Story <span class="color-pink">World</span></h1>
+    <p class="sw-subtitle" style="color: #b0b0c8;">Discuss these things before AND during prompting for images and videos.</p>
+    <div class="sw-grid">
+      <div class="sw-card">
+        <div class="sw-card-title" style="color: var(--yellow);">Story Arc</div>
         <p>Hero's Journey</p>
         <p>3-Act Structure</p>
         <p>Circular</p>
         <p>Montage</p>
       </div>
-      <div class="sw-col">
+      <div class="sw-card">
+        <div class="sw-card-title" style="color: var(--pink);">Aesthetics</div>
         <p>Visual Style</p>
         <p>Color Palette</p>
         <p>Mood / Tone</p>
         <p>Art Direction</p>
       </div>
-      <div class="sw-col">
-        <p>Horror?</p>
-        <p>Sci-Fi?</p>
-        <p>Fantasy?</p>
-        <p>Drama?</p>
-        <p>Comedy?</p>
-        <p>Romance?</p>
-        <p>Subgenre?</p>
-        <p>Mashup?</p>
+      <div class="sw-card">
+        <div class="sw-card-title" style="color: var(--lime);">Genre</div>
+        <p>Horror / Sci-Fi / Fantasy</p>
+        <p>Drama / Comedy / Romance</p>
+        <p>Subgenre / Mashup</p>
       </div>
-      <div class="sw-col">
-        <p>Complex</p>
-        <p>Simple</p>
-        <p>City</p>
-        <p>Countryside</p>
-        <p>Nature</p>
-        <p>Planet</p>
-        <p>Room</p>
-        <p>Building</p>
+      <div class="sw-card">
+        <div class="sw-card-title" style="color: var(--orange);">World</div>
+        <p>Complex / Simple</p>
+        <p>City / Countryside / Nature</p>
+        <p>Planet / Room / Building</p>
       </div>
-      <div class="sw-col">
-        <p>Power</p>
-        <p>Love</p>
-        <p>Innocence</p>
-        <p>Coming of Age</p>
-        <p>Freedom</p>
+      <div class="sw-card">
+        <div class="sw-card-title" style="color: var(--yellow);">Theme</div>
+        <p>Power / Love / Innocence</p>
+        <p>Coming of Age / Freedom</p>
         <p>Humanity</p>
       </div>
-      <div class="sw-col">
+      <div class="sw-card" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div class="sw-card-title" style="color: var(--pink);">Premise</div>
         <p>Start with a question:</p>
-        <p style="font-size: 1.8em; margin-top: 8px; font-weight: 700;">What If?</p>
+        <p style="font-size: 1.8em; margin-top: 8px; font-weight: 700; color: var(--yellow);">What If?</p>
       </div>
     </div>
   </div>
@@ -1352,17 +1305,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 23: 15 Minutes Left -->
-  <div class="slide slide-pink centered" data-slide="23" data-dots="light">
-    <div class="stagger">
-      <div class="countdown pulse" id="countdown-display">15:00</div>
-      <div class="countdown-label" style="color: rgba(255,255,255,0.7);">Minutes Remaining</div>
-      <h2 style="margin-top: 24px; font-size: clamp(1.5rem, 3vw, 2.5rem);">&ldquo;15 Minutes Left!!!!&rdquo;</h2>
-    </div>
-  </div>
-
-  <!-- SLIDE 24: Showcase & Discussion -->
-  <div class="slide slide-dark centered" data-slide="24" data-dots="light">
+  <!-- SLIDE 23: Showcase & Discussion -->
+  <div class="slide slide-dark centered" data-slide="23" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">Reflect</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 5rem);">Show<span class="color-pink">case</span></h1>
@@ -1377,8 +1321,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 25: Submissions -->
-  <div class="slide centered" data-slide="25">
+  <!-- SLIDE 24: Submissions -->
+  <div class="slide centered" data-slide="24">
     <div class="stagger">
       <span class="pill pill-pink">Submit</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem);">Sub<span class="color-pink">missions</span></h1>
@@ -1400,8 +1344,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 26: Goodbye / Community -->
-  <div class="slide slide-dark centered" data-slide="26" data-dots="light">
+  <!-- SLIDE 25: Goodbye / Community -->
+  <div class="slide slide-dark centered" data-slide="25" data-dots="light">
     <div class="deco-dot" style="top:10%;left:8%;background:var(--pink);width:28px;height:28px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:20%;right:10%;background:var(--lime);width:22px;height:22px;opacity:0.5;"></div>
     <div class="deco-dot" style="top:25%;right:18%;background:var(--yellow);width:18px;height:18px;opacity:0.4;"></div>
@@ -1712,7 +1656,7 @@
     updateProgress();
 
     // Confetti burst on certain fun slides
-    var confettiSlides = ['4','5','13','17','21'];
+    var confettiSlides = ['5','6','13','17','21'];
     if (confettiSlides.indexOf(next.dataset.slide) !== -1) {
       spawnConfetti();
     }
@@ -1746,11 +1690,6 @@
       if (lw) { lw.style.transition='none'; lw.style.opacity='0'; lw.style.transform='translate(-1200px,200px) rotate(-35deg) scale(2.5)'; lw.style.color=''; lw.style.textShadow=''; lw.classList.remove('landed'); }
       if (cw) { cw.style.transition='none'; cw.style.opacity='0'; cw.style.transform='translate(0,-1000px) rotate(20deg) scale(2.5)'; cw.style.color=''; cw.style.textShadow=''; cw.classList.remove('landed'); }
       if (pw) { pw.style.transition='none'; pw.style.opacity='0'; pw.style.transform='translate(1200px,150px) rotate(35deg) scale(2.5)'; pw.style.color=''; pw.style.textShadow=''; pw.classList.remove('landed'); }
-    }
-
-    // Start countdown timer on slide 24
-    if (next.dataset.slide === '24') {
-      startCountdown();
     }
 
     // Start challenge animations on slide 13
