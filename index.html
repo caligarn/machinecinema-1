@@ -579,8 +579,7 @@
     <div class="deco-dot" style="bottom:18%;right:10%;background:var(--lime);width:20px;height:20px;opacity:0.5;"></div>
     <div class="stagger">
       <img src="black5.png" alt="Machine Cinema" style="max-width: 400px; width: 80%; margin-bottom: 20px;">
-      <span class="pill pill-pink">Welcome</span>
-      <h2>Welcome to the<br><span class="color-pink">GenJam</span></h2>
+      <span class="pill pill-pink">GenJam</span>
       <div class="accent-bar pink" style="margin: 12px auto 22px;"></div>
       <p style="max-width: 600px; text-align: center; font-size: clamp(1rem, 1.5vw, 1.2rem);">
         While you wait, sign up for the tools and credits we'll use today.
@@ -604,7 +603,7 @@
     <div class="deco-dot" style="top:10%;right:12%;background:var(--pink);width:30px;height:30px;opacity:0.4;"></div>
     <div class="deco-dot" style="bottom:15%;left:8%;background:var(--lime);width:22px;height:22px;opacity:0.4;"></div>
     <div class="stagger">
-      <span class="pill pill-yellow">Game Edition</span>
+      <span class="pill pill-yellow">Movie Night</span>
       <img src="w4.png" alt="Machine Cinema" style="max-width: 350px; width: 70%; margin-top: 8px; margin-bottom: 4px;">
       <div class="accent-bar pink" style="margin: 16px auto 20px;"></div>
       <div id="lcp-container" style="display: flex; gap: 20px; justify-content: center; overflow: visible;">
@@ -2107,133 +2106,56 @@
     'schnozzo/In_a_vintage_illustration_style_a_robotic_figure_6phadamP.png'
   ];
 
-  // Animation behaviors
-  var ANIM_FLOAT = 0, ANIM_BOUNCE = 1, ANIM_FLY = 2, ANIM_DRIFT = 3, ANIM_ZIGZAG = 4;
-  var ANIM_COUNT = 5;
-  var SPRITE_COUNT = 4; // fewer, larger robots
+  // Wispy animation — sprites trace smooth Lissajous-like paths along screen edges
+  var SPRITE_COUNT = 4;
   var schnozzoLayer = document.getElementById('schnozzo-layer');
   var schnozzoSprites = [];
 
   function randomRange(min, max) { return min + Math.random() * (max - min); }
 
-  // Returns a random position along the edges/sides of the screen,
-  // avoiding the center 40% zone
-  function randomEdgePos(W, H, spriteSize) {
-    // Pick a side: 0=left, 1=right, 2=top, 3=bottom
-    var side = Math.floor(Math.random() * 4);
-    var edgeDepth = W * 0.25; // how far from edge sprites can go
-    var x, y;
-    if (side === 0) { // left
-      x = randomRange(-spriteSize * 0.5, edgeDepth);
-      y = randomRange(-spriteSize * 0.5, H);
-    } else if (side === 1) { // right
-      x = randomRange(W - edgeDepth, W - spriteSize * 0.5);
-      y = randomRange(-spriteSize * 0.5, H);
-    } else if (side === 2) { // top
-      x = randomRange(-spriteSize * 0.5, W);
-      y = randomRange(-spriteSize * 0.5, H * 0.25);
-    } else { // bottom
-      x = randomRange(-spriteSize * 0.5, W);
-      y = randomRange(H * 0.75, H);
-    }
-    return { x: x, y: y };
-  }
-
-  function SchnozzoSprite() {
+  function SchnozzoSprite(index) {
     this.el = document.createElement('img');
     this.el.className = 'schnozzo-sprite';
     this.el.draggable = false;
     this.el.alt = '';
     schnozzoLayer.appendChild(this.el);
-    this.reset(true);
+    this.index = index;
+    this.reset();
   }
 
-  SchnozzoSprite.prototype.reset = function(initial) {
-    // Pick a random robot PNG
+  SchnozzoSprite.prototype.reset = function() {
     this.el.src = schnozzoPNGs[Math.floor(Math.random() * schnozzoPNGs.length)];
 
-    // Size: large and prominent
-    this.size = randomRange(200, 400);
+    this.size = randomRange(180, 350);
     this.el.style.width = this.size + 'px';
     this.el.style.height = 'auto';
 
-    // Pick animation type — only persistent ones (float, bounce, drift)
-    var persistentAnims = [ANIM_FLOAT, ANIM_BOUNCE, ANIM_DRIFT];
-    this.animType = persistentAnims[Math.floor(Math.random() * persistentAnims.length)];
+    this.baseOpacity = randomRange(0.06, 0.16);
+    this.age = randomRange(0, 100); // stagger starting phase
 
-    // Opacity: subtle but visible at large size
-    this.baseOpacity = randomRange(0.06, 0.18);
+    // Each sprite orbits along a unique elliptical path hugging the edges
+    // by using sin/cos with different frequencies to create wispy paths
+    this.freqX = randomRange(0.03, 0.08);
+    this.freqY = randomRange(0.02, 0.06);
+    this.phaseX = randomRange(0, Math.PI * 2);
+    this.phaseY = randomRange(0, Math.PI * 2);
 
-    // Rotation
-    this.rotation = randomRange(0, 360);
-    this.rotSpeed = randomRange(-0.3, 0.3);
+    // Opacity breathe
+    this.breatheSpeed = randomRange(0.15, 0.4);
+    this.breathePhase = randomRange(0, Math.PI * 2);
 
-    // Scale oscillation
-    this.scaleBase = 1;
-    this.scaleAmp = randomRange(0, 0.15);
+    // Gentle rotation sway
+    this.rotAmp = randomRange(3, 12);
+    this.rotSpeed = randomRange(0.1, 0.3);
+    this.rotPhase = randomRange(0, Math.PI * 2);
+
+    // Scale breathe
+    this.scaleAmp = randomRange(0.03, 0.1);
+    this.scaleSpeed = randomRange(0.2, 0.6);
     this.scalePhase = randomRange(0, Math.PI * 2);
-    this.scaleSpeed = randomRange(0.3, 1.2);
 
-    // Position & velocity based on animation type
-    var W = window.innerWidth;
-    var H = window.innerHeight;
-
-    switch (this.animType) {
-      case ANIM_FLOAT: // gentle float along edges
-        var fp = randomEdgePos(W, H, this.size);
-        this.x = fp.x;
-        this.y = fp.y;
-        this.vx = randomRange(-0.2, 0.2);
-        this.vy = randomRange(-0.15, 0.15);
-        this.floatAmpX = randomRange(15, 40);
-        this.floatAmpY = randomRange(10, 30);
-        this.floatPhase = randomRange(0, Math.PI * 2);
-        this.floatSpeed = randomRange(0.2, 0.7);
-        break;
-
-      case ANIM_BOUNCE: // bounce along edges, never entering center
-        var bp = randomEdgePos(W, H, this.size);
-        this.x = bp.x;
-        this.y = bp.y;
-        this.vx = randomRange(0.5, 2) * (Math.random() > 0.5 ? 1 : -1);
-        this.vy = randomRange(0.5, 2) * (Math.random() > 0.5 ? 1 : -1);
-        break;
-
-      case ANIM_FLY: // fly across screen (enter from edge)
-        var side = Math.floor(Math.random() * 4);
-        if (side === 0) { this.x = -this.size - 20; this.y = randomRange(0, H); this.vx = randomRange(1, 3); this.vy = randomRange(-0.5, 0.5); }
-        else if (side === 1) { this.x = W + 20; this.y = randomRange(0, H); this.vx = randomRange(-3, -1); this.vy = randomRange(-0.5, 0.5); }
-        else if (side === 2) { this.x = randomRange(0, W); this.y = -this.size - 20; this.vx = randomRange(-0.5, 0.5); this.vy = randomRange(1, 3); }
-        else { this.x = randomRange(0, W); this.y = H + 20; this.vx = randomRange(-0.5, 0.5); this.vy = randomRange(-3, -1); }
-        break;
-
-      case ANIM_DRIFT: // slow lazy drift along sides
-        // Stick to left or right edge
-        this.x = Math.random() > 0.5 ? randomRange(-this.size * 0.5, W * 0.25) : randomRange(W * 0.75, W);
-        this.y = initial ? randomRange(0, H) : -this.size - 20;
-        this.vx = randomRange(-0.15, 0.15);
-        this.vy = randomRange(0.3, 1.0);
-        this.wobbleAmp = randomRange(30, 80);
-        this.wobblePhase = randomRange(0, Math.PI * 2);
-        this.wobbleSpeed = randomRange(0.3, 0.8);
-        break;
-
-      case ANIM_ZIGZAG: // zigzag across
-        this.x = initial ? randomRange(0, W) : -this.size - 20;
-        this.y = randomRange(H * 0.2, H * 0.8);
-        this.vx = randomRange(0.8, 2.5);
-        this.vy = 0;
-        this.zigAmp = randomRange(40, 120);
-        this.zigSpeed = randomRange(1.5, 4);
-        this.zigPhase = randomRange(0, Math.PI * 2);
-        break;
-    }
-
-    this.startX = this.x;
-    this.startY = this.y;
-    this.age = 0;
-    // Swap to a new random image every 15-30 seconds
-    this.nextSwap = randomRange(15, 30);
+    // Image swap timer
+    this.nextSwap = this.age + randomRange(15, 30);
   };
 
   SchnozzoSprite.prototype.update = function(dt) {
@@ -2242,72 +2164,42 @@
     var W = window.innerWidth;
     var H = window.innerHeight;
 
-    switch (this.animType) {
-      case ANIM_FLOAT:
-        this.x = this.startX + this.vx * t * 60 + Math.sin(t * this.floatSpeed + this.floatPhase) * this.floatAmpX;
-        this.y = this.startY + this.vy * t * 60 + Math.cos(t * this.floatSpeed * 0.7 + this.floatPhase) * this.floatAmpY;
-        // Wrap around seamlessly
-        if (this.x > W + this.size) { this.x = -this.size; this.startX = this.x - this.vx * t * 60; }
-        if (this.x < -this.size * 2) { this.x = W; this.startX = this.x - this.vx * t * 60; }
-        if (this.y > H + this.size) { this.y = -this.size; this.startY = this.y - this.vy * t * 60; }
-        if (this.y < -this.size * 2) { this.y = H; this.startY = this.y - this.vy * t * 60; }
-        // Nudge away from center
-        var fcx = this.x + this.size / 2, fcy = this.y + this.size / 2;
-        if (Math.abs(fcx - W / 2) < W * 0.3 && Math.abs(fcy - H / 2) < H * 0.3) {
-          this.startX += (fcx < W / 2 ? -0.5 : 0.5);
-          this.startY += (fcy < H / 2 ? -0.5 : 0.5);
-        }
-        break;
+    // Lissajous path mapped to screen edges
+    // sin/cos produce values in [-1,1], we map so sprites hug outer ~25% of screen
+    var rawX = Math.sin(t * this.freqX + this.phaseX);
+    var rawY = Math.cos(t * this.freqY + this.phaseY);
 
-      case ANIM_BOUNCE:
-        this.x += this.vx;
-        this.y += this.vy;
-        // Bounce off screen edges
-        if (this.x <= 0 || this.x >= W - this.size) { this.vx *= -1; this.rotSpeed *= -1; }
-        if (this.y <= 0 || this.y >= H - this.size) { this.vy *= -1; this.rotSpeed *= -1; }
-        this.x = Math.max(0, Math.min(this.x, W - this.size));
-        this.y = Math.max(0, Math.min(this.y, H - this.size));
-        // Deflect away from center zone
-        var cx = this.x + this.size / 2;
-        var cy = this.y + this.size / 2;
-        var centerX = W / 2, centerY = H / 2;
-        var zoneW = W * 0.35, zoneH = H * 0.35;
-        if (Math.abs(cx - centerX) < zoneW && Math.abs(cy - centerY) < zoneH) {
-          // Push velocity away from center
-          this.vx += (cx < centerX ? -0.3 : 0.3);
-          this.vy += (cy < centerY ? -0.3 : 0.3);
-        }
-        break;
+    // Map to screen: push toward edges using a power curve
+    // This keeps sprites near the margins while still moving smoothly
+    var edgeX = rawX * Math.pow(Math.abs(rawX), 0.3); // sharpen toward edges
+    var edgeY = rawY * Math.pow(Math.abs(rawY), 0.3);
 
-      case ANIM_DRIFT:
-        this.x += this.vx + Math.sin(t * this.wobbleSpeed + this.wobblePhase) * this.wobbleAmp * 0.01;
-        this.y += this.vy;
-        // Wrap vertically — come back from the top
-        if (this.y > H + this.size * 2) { this.y = -this.size; }
-        if (this.y < -this.size * 2) { this.y = H + this.size; }
-        break;
-    }
+    this.x = (W / 2) + edgeX * (W / 2 + this.size * 0.3) - this.size / 2;
+    this.y = (H / 2) + edgeY * (H / 2 + this.size * 0.3) - this.size / 2;
 
-    // Periodically swap image
+    // Swap image periodically
     if (t >= this.nextSwap) {
       this.el.src = schnozzoPNGs[Math.floor(Math.random() * schnozzoPNGs.length)];
       this.nextSwap = t + randomRange(15, 30);
     }
 
-    // Rotation
-    this.rotation += this.rotSpeed;
+    // Wispy opacity breathe — fade in and out gently
+    var breathe = 0.5 + 0.5 * Math.sin(t * this.breatheSpeed + this.breathePhase);
+    var opacity = this.baseOpacity * (0.3 + breathe * 0.7);
 
-    // Scale pulse
-    var scale = this.scaleBase + Math.sin(t * this.scaleSpeed + this.scalePhase) * this.scaleAmp;
+    // Gentle rotation sway
+    var rot = Math.sin(t * this.rotSpeed + this.rotPhase) * this.rotAmp;
 
-    // Apply transforms
-    this.el.style.transform = 'translate(' + this.x.toFixed(1) + 'px,' + this.y.toFixed(1) + 'px) rotate(' + this.rotation.toFixed(1) + 'deg) scale(' + scale.toFixed(3) + ')';
-    this.el.style.opacity = this.baseOpacity;
+    // Scale breathe
+    var scale = 1 + Math.sin(t * this.scaleSpeed + this.scalePhase) * this.scaleAmp;
+
+    this.el.style.transform = 'translate(' + this.x.toFixed(1) + 'px,' + this.y.toFixed(1) + 'px) rotate(' + rot.toFixed(1) + 'deg) scale(' + scale.toFixed(3) + ')';
+    this.el.style.opacity = opacity.toFixed(3);
   };
 
   // Create sprites
   for (var s = 0; s < SPRITE_COUNT; s++) {
-    schnozzoSprites.push(new SchnozzoSprite());
+    schnozzoSprites.push(new SchnozzoSprite(s));
   }
 
   // Animation loop
