@@ -712,7 +712,7 @@
     <div class="deco-dot" style="bottom:18%;left:12%;background:var(--lime);width:20px;height:20px;opacity:0.4;"></div>
     <div class="stagger">
       <span class="pill pill-pink">Partner</span>
-      <h1 style="font-size: clamp(3rem, 7vw, 6rem); color: #fff;">Koyal</h1>
+      <img src="koyal.svg" alt="Koyal" style="max-width: 350px; width: 70%; margin-bottom: 8px;">
       <div class="accent-bar pink" style="margin: 16px auto 24px;"></div>
       <p style="max-width: 550px; text-align: center; font-size: clamp(1rem, 1.5vw, 1.3rem); color: #b0b0c8; line-height: 1.6;">
         AI-powered dubbing &amp; localization platform for video content across <strong style="color: var(--pink);">70+ languages</strong>
@@ -726,7 +726,7 @@
     <div class="deco-dot" style="bottom:12%;right:14%;background:var(--lime);width:18px;height:18px;opacity:0.5;"></div>
     <div class="stagger">
       <span class="pill pill-white">Partner</span>
-      <h1 style="font-size: clamp(3rem, 7vw, 6rem); color: #fff;">PixVerse</h1>
+      <img src="pixverse-logo-1.svg" alt="PixVerse" style="max-width: 350px; width: 70%; margin-bottom: 8px;">
       <div class="accent-bar white" style="margin: 16px auto 24px;"></div>
       <p style="max-width: 550px; text-align: center; font-size: clamp(1rem, 1.5vw, 1.3rem); color: rgba(255,255,255,0.85); line-height: 1.6;">
         AI video generation platform for creating <strong style="color: var(--yellow);">cinematic, high-quality content</strong> from text &amp; images
@@ -740,7 +740,7 @@
     <div class="deco-dot" style="bottom:15%;left:10%;background:var(--dark-navy);width:20px;height:20px;opacity:0.3;"></div>
     <div class="stagger">
       <span class="pill pill-dark">Partner</span>
-      <h1 style="font-size: clamp(3rem, 7vw, 6rem); color: var(--dark-navy);">GMI Cloud</h1>
+      <img src="gmi-cloud-logo.svg" alt="GMI Cloud" style="max-width: 350px; width: 70%; margin-bottom: 8px;">
       <div class="accent-bar dark" style="margin: 16px auto 24px;"></div>
       <p style="max-width: 550px; text-align: center; font-size: clamp(1rem, 1.5vw, 1.3rem); color: rgba(13,13,26,0.7); line-height: 1.6;">
         GPU cloud infrastructure powering AI workloads with <strong>on-demand compute at scale</strong>
@@ -873,8 +873,25 @@
     </div>
   </div>
 
-  <!-- SLIDE 13: Today's Workflow & Tools -->
-  <div class="slide slide-lime centered" data-slide="13">
+  <!-- SLIDE 13: Today's Challenge (Fireworks + Drumroll + Reveal) -->
+  <div class="slide slide-dark centered" data-slide="13" data-dots="light" id="challenge-slide">
+    <canvas id="fireworks-canvas"></canvas>
+    <div class="stagger" style="position: relative; z-index: 2; text-align: center;">
+      <span class="pill pill-yellow">Challenge</span>
+      <h1 style="font-size: clamp(2.5rem, 6vw, 5rem); margin-bottom: 20px;">Today's <span class="color-pink">Challenge</span></h1>
+      <div class="accent-bar pink" style="margin: 12px auto 24px;"></div>
+      <h2 id="challenge-prompt" style="font-size: clamp(1.4rem, 3vw, 2.4rem); color: #b0b0c8; margin-bottom: 30px; opacity: 0;">Make a Short Film About</h2>
+      <div id="drumroll-container" style="display: none; margin: 20px auto; width: 200px; height: 60px; position: relative;">
+        <div id="drumroll-dots" style="display: flex; justify-content: center; align-items: center; gap: 16px; height: 100%;"></div>
+      </div>
+      <h1 id="challenge-reveal" style="font-size: clamp(3rem, 8vw, 7rem); color: var(--yellow); text-shadow: 0 0 40px rgba(255,214,0,0.6), 0 0 80px rgba(255,214,0,0.3); opacity: 0; transform: translateY(120px) scale(0.3); transition: none; white-space: nowrap;">
+        Movie Night
+      </h1>
+    </div>
+  </div>
+
+  <!-- SLIDE 14: Today's Workflow & Tools -->
+  <div class="slide slide-lime centered" data-slide="14">
     <div class="stagger">
       <span class="pill pill-dark">Workshop</span>
       <h2>Today's Workflow<br>&amp; <span style="color: var(--pink);">Tools</span></h2>
@@ -899,8 +916,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 14: Roles -->
-  <div class="slide centered" data-slide="14">
+  <!-- SLIDE 15: Roles -->
+  <div class="slide centered" data-slide="15">
     <div class="stagger">
       <span class="pill pill-pink">Team Up</span>
       <h2><span class="color-pink">Roles</span></h2>
@@ -933,8 +950,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 15: The Process -->
-  <div class="slide slide-dark centered" data-slide="15" data-dots="light">
+  <!-- SLIDE 16: The Process -->
+  <div class="slide slide-dark centered" data-slide="16" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">The Method</span>
       <h2>The <span class="color-yellow">Process</span></h2>
@@ -958,8 +975,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 16: Let's Dig In -->
-  <div class="slide slide-pink centered" data-slide="16" data-dots="light">
+  <!-- SLIDE 17: Let's Dig In -->
+  <div class="slide slide-pink centered" data-slide="17" data-dots="light">
     <div class="deco-dot" style="top:15%;right:15%;background:var(--yellow);width:30px;height:30px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:20%;left:10%;background:var(--lime);width:24px;height:24px;opacity:0.5;"></div>
     <div class="stagger">
@@ -967,8 +984,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 17: Tips for Group Work -->
-  <div class="slide slide-dark centered" data-slide="17" data-dots="light">
+  <!-- SLIDE 18: Tips for Group Work -->
+  <div class="slide slide-dark centered" data-slide="18" data-dots="light">
     <div class="stagger">
       <span class="pill pill-lime">Pro Tips</span>
       <h2>Tips for<br><span class="color-lime">Group Work</span></h2>
@@ -982,8 +999,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 18: Story Elements -->
-  <div class="slide centered" data-slide="18">
+  <!-- SLIDE 19: Story Elements -->
+  <div class="slide centered" data-slide="19">
     <div class="stagger">
       <span class="pill pill-pink">Storytelling</span>
       <h2>Story <span class="color-pink">Elements</span></h2>
@@ -1015,8 +1032,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 19: What If? -->
-  <div class="slide slide-yellow centered" data-slide="19">
+  <!-- SLIDE 20: What If? -->
+  <div class="slide slide-yellow centered" data-slide="20">
     <div class="stagger">
       <span class="pill pill-dark">Start Here</span>
       <h3 style="text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-bottom: 8px;">Start with a question:</h3>
@@ -1024,8 +1041,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 20: More Tips -->
-  <div class="slide slide-dark centered" data-slide="20" data-dots="light">
+  <!-- SLIDE 21: More Tips -->
+  <div class="slide slide-dark centered" data-slide="21" data-dots="light">
     <div class="stagger">
       <span class="pill pill-orange">Remember</span>
       <h2><span class="color-orange">Tips</span></h2>
@@ -1041,15 +1058,15 @@
     </div>
   </div>
 
-  <!-- SLIDE 21: Any Questions? -->
-  <div class="slide slide-lime centered" data-slide="21">
+  <!-- SLIDE 22: Any Questions? -->
+  <div class="slide slide-lime centered" data-slide="22">
     <div class="stagger">
       <h1 style="font-size: clamp(3rem, 8vw, 7rem);">Any<br>Questions?</h1>
     </div>
   </div>
 
-  <!-- SLIDE 22: Watch Examples -->
-  <div class="slide slide-dark centered" data-slide="22" data-dots="light">
+  <!-- SLIDE 23: Watch Examples -->
+  <div class="slide slide-dark centered" data-slide="23" data-dots="light">
     <div class="deco-dot" style="top:12%;left:15%;background:var(--pink);width:26px;height:26px;opacity:0.4;"></div>
     <div class="deco-dot" style="bottom:15%;right:12%;background:var(--yellow);width:20px;height:20px;opacity:0.5;"></div>
     <div class="stagger">
@@ -1060,29 +1077,12 @@
     </div>
   </div>
 
-  <!-- SLIDE 23: 15 Minutes Left -->
-  <div class="slide slide-pink centered" data-slide="23" data-dots="light">
+  <!-- SLIDE 24: 15 Minutes Left -->
+  <div class="slide slide-pink centered" data-slide="24" data-dots="light">
     <div class="stagger">
       <div class="countdown pulse" id="countdown-display">15:00</div>
       <div class="countdown-label" style="color: rgba(255,255,255,0.7);">Minutes Remaining</div>
       <h2 style="margin-top: 24px; font-size: clamp(1.5rem, 3vw, 2.5rem);">&ldquo;15 Minutes Left!!!!&rdquo;</h2>
-    </div>
-  </div>
-
-  <!-- SLIDE 24: Today's Challenge (Fireworks + Drumroll + Reveal) -->
-  <div class="slide slide-dark centered" data-slide="24" data-dots="light" id="challenge-slide">
-    <canvas id="fireworks-canvas"></canvas>
-    <div class="stagger" style="position: relative; z-index: 2; text-align: center;">
-      <span class="pill pill-yellow">Challenge</span>
-      <h1 style="font-size: clamp(2.5rem, 6vw, 5rem); margin-bottom: 20px;">Today's <span class="color-pink">Challenge</span></h1>
-      <div class="accent-bar pink" style="margin: 12px auto 24px;"></div>
-      <h2 id="challenge-prompt" style="font-size: clamp(1.4rem, 3vw, 2.4rem); color: #b0b0c8; margin-bottom: 30px; opacity: 0;">Make a Short Film About</h2>
-      <div id="drumroll-container" style="display: none; margin: 20px auto; width: 200px; height: 60px; position: relative;">
-        <div id="drumroll-dots" style="display: flex; justify-content: center; align-items: center; gap: 16px; height: 100%;"></div>
-      </div>
-      <h1 id="challenge-reveal" style="font-size: clamp(3rem, 8vw, 7rem); color: var(--yellow); text-shadow: 0 0 40px rgba(255,214,0,0.6), 0 0 80px rgba(255,214,0,0.3); opacity: 0; transform: translateY(120px) scale(0.3); transition: none; white-space: nowrap;">
-        Movie Night
-      </h1>
     </div>
   </div>
 
@@ -1336,13 +1336,13 @@
       if (pw) { pw.style.transition='none'; pw.style.opacity='0'; pw.style.transform='translate(1200px,150px) rotate(35deg) scale(2.5)'; pw.style.color=''; pw.style.textShadow=''; pw.classList.remove('landed'); }
     }
 
-    // Start countdown timer on slide 23
-    if (next.dataset.slide === '23') {
+    // Start countdown timer on slide 24
+    if (next.dataset.slide === '24') {
       startCountdown();
     }
 
-    // Start challenge animations on slide 24
-    if (next.dataset.slide === '24') {
+    // Start challenge animations on slide 13
+    if (next.dataset.slide === '13') {
       startChallengeSequence();
     }
 
@@ -1366,7 +1366,7 @@
     }
 
     // Reset challenge when leaving
-    if (prev.dataset.slide === '24' && index !== 24) {
+    if (prev.dataset.slide === '13' && index !== 13) {
       challengeStarted = false;
       fwRunning = false;
       if (fwCtx) fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
@@ -2012,24 +2012,24 @@
   function FWParticle(x, y, color) {
     this.x = x; this.y = y;
     var angle = Math.random() * Math.PI * 2;
-    var speed = Math.random() * 2.5 + 0.8;
+    var speed = Math.random() * 1.2 + 0.3;
     this.vx = Math.cos(angle) * speed;
     this.vy = Math.sin(angle) * speed;
     this.alpha = 1;
-    this.decay = Math.random() * 0.006 + 0.004;
+    this.decay = Math.random() * 0.003 + 0.002;
     this.size = Math.random() * 3 + 1.5;
     this.color = color;
-    this.gravity = 0.015;
+    this.gravity = 0.005;
     this.trail = [];
   }
   FWParticle.prototype.update = function() {
     this.trail.push({ x: this.x, y: this.y, alpha: this.alpha * 0.4 });
-    if (this.trail.length > 10) this.trail.shift();
+    if (this.trail.length > 14) this.trail.shift();
     this.vy += this.gravity;
     this.x += this.vx;
     this.y += this.vy;
-    this.vx *= 0.995;
-    this.vy *= 0.995;
+    this.vx *= 0.998;
+    this.vy *= 0.998;
     this.alpha -= this.decay;
   };
   FWParticle.prototype.draw = function(ctx) {
@@ -2064,7 +2064,7 @@
     this.targetY = targetY;
     var dx = targetX - this.x, dy = targetY - this.y;
     var dist = Math.sqrt(dx * dx + dy * dy);
-    this.speed = dist / 70;
+    this.speed = dist / 120;
     this.vx = (dx / dist) * this.speed;
     this.vy = (dy / dist) * this.speed;
     this.alpha = 1;
@@ -2105,7 +2105,7 @@
   function animateFireworks() {
     if (!fwRunning) return;
     fwCtx.globalCompositeOperation = 'destination-out';
-    fwCtx.fillStyle = 'rgba(0,0,0,0.06)';
+    fwCtx.fillStyle = 'rgba(0,0,0,0.03)';
     fwCtx.fillRect(0, 0, fwCanvas.width, fwCanvas.height);
     fwCtx.globalCompositeOperation = 'lighter';
 
