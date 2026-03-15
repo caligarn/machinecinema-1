@@ -3024,99 +3024,511 @@
   }
   requestAnimationFrame(animateSparkles);
 
-  // ---- Slide transition: Radial wipe flash ----
-  var flashOverlay = document.createElement('div');
-  flashOverlay.style.cssText = 'position:fixed;inset:0;z-index:9997;pointer-events:none;opacity:0;transition:opacity 0.15s;';
-  document.body.appendChild(flashOverlay);
+  // ---- Per-Slide FX Canvas (shared) ----
+  var fxCanvas = document.createElement('canvas');
+  fxCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:9996;pointer-events:none;';
+  document.body.appendChild(fxCanvas);
+  var fxCtx = fxCanvas.getContext('2d');
+  var fxParticles = [];
+  var fxRunning = false;
 
-  var slideFlashObserver = new MutationObserver(function(mutations) {
-    mutations.forEach(function(m) {
-      if (m.target.classList && m.target.classList.contains('slide') && m.target.classList.contains('active')) {
-        // Brief radial gradient flash on slide transition
-        var colors = ['rgba(255,45,85,0.08)', 'rgba(200,255,0,0.06)', 'rgba(255,214,0,0.07)'];
-        var c = colors[Math.floor(Math.random() * colors.length)];
-        flashOverlay.style.background = 'radial-gradient(circle at 50% 50%, ' + c + ' 0%, transparent 70%)';
-        flashOverlay.style.opacity = '1';
-        setTimeout(function() { flashOverlay.style.opacity = '0'; }, 300);
-      }
-    });
-  });
-  document.querySelectorAll('.slide').forEach(function(slide) {
-    slideFlashObserver.observe(slide, { attributes: true, attributeFilter: ['class'] });
-  });
-
-  // ---- Floating emoji particles on fun slides ----
-  var emojiCanvas = document.createElement('canvas');
-  emojiCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:9996;pointer-events:none;';
-  document.body.appendChild(emojiCanvas);
-  var emojiCtx = emojiCanvas.getContext('2d');
-  var emojiParticles = [];
-
-  function resizeEmojiCanvas() {
-    emojiCanvas.width = window.innerWidth;
-    emojiCanvas.height = window.innerHeight;
+  function resizeFxCanvas() {
+    fxCanvas.width = window.innerWidth;
+    fxCanvas.height = window.innerHeight;
   }
-  resizeEmojiCanvas();
-  window.addEventListener('resize', resizeEmojiCanvas);
+  resizeFxCanvas();
+  window.addEventListener('resize', resizeFxCanvas);
 
-  var funEmojis = ['✨', '🎬', '🎥', '🌟', '⚡', '🎨', '🔥', '💫'];
+  var brandHex = ['#FF2D55','#C8FF00','#FFD600','#FF904D','#CB6BE6','#0074B1','#6ACB9D','#fff'];
 
-  function spawnEmojiParticles() {
-    for (var i = 0; i < 15; i++) {
-      emojiParticles.push({
-        x: Math.random() * window.innerWidth,
-        y: window.innerHeight + 20,
-        vy: -(2 + Math.random() * 3),
-        vx: (Math.random() - 0.5) * 2,
-        emoji: funEmojis[Math.floor(Math.random() * funEmojis.length)],
-        size: 16 + Math.random() * 20,
-        alpha: 1,
-        rotation: (Math.random() - 0.5) * 0.5,
-        rot: 0
+  function startFxLoop() {
+    if (fxRunning) return;
+    fxRunning = true;
+    function loop() {
+      fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
+      var t = performance.now();
+      for (var i = fxParticles.length - 1; i >= 0; i--) {
+        var p = fxParticles[i];
+        p.update(p, t);
+        p.draw(fxCtx, p, t);
+        if (p.alpha <= 0 || p.dead) { fxParticles.splice(i, 1); }
+      }
+      if (fxParticles.length > 0) {
+        requestAnimationFrame(loop);
+      } else {
+        fxRunning = false;
+      }
+    }
+    requestAnimationFrame(loop);
+  }
+
+  // === EFFECT 1: Rising Emojis ===
+  function fxEmojis(emojis) {
+    for (var i = 0; i < 18; i++) {
+      (function(delay) {
+        setTimeout(function() {
+          fxParticles.push({
+            x: Math.random() * window.innerWidth,
+            y: window.innerHeight + 20,
+            vx: (Math.random() - 0.5) * 2,
+            vy: -(1.5 + Math.random() * 3),
+            emoji: emojis[Math.floor(Math.random() * emojis.length)],
+            size: 18 + Math.random() * 22,
+            alpha: 1, rot: 0, rotS: (Math.random() - 0.5) * 0.04,
+            update: function(p) { p.x += p.vx; p.y += p.vy; p.vy += 0.008; p.rot += p.rotS; p.alpha -= 0.004; },
+            draw: function(ctx, p) {
+              ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+              ctx.globalAlpha = p.alpha; ctx.font = p.size + 'px serif';
+              ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+              ctx.fillText(p.emoji, 0, 0); ctx.restore();
+            }
+          });
+        }, delay);
+      })(i * 80);
+    }
+    startFxLoop();
+  }
+
+  // === EFFECT 2: Meteor Shower (diagonal streaks) ===
+  function fxMeteors() {
+    for (var i = 0; i < 12; i++) {
+      (function(delay) {
+        setTimeout(function() {
+          var c = brandHex[Math.floor(Math.random() * brandHex.length)];
+          var len = 60 + Math.random() * 100;
+          fxParticles.push({
+            x: Math.random() * window.innerWidth * 1.3,
+            y: -20 - Math.random() * 200,
+            vx: -(3 + Math.random() * 4), vy: 5 + Math.random() * 6,
+            len: len, color: c, alpha: 1, size: 1.5 + Math.random(),
+            update: function(p) { p.x += p.vx; p.y += p.vy; p.alpha -= 0.012; },
+            draw: function(ctx, p) {
+              ctx.save(); ctx.globalAlpha = p.alpha;
+              var grad = ctx.createLinearGradient(p.x, p.y, p.x - p.vx * p.len / 8, p.y - p.vy * p.len / 8);
+              grad.addColorStop(0, p.color); grad.addColorStop(1, 'transparent');
+              ctx.strokeStyle = grad; ctx.lineWidth = p.size; ctx.lineCap = 'round';
+              ctx.beginPath(); ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p.x - p.vx * p.len / 8, p.y - p.vy * p.len / 8); ctx.stroke();
+              // head glow
+              ctx.globalAlpha = p.alpha * 0.6;
+              ctx.beginPath(); ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
+              var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3);
+              g.addColorStop(0, p.color); g.addColorStop(1, 'transparent');
+              ctx.fillStyle = g; ctx.fill();
+              ctx.restore();
+            }
+          });
+        }, delay);
+      })(i * 120);
+    }
+    startFxLoop();
+  }
+
+  // === EFFECT 3: Bubble Float ===
+  function fxBubbles() {
+    for (var i = 0; i < 20; i++) {
+      (function(delay) {
+        setTimeout(function() {
+          var r = 6 + Math.random() * 30;
+          var c = brandHex[Math.floor(Math.random() * brandHex.length)];
+          fxParticles.push({
+            x: Math.random() * window.innerWidth,
+            y: window.innerHeight + r + Math.random() * 100,
+            r: r, color: c, alpha: 0.7, wobblePhase: Math.random() * Math.PI * 2,
+            vy: -(0.5 + Math.random() * 1.5), born: performance.now(),
+            update: function(p) {
+              p.y += p.vy;
+              p.x += Math.sin((performance.now() - p.born) * 0.002 + p.wobblePhase) * 0.8;
+              p.alpha -= 0.003;
+            },
+            draw: function(ctx, p) {
+              ctx.save(); ctx.globalAlpha = p.alpha * 0.3;
+              ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+              ctx.strokeStyle = p.color; ctx.lineWidth = 1.5; ctx.stroke();
+              // highlight
+              ctx.globalAlpha = p.alpha * 0.5;
+              ctx.beginPath(); ctx.arc(p.x - p.r * 0.25, p.y - p.r * 0.25, p.r * 0.3, 0, Math.PI * 2);
+              ctx.fillStyle = 'rgba(255,255,255,0.6)'; ctx.fill();
+              ctx.restore();
+            }
+          });
+        }, delay);
+      })(i * 100);
+    }
+    startFxLoop();
+  }
+
+  // === EFFECT 4: Text Rain (letters falling) ===
+  function fxTextRain(chars) {
+    for (var i = 0; i < 30; i++) {
+      (function(delay) {
+        setTimeout(function() {
+          var c = brandHex[Math.floor(Math.random() * brandHex.length)];
+          fxParticles.push({
+            x: Math.random() * window.innerWidth,
+            y: -20 - Math.random() * 200,
+            vy: 1 + Math.random() * 2.5,
+            vx: (Math.random() - 0.5) * 0.5,
+            char: chars[Math.floor(Math.random() * chars.length)],
+            color: c, alpha: 0.6, size: 12 + Math.random() * 18,
+            rot: 0, rotS: (Math.random() - 0.5) * 0.03,
+            update: function(p) { p.y += p.vy; p.x += p.vx; p.rot += p.rotS; p.alpha -= 0.003; },
+            draw: function(ctx, p) {
+              ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+              ctx.globalAlpha = p.alpha; ctx.fillStyle = p.color;
+              ctx.font = '600 ' + p.size + 'px "JetBrains Mono", monospace';
+              ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+              ctx.fillText(p.char, 0, 0); ctx.restore();
+            }
+          });
+        }, delay);
+      })(i * 60);
+    }
+    startFxLoop();
+  }
+
+  // === EFFECT 5: Spiral Burst (expanding spiral of dots) ===
+  function fxSpiral() {
+    var cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+    for (var i = 0; i < 50; i++) {
+      var angle = (i / 50) * Math.PI * 6;
+      var speed = 1.5 + i * 0.08;
+      var c = brandHex[i % brandHex.length];
+      fxParticles.push({
+        x: cx, y: cy,
+        vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+        color: c, alpha: 1, size: 2 + Math.random() * 3,
+        update: function(p) { p.x += p.vx; p.y += p.vy; p.vx *= 0.995; p.vy *= 0.995; p.alpha -= 0.008; },
+        draw: function(ctx, p) {
+          ctx.save(); ctx.globalAlpha = p.alpha;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = p.color; ctx.fill();
+          ctx.globalAlpha = p.alpha * 0.3;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
+          var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3);
+          g.addColorStop(0, p.color); g.addColorStop(1, 'transparent');
+          ctx.fillStyle = g; ctx.fill(); ctx.restore();
+        }
       });
     }
+    startFxLoop();
   }
 
-  function animateEmojiParticles() {
-    emojiCtx.clearRect(0, 0, emojiCanvas.width, emojiCanvas.height);
-    for (var i = emojiParticles.length - 1; i >= 0; i--) {
-      var p = emojiParticles[i];
-      p.x += p.vx;
-      p.y += p.vy;
-      p.vy += 0.01; // very slight gravity
-      p.rot += p.rotation;
-      p.alpha -= 0.005;
-      if (p.alpha <= 0 || p.y < -50) { emojiParticles.splice(i, 1); continue; }
-
-      emojiCtx.save();
-      emojiCtx.translate(p.x, p.y);
-      emojiCtx.rotate(p.rot);
-      emojiCtx.globalAlpha = p.alpha;
-      emojiCtx.font = p.size + 'px serif';
-      emojiCtx.textAlign = 'center';
-      emojiCtx.textBaseline = 'middle';
-      emojiCtx.fillText(p.emoji, 0, 0);
-      emojiCtx.restore();
+  // === EFFECT 6: Pulse Rings (concentric expanding rings) ===
+  function fxPulseRings() {
+    var cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+    for (var i = 0; i < 6; i++) {
+      (function(delay, idx) {
+        setTimeout(function() {
+          var c = brandHex[idx % brandHex.length];
+          fxParticles.push({
+            x: cx, y: cy, radius: 10, color: c, alpha: 0.8, maxR: 300 + idx * 60,
+            update: function(p) { p.radius += 3; p.alpha = Math.max(0, 0.8 * (1 - p.radius / p.maxR)); },
+            draw: function(ctx, p) {
+              ctx.save(); ctx.globalAlpha = p.alpha;
+              ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+              ctx.strokeStyle = p.color; ctx.lineWidth = 2.5; ctx.stroke();
+              ctx.restore();
+            }
+          });
+        }, delay);
+      })(i * 200, i);
     }
-    if (emojiParticles.length > 0) {
-      requestAnimationFrame(animateEmojiParticles);
-    }
+    startFxLoop();
   }
 
-  // Trigger emoji particles on key slides
-  var emojiSlideObserver = new MutationObserver(function(mutations) {
+  // === EFFECT 7: DNA Helix (twin spiraling strands) ===
+  function fxDNAHelix() {
+    var cy = window.innerHeight / 2;
+    for (var i = 0; i < 40; i++) {
+      var phase = (i / 40) * Math.PI * 4;
+      var yy = (i / 40) * window.innerHeight;
+      fxParticles.push({
+        baseX: window.innerWidth / 2, y: yy,
+        phase: phase, side: 1, color: brandHex[i % brandHex.length],
+        alpha: 0.8, born: performance.now(), size: 3 + Math.random() * 2, idx: i,
+        update: function(p, t) {
+          var age = (t - p.born) / 1000;
+          p.x = p.baseX + Math.sin(p.phase + age * 2) * 120;
+          p.alpha = Math.max(0, 0.8 - age * 0.15);
+        },
+        draw: function(ctx, p) {
+          ctx.save(); ctx.globalAlpha = p.alpha;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = p.color; ctx.fill(); ctx.restore();
+        }
+      });
+      fxParticles.push({
+        baseX: window.innerWidth / 2, y: yy,
+        phase: phase + Math.PI, side: -1, color: brandHex[(i + 3) % brandHex.length],
+        alpha: 0.8, born: performance.now(), size: 3 + Math.random() * 2, idx: i,
+        update: function(p, t) {
+          var age = (t - p.born) / 1000;
+          p.x = p.baseX + Math.sin(p.phase + age * 2) * 120;
+          p.alpha = Math.max(0, 0.8 - age * 0.15);
+        },
+        draw: function(ctx, p) {
+          ctx.save(); ctx.globalAlpha = p.alpha;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = p.color; ctx.fill(); ctx.restore();
+        }
+      });
+    }
+    startFxLoop();
+  }
+
+  // === EFFECT 8: Pixel Dissolve (random blocks fade in/out) ===
+  function fxPixelDissolve() {
+    var blockSize = 20;
+    var cols = Math.ceil(window.innerWidth / blockSize);
+    var rows = Math.ceil(window.innerHeight / blockSize);
+    var indices = [];
+    for (var i = 0; i < cols * rows; i++) indices.push(i);
+    // Shuffle and pick subset
+    for (var i = indices.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = indices[i]; indices[i] = indices[j]; indices[j] = tmp;
+    }
+    var subset = indices.slice(0, 60);
+    for (var i = 0; i < subset.length; i++) {
+      (function(idx, delay) {
+        setTimeout(function() {
+          var col = idx % cols, row = Math.floor(idx / cols);
+          var c = brandHex[Math.floor(Math.random() * brandHex.length)];
+          fxParticles.push({
+            x: col * blockSize, y: row * blockSize, w: blockSize, h: blockSize,
+            color: c, alpha: 0, phase: 0, maxAlpha: 0.15 + Math.random() * 0.1,
+            update: function(p) {
+              p.phase += 0.04;
+              if (p.phase < Math.PI) {
+                p.alpha = p.maxAlpha * Math.sin(p.phase);
+              } else {
+                p.alpha = 0; p.dead = true;
+              }
+            },
+            draw: function(ctx, p) {
+              ctx.save(); ctx.globalAlpha = p.alpha;
+              ctx.fillStyle = p.color;
+              ctx.fillRect(p.x, p.y, p.w, p.h);
+              ctx.restore();
+            },
+            dead: false
+          });
+        }, delay);
+      })(subset[i], i * 30);
+    }
+    startFxLoop();
+  }
+
+  // === EFFECT 9: Northern Lights (aurora curtain) ===
+  function fxAurora() {
+    var W = window.innerWidth, H = window.innerHeight;
+    for (var i = 0; i < 5; i++) {
+      var c = ['rgba(200,255,0,','rgba(255,45,85,','rgba(203,107,230,','rgba(0,116,177,','rgba(106,203,157,'][i];
+      fxParticles.push({
+        colorBase: c, alpha: 0.5, born: performance.now(),
+        yBase: H * 0.15 + i * H * 0.08, amplitude: 40 + Math.random() * 30,
+        freq: 0.003 + Math.random() * 0.002, phase: Math.random() * Math.PI * 2,
+        update: function(p, t) {
+          var age = (t - p.born) / 1000;
+          p.alpha = Math.max(0, 0.12 - age * 0.015);
+        },
+        draw: function(ctx, p, t) {
+          var age = (t - p.born) / 1000;
+          ctx.save(); ctx.globalAlpha = p.alpha;
+          ctx.beginPath(); ctx.moveTo(0, p.yBase);
+          for (var x = 0; x <= W; x += 8) {
+            var y = p.yBase + Math.sin(x * p.freq + age * 1.5 + p.phase) * p.amplitude
+                            + Math.sin(x * p.freq * 2.3 + age * 0.8) * p.amplitude * 0.4;
+            ctx.lineTo(x, y);
+          }
+          ctx.lineTo(W, p.yBase + 80); ctx.lineTo(0, p.yBase + 80); ctx.closePath();
+          var grad = ctx.createLinearGradient(0, p.yBase - 40, 0, p.yBase + 80);
+          grad.addColorStop(0, p.colorBase + '0)');
+          grad.addColorStop(0.4, p.colorBase + '0.15)');
+          grad.addColorStop(1, p.colorBase + '0)');
+          ctx.fillStyle = grad; ctx.fill(); ctx.restore();
+        }
+      });
+    }
+    startFxLoop();
+  }
+
+  // === EFFECT 10: Lightning Bolts ===
+  function fxLightning() {
+    for (var b = 0; b < 3; b++) {
+      (function(delay) {
+        setTimeout(function() {
+          var startX = Math.random() * window.innerWidth;
+          var segments = [];
+          var x = startX, y = 0;
+          while (y < window.innerHeight) {
+            var nx = x + (Math.random() - 0.5) * 80;
+            var ny = y + 20 + Math.random() * 40;
+            segments.push({x1: x, y1: y, x2: nx, y2: ny});
+            x = nx; y = ny;
+          }
+          var c = ['#C8FF00','#FFD600','#fff'][Math.floor(Math.random() * 3)];
+          fxParticles.push({
+            segments: segments, color: c, alpha: 1, born: performance.now(),
+            update: function(p) { p.alpha = Math.max(0, 1 - (performance.now() - p.born) / 500); },
+            draw: function(ctx, p) {
+              ctx.save();
+              // Glow pass
+              ctx.globalAlpha = p.alpha * 0.3;
+              ctx.strokeStyle = p.color; ctx.lineWidth = 8; ctx.lineCap = 'round';
+              ctx.shadowColor = p.color; ctx.shadowBlur = 20;
+              ctx.beginPath();
+              for (var i = 0; i < p.segments.length; i++) {
+                var s = p.segments[i];
+                if (i === 0) ctx.moveTo(s.x1, s.y1);
+                ctx.lineTo(s.x2, s.y2);
+              }
+              ctx.stroke();
+              // Core
+              ctx.globalAlpha = p.alpha;
+              ctx.lineWidth = 2; ctx.shadowBlur = 0;
+              ctx.beginPath();
+              for (var i = 0; i < p.segments.length; i++) {
+                var s = p.segments[i];
+                if (i === 0) ctx.moveTo(s.x1, s.y1);
+                ctx.lineTo(s.x2, s.y2);
+              }
+              ctx.stroke();
+              ctx.restore();
+            }
+          });
+        }, delay);
+      })(b * 400);
+    }
+    startFxLoop();
+  }
+
+  // === EFFECT 11: Gravity Well (particles sucked to center) ===
+  function fxGravityWell() {
+    var cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+    for (var i = 0; i < 40; i++) {
+      var angle = Math.random() * Math.PI * 2;
+      var dist = 300 + Math.random() * 300;
+      var c = brandHex[Math.floor(Math.random() * brandHex.length)];
+      fxParticles.push({
+        x: cx + Math.cos(angle) * dist,
+        y: cy + Math.sin(angle) * dist,
+        cx: cx, cy: cy, color: c, alpha: 0.8,
+        size: 2 + Math.random() * 3, speed: 0.02 + Math.random() * 0.02,
+        orbitAngle: angle, orbitDist: dist,
+        update: function(p) {
+          p.orbitDist -= p.speed * p.orbitDist;
+          p.orbitAngle += 0.04 + (1 - p.orbitDist / 600) * 0.1;
+          p.x = p.cx + Math.cos(p.orbitAngle) * p.orbitDist;
+          p.y = p.cy + Math.sin(p.orbitAngle) * p.orbitDist;
+          if (p.orbitDist < 5) p.alpha = 0;
+          p.alpha -= 0.003;
+        },
+        draw: function(ctx, p) {
+          ctx.save(); ctx.globalAlpha = p.alpha;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = p.color; ctx.fill();
+          ctx.globalAlpha = p.alpha * 0.2;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.size * 4, 0, Math.PI * 2);
+          var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 4);
+          g.addColorStop(0, p.color); g.addColorStop(1, 'transparent');
+          ctx.fillStyle = g; ctx.fill(); ctx.restore();
+        }
+      });
+    }
+    startFxLoop();
+  }
+
+  // === EFFECT 12: Snowfall (gentle drifting flakes) ===
+  function fxSnowfall() {
+    for (var i = 0; i < 40; i++) {
+      (function(delay) {
+        setTimeout(function() {
+          fxParticles.push({
+            x: Math.random() * window.innerWidth,
+            y: -10 - Math.random() * 100,
+            vy: 0.5 + Math.random() * 1.5,
+            wobblePhase: Math.random() * Math.PI * 2,
+            size: 2 + Math.random() * 4, alpha: 0.4 + Math.random() * 0.3,
+            color: 'rgba(255,255,255,', born: performance.now(),
+            update: function(p) {
+              p.y += p.vy;
+              p.x += Math.sin((performance.now() - p.born) * 0.001 + p.wobblePhase) * 0.5;
+              if (p.y > window.innerHeight + 20) p.alpha = 0;
+            },
+            draw: function(ctx, p) {
+              ctx.save(); ctx.globalAlpha = p.alpha;
+              // 6-pointed snowflake
+              ctx.translate(p.x, p.y);
+              ctx.strokeStyle = 'rgba(255,255,255,0.8)'; ctx.lineWidth = 0.8;
+              for (var a = 0; a < 6; a++) {
+                ctx.beginPath(); ctx.moveTo(0, 0);
+                ctx.lineTo(0, -p.size);
+                ctx.moveTo(0, -p.size * 0.6); ctx.lineTo(-p.size * 0.25, -p.size * 0.8);
+                ctx.moveTo(0, -p.size * 0.6); ctx.lineTo(p.size * 0.25, -p.size * 0.8);
+                ctx.stroke(); ctx.rotate(Math.PI / 3);
+              }
+              ctx.restore();
+            }
+          });
+        }, delay);
+      })(i * 60);
+    }
+    startFxLoop();
+  }
+
+  // === MASTER: Map slide numbers to diverse effects ===
+  var slideEffects = {
+    '0': function() { fxBubbles(); },                                         // Welcome: gentle bubbles
+    '1': function() { fxEmojis(['✨','🌟','💫','⚡']); },                     // Title: sparkle emojis
+    '2': function() { fxTextRain(['0','1',':','0','0','▶','◀','●']); },       // Schedule: clock chars rain
+    '3': function() { fxDNAHelix(); },                                         // AIRL Model: DNA helix
+    '4': function() { fxPulseRings(); },                                       // Machine Cinema Is: pulse rings
+    '5': function() { fxEmojis(['👋','🎉','🙌','😎','🤩','💥']); },         // Icebreaker: party emojis
+    '6': function() { fxSpiral(); },                                           // Schnozzo: spiral burst
+    '7': function() { fxPixelDissolve(); },                                    // Meet Team: pixel dissolve
+    '8': function() { fxBubbles(); },                                          // Join Community: bubbles
+    '9': function() { fxMeteors(); },                                          // Past GenJams: meteors
+    '10': function() { fxAurora(); },                                          // Partner Koyal: aurora
+    '11': function() { fxPulseRings(); },                                      // Partner PixVerse: pulse
+    '12': function() { fxLightning(); },                                       // Partner GMI: lightning
+    '13': function() { fxEmojis(['🎬','🎥','🎞️','🍿','🎭']); },            // Challenge: film emojis
+    '14': function() { fxTextRain(['⚙','🔧','💻','🛠','📐','✏']); },       // Workflow: tool rain
+    '15': function() { fxGravityWell(); },                                     // Roles: gravity well
+    '16': function() { fxSpiral(); },                                          // Process: spiral
+    '17': function() { fxDNAHelix(); },                                        // Process Fractal: DNA
+    '18': function() { fxEmojis(['🚀','🔥','💪','⚡','🎯']); },             // Let's Dig In: energy emojis
+    '19': function() { fxSnowfall(); },                                        // Tips: gentle snowfall
+    '20': function() { fxAurora(); },                                          // Story World: aurora
+    '21': function() { fxTextRain(['A','B','C','a','b','c','…','.','!']); },  // Storytelling: letter rain
+    '22': function() { fxLightning(); },                                       // Questions: lightning
+    '23': function() { fxMeteors(); },                                         // Watch Examples: meteors
+    '24': function() { fxPixelDissolve(); },                                   // Video 1
+    '25': function() { fxBubbles(); },                                         // Video 2
+    '26': function() { fxSpiral(); },                                          // Video 3
+    '27': function() { fxPulseRings(); },                                      // Video 4
+    '28': function() { fxSnowfall(); },                                        // Video 5
+    '29': function() { fxMeteors(); },                                         // Video 6
+    '30': function() { fxEmojis(['🏆','🎬','👏','🌟','🎉']); },             // Showcase: trophy emojis
+    '31': function() { fxGravityWell(); },                                     // Submissions: gravity well
+    '32': function() { fxEmojis(['❤️','🙏','✨','🌈','🎊']); },             // Goodbye: heart emojis
+    '33': function() { fxAurora(); }                                           // Connect: aurora
+  };
+
+  // Single unified observer for per-slide effects
+  var perSlideFxObserver = new MutationObserver(function(mutations) {
     mutations.forEach(function(m) {
       if (m.target.classList && m.target.classList.contains('slide') && m.target.classList.contains('active')) {
         var slideNum = m.target.dataset.slide;
-        if (['1','5','13','18','22','23'].indexOf(slideNum) !== -1) {
-          spawnEmojiParticles();
-          requestAnimationFrame(animateEmojiParticles);
+        if (slideEffects[slideNum]) {
+          slideEffects[slideNum]();
         }
       }
     });
   });
   document.querySelectorAll('.slide').forEach(function(slide) {
-    emojiSlideObserver.observe(slide, { attributes: true, attributeFilter: ['class'] });
+    perSlideFxObserver.observe(slide, { attributes: true, attributeFilter: ['class'] });
   });
 
   // ---- Magnetic hover effect on pills and buttons ----
