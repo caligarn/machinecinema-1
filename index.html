@@ -870,13 +870,13 @@
     <canvas id="fireworks-canvas"></canvas>
     <div class="stagger" style="position: relative; z-index: 2; text-align: center;">
       <span class="pill pill-yellow">Challenge</span>
-      <h1 style="font-size: clamp(2.5rem, 6vw, 5rem); margin-bottom: 20px;">Today's <span class="color-pink">Challenge</span></h1>
+      <h1 style="font-size: clamp(2.5rem, 6vw, 5rem); margin-bottom: 20px; font-weight: 900; text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 4px 20px rgba(0,0,0,0.5);">Today's <span class="color-pink">Challenge</span></h1>
       <div class="accent-bar pink" style="margin: 12px auto 24px;"></div>
-      <h2 id="challenge-prompt" style="font-size: clamp(1.4rem, 3vw, 2.4rem); color: #b0b0c8; margin-bottom: 30px; opacity: 0;">Make a Short Film About</h2>
+      <h2 id="challenge-prompt" style="font-size: clamp(1.4rem, 3vw, 2.4rem); color: #d0d0e0; margin-bottom: 30px; opacity: 0; font-weight: 700; text-shadow: 0 2px 6px rgba(0,0,0,0.8), 0 4px 16px rgba(0,0,0,0.4);">Make a Short Film About</h2>
       <div id="drumroll-container" style="display: none; margin: 20px auto; width: 200px; height: 60px; position: relative;">
         <div id="drumroll-dots" style="display: flex; justify-content: center; align-items: center; gap: 16px; height: 100%;"></div>
       </div>
-      <h1 id="challenge-reveal" style="font-size: clamp(3rem, 8vw, 7rem); color: var(--yellow); text-shadow: 0 0 40px rgba(255,214,0,0.6), 0 0 80px rgba(255,214,0,0.3); opacity: 0; transform: translateY(120px) scale(0.3); transition: none; white-space: nowrap;">
+      <h1 id="challenge-reveal" style="font-size: clamp(3rem, 8vw, 7rem); color: var(--yellow); font-weight: 900; text-shadow: 0 0 40px rgba(255,214,0,0.6), 0 0 80px rgba(255,214,0,0.3), 0 3px 10px rgba(0,0,0,0.9), 0 6px 30px rgba(0,0,0,0.5); opacity: 0; transform: translateY(120px) scale(0.3); transition: none; white-space: nowrap;">
         Movie Night
       </h1>
     </div>
@@ -2116,6 +2116,29 @@
 
   function randomRange(min, max) { return min + Math.random() * (max - min); }
 
+  // Returns a random position along the edges/sides of the screen,
+  // avoiding the center 40% zone
+  function randomEdgePos(W, H, spriteSize) {
+    // Pick a side: 0=left, 1=right, 2=top, 3=bottom
+    var side = Math.floor(Math.random() * 4);
+    var edgeDepth = W * 0.25; // how far from edge sprites can go
+    var x, y;
+    if (side === 0) { // left
+      x = randomRange(-spriteSize * 0.5, edgeDepth);
+      y = randomRange(-spriteSize * 0.5, H);
+    } else if (side === 1) { // right
+      x = randomRange(W - edgeDepth, W - spriteSize * 0.5);
+      y = randomRange(-spriteSize * 0.5, H);
+    } else if (side === 2) { // top
+      x = randomRange(-spriteSize * 0.5, W);
+      y = randomRange(-spriteSize * 0.5, H * 0.25);
+    } else { // bottom
+      x = randomRange(-spriteSize * 0.5, W);
+      y = randomRange(H * 0.75, H);
+    }
+    return { x: x, y: y };
+  }
+
   function SchnozzoSprite() {
     this.el = document.createElement('img');
     this.el.className = 'schnozzo-sprite';
@@ -2156,20 +2179,22 @@
     var H = window.innerHeight;
 
     switch (this.animType) {
-      case ANIM_FLOAT: // gentle float
-        this.x = randomRange(-this.size, W);
-        this.y = randomRange(-this.size, H);
-        this.vx = randomRange(-0.3, 0.3);
-        this.vy = randomRange(-0.2, 0.2);
-        this.floatAmpX = randomRange(15, 50);
-        this.floatAmpY = randomRange(10, 40);
+      case ANIM_FLOAT: // gentle float along edges
+        var fp = randomEdgePos(W, H, this.size);
+        this.x = fp.x;
+        this.y = fp.y;
+        this.vx = randomRange(-0.2, 0.2);
+        this.vy = randomRange(-0.15, 0.15);
+        this.floatAmpX = randomRange(15, 40);
+        this.floatAmpY = randomRange(10, 30);
         this.floatPhase = randomRange(0, Math.PI * 2);
         this.floatSpeed = randomRange(0.2, 0.7);
         break;
 
-      case ANIM_BOUNCE: // bounce off edges
-        this.x = randomRange(0, W - this.size);
-        this.y = randomRange(0, H - this.size);
+      case ANIM_BOUNCE: // bounce along edges, never entering center
+        var bp = randomEdgePos(W, H, this.size);
+        this.x = bp.x;
+        this.y = bp.y;
         this.vx = randomRange(0.5, 2) * (Math.random() > 0.5 ? 1 : -1);
         this.vy = randomRange(0.5, 2) * (Math.random() > 0.5 ? 1 : -1);
         break;
@@ -2182,8 +2207,9 @@
         else { this.x = randomRange(0, W); this.y = H + 20; this.vx = randomRange(-0.5, 0.5); this.vy = randomRange(-3, -1); }
         break;
 
-      case ANIM_DRIFT: // slow lazy drift with wobble
-        this.x = randomRange(0, W);
+      case ANIM_DRIFT: // slow lazy drift along sides
+        // Stick to left or right edge
+        this.x = Math.random() > 0.5 ? randomRange(-this.size * 0.5, W * 0.25) : randomRange(W * 0.75, W);
         this.y = initial ? randomRange(0, H) : -this.size - 20;
         this.vx = randomRange(-0.15, 0.15);
         this.vy = randomRange(0.3, 1.0);
@@ -2225,15 +2251,32 @@
         if (this.x < -this.size * 2) { this.x = W; this.startX = this.x - this.vx * t * 60; }
         if (this.y > H + this.size) { this.y = -this.size; this.startY = this.y - this.vy * t * 60; }
         if (this.y < -this.size * 2) { this.y = H; this.startY = this.y - this.vy * t * 60; }
+        // Nudge away from center
+        var fcx = this.x + this.size / 2, fcy = this.y + this.size / 2;
+        if (Math.abs(fcx - W / 2) < W * 0.3 && Math.abs(fcy - H / 2) < H * 0.3) {
+          this.startX += (fcx < W / 2 ? -0.5 : 0.5);
+          this.startY += (fcy < H / 2 ? -0.5 : 0.5);
+        }
         break;
 
       case ANIM_BOUNCE:
         this.x += this.vx;
         this.y += this.vy;
+        // Bounce off screen edges
         if (this.x <= 0 || this.x >= W - this.size) { this.vx *= -1; this.rotSpeed *= -1; }
         if (this.y <= 0 || this.y >= H - this.size) { this.vy *= -1; this.rotSpeed *= -1; }
         this.x = Math.max(0, Math.min(this.x, W - this.size));
         this.y = Math.max(0, Math.min(this.y, H - this.size));
+        // Deflect away from center zone
+        var cx = this.x + this.size / 2;
+        var cy = this.y + this.size / 2;
+        var centerX = W / 2, centerY = H / 2;
+        var zoneW = W * 0.35, zoneH = H * 0.35;
+        if (Math.abs(cx - centerX) < zoneW && Math.abs(cy - centerY) < zoneH) {
+          // Push velocity away from center
+          this.vx += (cx < centerX ? -0.3 : 0.3);
+          this.vy += (cy < centerY ? -0.3 : 0.3);
+        }
         break;
 
       case ANIM_DRIFT:
