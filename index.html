@@ -497,13 +497,19 @@
   }
 
   .lcp-word {
-    font-family: var(--font-display);
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
-    font-weight: 700;
+    font-family: var(--font-primary);
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    font-weight: 800;
     color: #b0b0c8;
     font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     display: inline-block;
     will-change: transform, opacity;
+    text-shadow: 0 0 0 transparent;
+  }
+  .lcp-word.landed {
+    text-shadow: 0 0 30px rgba(255,255,255,0.8), 0 0 60px rgba(255,45,85,0.4);
   }
 
   /* ---- Fireworks canvas for challenge slide ---- */
@@ -576,9 +582,9 @@
       <img src="w4.png" alt="Machine Cinema" style="max-width: 350px; width: 70%; margin-top: 8px; margin-bottom: 4px;">
       <div class="accent-bar pink" style="margin: 16px auto 20px;"></div>
       <div id="lcp-container" style="display: flex; gap: 20px; justify-content: center; overflow: visible;">
-        <span class="lcp-word" id="lcp-learn" style="opacity: 0; transform: translateX(-400px) rotate(-15deg);">Learn,</span>
-        <span class="lcp-word" id="lcp-create" style="opacity: 0; transform: translateY(-400px) rotate(10deg);">Create,</span>
-        <span class="lcp-word" id="lcp-play" style="opacity: 0; transform: translateX(400px) rotate(15deg);">Play.</span>
+        <span class="lcp-word" id="lcp-learn" style="opacity: 0; transform: translate(-1200px, 200px) rotate(-35deg) scale(2.5);">Learn,</span>
+        <span class="lcp-word" id="lcp-create" style="opacity: 0; transform: translate(0, -1000px) rotate(20deg) scale(2.5);">Create,</span>
+        <span class="lcp-word" id="lcp-play" style="opacity: 0; transform: translate(1200px, 150px) rotate(35deg) scale(2.5);">Play.</span>
       </div>
     </div>
     <div class="marquee-wrap">
@@ -634,7 +640,7 @@
     <div class="deco-circle" style="width:250px;height:250px;top:-5%;right:-4%;border-color:var(--pink);"></div>
     <div class="stagger">
       <span class="pill pill-dark">Who We Are</span>
-      <h2>Machine Cinema <span class="color-pink">Is</span></h2>
+      <h2><img src="black5.png" alt="Machine Cinema" style="max-width: 300px; width: 60%; vertical-align: middle; margin-right: 10px;"><span class="color-pink">Is</span></h2>
       <div class="accent-bar dark" style="margin: 12px auto 20px;"></div>
       <div class="cards" style="max-width: 1000px; grid-template-columns: repeat(2, 1fr);">
         <div class="card card-yellow centered">
@@ -1268,9 +1274,9 @@
       var lw = document.getElementById('lcp-learn');
       var cw = document.getElementById('lcp-create');
       var pw = document.getElementById('lcp-play');
-      if (lw) { lw.style.transition='none'; lw.style.opacity='0'; lw.style.transform='translateX(-400px) rotate(-15deg)'; lw.style.color=''; }
-      if (cw) { cw.style.transition='none'; cw.style.opacity='0'; cw.style.transform='translateY(-400px) rotate(10deg)'; cw.style.color=''; }
-      if (pw) { pw.style.transition='none'; pw.style.opacity='0'; pw.style.transform='translateX(400px) rotate(15deg)'; pw.style.color=''; }
+      if (lw) { lw.style.transition='none'; lw.style.opacity='0'; lw.style.transform='translate(-1200px,200px) rotate(-35deg) scale(2.5)'; lw.style.color=''; lw.style.textShadow=''; lw.classList.remove('landed'); }
+      if (cw) { cw.style.transition='none'; cw.style.opacity='0'; cw.style.transform='translate(0,-1000px) rotate(20deg) scale(2.5)'; cw.style.color=''; cw.style.textShadow=''; cw.classList.remove('landed'); }
+      if (pw) { pw.style.transition='none'; pw.style.opacity='0'; pw.style.transform='translate(1200px,150px) rotate(35deg) scale(2.5)'; pw.style.color=''; pw.style.textShadow=''; pw.classList.remove('landed'); }
     }
 
     // Start countdown timer on slide 20
@@ -1419,15 +1425,15 @@
   function GlassShard(x, y) {
     this.x = x; this.y = y;
     var angle = Math.random() * Math.PI * 2;
-    var speed = Math.random() * 14 + 4;
+    var speed = Math.random() * 20 + 6;
     this.vx = Math.cos(angle) * speed;
-    this.vy = Math.sin(angle) * speed - 3;
+    this.vy = Math.sin(angle) * speed - 5;
     this.rotation = Math.random() * Math.PI * 2;
-    this.rotSpeed = (Math.random() - 0.5) * 0.3;
+    this.rotSpeed = (Math.random() - 0.5) * 0.5;
     this.alpha = 1;
-    this.decay = Math.random() * 0.012 + 0.006;
-    this.width = Math.random() * 18 + 4;
-    this.height = Math.random() * 12 + 3;
+    this.decay = Math.random() * 0.008 + 0.004;
+    this.width = Math.random() * 28 + 6;
+    this.height = Math.random() * 18 + 4;
     this.color = glassColors[Math.floor(Math.random() * glassColors.length)];
     this.gravity = 0.15;
     this.shimmer = Math.random();
@@ -1484,10 +1490,10 @@
   }
 
   function spawnGlassShatter(centerX, centerY) {
-    var count = 80 + Math.floor(Math.random() * 40);
+    var count = 160 + Math.floor(Math.random() * 80);
     for (var i = 0; i < count; i++) {
-      var ox = (Math.random() - 0.5) * 200;
-      var oy = (Math.random() - 0.5) * 60;
+      var ox = (Math.random() - 0.5) * 400;
+      var oy = (Math.random() - 0.5) * 120;
       glassShards.push(new GlassShard(centerX + ox, centerY + oy));
     }
     glassRunning = true;
@@ -1497,29 +1503,37 @@
   function animateWordIn(el, delay, fromX, fromY, fromRot, onDone) {
     el.style.transition = 'none';
     el.style.opacity = '0';
-    el.style.transform = 'translate(' + fromX + 'px, ' + fromY + 'px) rotate(' + fromRot + 'deg)';
+    el.classList.remove('landed');
+    el.style.transform = 'translate(' + fromX + 'px, ' + fromY + 'px) rotate(' + fromRot + 'deg) scale(2.5)';
     setTimeout(function() {
       var start = performance.now();
-      var duration = 600;
+      var duration = 800;
       function tick(now) {
         var t = Math.min((now - start) / duration, 1);
-        // elastic easeOut
-        var p = 1 - Math.pow(1 - t, 3);
-        if (t > 0.7) {
-          // bounce overshoot
-          var bounce = Math.sin((t - 0.7) * Math.PI / 0.3) * 0.05 * (1 - t);
-          p += bounce;
+        // powerful elastic ease-out with overshoot
+        var p;
+        if (t < 0.6) {
+          p = 1 - Math.pow(1 - (t / 0.6), 2);
+          p *= 1.15; // overshoot
+        } else {
+          // settle back from overshoot
+          var st = (t - 0.6) / 0.4;
+          p = 1.15 - 0.15 * st;
+          // add a bounce
+          p += Math.sin(st * Math.PI * 2) * 0.04 * (1 - st);
         }
         var curX = fromX * (1 - p);
         var curY = fromY * (1 - p);
         var curR = fromRot * (1 - p);
-        el.style.opacity = String(Math.min(t * 2, 1));
-        el.style.transform = 'translate(' + curX + 'px, ' + curY + 'px) rotate(' + curR + 'deg)';
+        var curScale = 2.5 + (1 - 2.5) * p;
+        el.style.opacity = String(Math.min(t * 3, 1));
+        el.style.transform = 'translate(' + curX + 'px, ' + curY + 'px) rotate(' + curR + 'deg) scale(' + curScale + ')';
         if (t < 1) {
           requestAnimationFrame(tick);
         } else {
-          el.style.transform = 'translate(0,0) rotate(0deg)';
+          el.style.transform = 'translate(0,0) rotate(0deg) scale(1)';
           el.style.opacity = '1';
+          el.classList.add('landed');
           if (onDone) onDone();
         }
       }
@@ -1547,44 +1561,57 @@
         var cx = rect.left - slideRect.left + rect.width / 2;
         var cy = rect.top - slideRect.top + rect.height / 2;
 
-        // Screen shake
+        // Heavy screen shake
         var titleSlide = document.getElementById('title-slide');
         titleSlide.style.transition = 'none';
         var shakeCount = 0;
+        var shakeIntensity = 18;
         var shakeInt = setInterval(function() {
-          var sx = (Math.random() - 0.5) * 8;
-          var sy = (Math.random() - 0.5) * 8;
+          var sx = (Math.random() - 0.5) * shakeIntensity;
+          var sy = (Math.random() - 0.5) * shakeIntensity;
           titleSlide.querySelector('.stagger').style.transform = 'translate(' + sx + 'px,' + sy + 'px)';
           shakeCount++;
-          if (shakeCount > 8) {
+          shakeIntensity *= 0.88;
+          if (shakeCount > 16) {
             clearInterval(shakeInt);
             titleSlide.querySelector('.stagger').style.transform = '';
           }
-        }, 30);
+        }, 25);
 
-        // Bright flash on the words
+        // Bright flash on the words + white flash overlay
         learn.style.color = '#fff';
         create.style.color = '#fff';
         play.style.color = '#fff';
+        learn.style.textShadow = '0 0 60px #fff, 0 0 120px var(--pink)';
+        create.style.textShadow = '0 0 60px #fff, 0 0 120px var(--yellow)';
+        play.style.textShadow = '0 0 60px #fff, 0 0 120px var(--lime)';
+        // Flash the whole canvas white briefly
+        glassCtx.globalCompositeOperation = 'source-over';
+        glassCtx.fillStyle = 'rgba(255,255,255,0.7)';
+        glassCtx.fillRect(0, 0, glassCanvas.width, glassCanvas.height);
         setTimeout(function() {
-          learn.style.transition = 'color 0.8s ease';
-          create.style.transition = 'color 0.8s ease';
-          play.style.transition = 'color 0.8s ease';
+          learn.style.transition = 'color 1.2s ease, text-shadow 1.2s ease';
+          create.style.transition = 'color 1.2s ease, text-shadow 1.2s ease';
+          play.style.transition = 'color 1.2s ease, text-shadow 1.2s ease';
           learn.style.color = '';
           create.style.color = '';
           play.style.color = '';
-        }, 150);
+          learn.style.textShadow = '';
+          create.style.textShadow = '';
+          play.style.textShadow = '';
+        }, 200);
 
+        // Triple wave glass shatter for massive impact
         spawnGlassShatter(cx, cy);
-        // Second burst slightly delayed
-        setTimeout(function() { spawnGlassShatter(cx, cy); }, 120);
+        setTimeout(function() { spawnGlassShatter(cx, cy); }, 100);
+        setTimeout(function() { spawnGlassShatter(cx, cy); }, 250);
       }
     }
 
-    // Fly words in from different directions, staggered
-    animateWordIn(learn, 400, -500, 100, -20, onLand);
-    animateWordIn(create, 650, 0, -500, 12, onLand);
-    animateWordIn(play, 900, 500, 80, 18, onLand);
+    // Fly words in from far away with big rotation, staggered
+    animateWordIn(learn, 400, -1200, 200, -35, onLand);
+    animateWordIn(create, 700, 0, -1000, 20, onLand);
+    animateWordIn(play, 1000, 1200, 150, 35, onLand);
   }
 
   // ---- Fireworks + Challenge Reveal System ----
