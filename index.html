@@ -44,6 +44,7 @@
     position: fixed; top: 0; left: 0;
     width: 100%; height: 100%;
     z-index: 0; pointer-events: none;
+    transition: opacity 1.2s ease;
   }
 
   /* ---- Slide container ---- */
@@ -1102,6 +1103,13 @@
           <h4 style="font-size: 0.9rem;">WIP Salon / Jobs</h4>
         </div>
       </div>
+      <div style="display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; justify-content: center;">
+        <a href="https://machinecinema.ai" target="_blank" style="color: #0d0d1a; text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; padding: 6px 16px; background: var(--lime); border-radius: 30px;">machinecinema.ai</a>
+        <a href="https://text.machinecinema.ai" target="_blank" style="color: #0d0d1a; text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; padding: 6px 16px; background: var(--yellow); border-radius: 30px;">Substack</a>
+        <a href="https://instagram.com/machinecinema" target="_blank" style="color: #fff; text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; padding: 6px 16px; background: var(--pink); border-radius: 30px;">Instagram</a>
+        <a href="https://x.com/machinecinemaAI" target="_blank" style="color: #0d0d1a; text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; padding: 6px 16px; background: var(--yellow); border-radius: 30px;">X / Twitter</a>
+        <a href="https://linkedin.com/company/machinecinema" target="_blank" style="color: #fff; text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; padding: 6px 16px; background: var(--orange); border-radius: 30px;">LinkedIn</a>
+      </div>
     </div>
   </div>
 
@@ -1137,7 +1145,7 @@
     <div class="deco-dot" style="bottom:12%;right:14%;background:var(--lime);width:18px;height:18px;opacity:0.5;"></div>
     <div class="stagger">
       <span class="pill pill-white">Partner</span>
-      <img src="pixverse-logo-1.svg" alt="PixVerse" style="max-width: 4800px; width: 285%;">
+      <img src="pixverse-logo-1.svg" alt="PixVerse" style="max-width: 4800px; width: 285%; position: relative; left: 50%; transform: translateX(-50%);">
     </div>
   </div>
 
@@ -1168,8 +1176,17 @@
     </div>
   </div>
 
-  <!-- SLIDE 15: Today's Workflow & Tools -->
-  <div class="slide slide-lime centered" data-slide="15">
+  <!-- SLIDE 15: Let's Dig In -->
+  <div class="slide slide-pink centered" data-slide="15" data-dots="light">
+    <div class="deco-dot" style="top:15%;right:15%;background:var(--yellow);width:30px;height:30px;opacity:0.5;"></div>
+    <div class="deco-dot" style="bottom:20%;left:10%;background:var(--lime);width:24px;height:24px;opacity:0.5;"></div>
+    <div class="stagger">
+      <h1 style="font-size: clamp(3.5rem, 10vw, 8rem);">Let's<br>Dig In</h1>
+    </div>
+  </div>
+
+  <!-- SLIDE 16: Today's Workflow & Tools -->
+  <div class="slide slide-lime centered" data-slide="16">
     <div class="stagger">
       <span class="pill pill-dark">Workshop</span>
       <h2>Today's Workflow<br>&amp; <span style="color: var(--pink);">Tools</span></h2>
@@ -1194,8 +1211,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 16: Roles -->
-  <div class="slide centered" data-slide="16">
+  <!-- SLIDE 17: Roles -->
+  <div class="slide centered" data-slide="17">
     <div class="stagger">
       <span class="pill pill-pink">Team Up</span>
       <h2><span class="color-pink">Roles</span></h2>
@@ -1228,8 +1245,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 17: The Process -->
-  <div class="slide slide-dark centered" data-slide="17" data-dots="light">
+  <!-- SLIDE 18: The Process -->
+  <div class="slide slide-dark centered" data-slide="18" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">The Method</span>
       <h2>The <span class="color-yellow">Process</span></h2>
@@ -1253,119 +1270,111 @@
     </div>
   </div>
 
-  <!-- SLIDE 18: The Process - Fractal -->
-  <div class="slide slide-dark centered" data-slide="18" data-dots="light">
+  <!-- SLIDE 19: The Process - Fractal -->
+  <div class="slide slide-dark centered" data-slide="19" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">The Method</span>
       <h2>The <span class="color-yellow">Process</span> — Expanded</h2>
       <div class="accent-bar yellow" style="margin: 12px auto 16px;"></div>
       <div class="fractal-wrap">
-        <svg viewBox="0 0 1200 760" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
           <style>
-            .sv-box { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 17px; text-anchor: middle; dominant-baseline: central; text-transform: uppercase; letter-spacing: 0.04em; }
-            .sv-box-lg { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 16px; text-anchor: middle; dominant-baseline: central; text-transform: uppercase; letter-spacing: 0.04em; }
-            .sv-hdr { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 13px; text-anchor: middle; dominant-baseline: central; text-transform: uppercase; letter-spacing: 0.12em; fill: rgba(255,255,255,0.55); }
+            .sv-box { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 21px; text-anchor: middle; dominant-baseline: central; text-transform: uppercase; letter-spacing: 0.04em; }
+            .sv-box-lg { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 20px; text-anchor: middle; dominant-baseline: central; text-transform: uppercase; letter-spacing: 0.04em; }
+            .sv-hdr { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 16px; text-anchor: middle; dominant-baseline: central; text-transform: uppercase; letter-spacing: 0.12em; fill: rgba(255,255,255,0.55); }
           </style>
           <!-- Connection lines -->
-          <line x1="110" y1="400" x2="138" y2="400" stroke="#FFD60A" stroke-width="2.5"/>
-          <!-- Script fan-out -->
-          <line x1="308" y1="400" x2="382" y2="120" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-          <line x1="308" y1="400" x2="382" y2="230" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-          <line x1="308" y1="400" x2="382" y2="340" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-          <line x1="308" y1="400" x2="382" y2="450" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-          <line x1="308" y1="400" x2="382" y2="560" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-          <line x1="308" y1="400" x2="382" y2="670" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-          <!-- Shot → IMG -->
-          <line x1="502" y1="120" x2="588" y2="120" stroke="#BFFF00" stroke-width="2"/>
-          <line x1="502" y1="230" x2="588" y2="230" stroke="#BFFF00" stroke-width="2"/>
-          <line x1="502" y1="340" x2="588" y2="340" stroke="#BFFF00" stroke-width="2"/>
-          <line x1="502" y1="450" x2="588" y2="450" stroke="#BFFF00" stroke-width="2"/>
-          <line x1="502" y1="560" x2="588" y2="560" stroke="#BFFF00" stroke-width="2"/>
-          <line x1="502" y1="670" x2="588" y2="670" stroke="#BFFF00" stroke-width="2"/>
-          <!-- IMG → VID -->
-          <line x1="692" y1="120" x2="788" y2="120" stroke="#FF9500" stroke-width="2"/>
-          <line x1="692" y1="230" x2="788" y2="230" stroke="#FF9500" stroke-width="2"/>
-          <line x1="692" y1="340" x2="788" y2="340" stroke="#FF9500" stroke-width="2"/>
-          <line x1="692" y1="450" x2="788" y2="450" stroke="#FF9500" stroke-width="2"/>
-          <line x1="692" y1="560" x2="788" y2="560" stroke="#FF9500" stroke-width="2"/>
-          <line x1="692" y1="670" x2="788" y2="670" stroke="#FF9500" stroke-width="2"/>
-          <!-- VID → Sound & Edit -->
-          <line x1="892" y1="120" x2="1018" y2="400" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-          <line x1="892" y1="230" x2="1018" y2="400" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-          <line x1="892" y1="340" x2="1018" y2="400" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-          <line x1="892" y1="450" x2="1018" y2="400" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-          <line x1="892" y1="560" x2="1018" y2="400" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-          <line x1="892" y1="670" x2="1018" y2="400" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <!-- Idea → Script -->
+          <line x1="125" y1="410" x2="148" y2="410" stroke="#FFD60A" stroke-width="2.5"/>
+          <!-- Script fan-out (right edge 338 → shot left edge 370) -->
+          <line x1="338" y1="410" x2="370" y2="110" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="338" y1="410" x2="370" y2="230" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="338" y1="410" x2="370" y2="350" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="338" y1="410" x2="370" y2="470" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="338" y1="410" x2="370" y2="590" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="338" y1="410" x2="370" y2="710" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <!-- Shot → IMG (right 510 → left 580) -->
+          <line x1="510" y1="110" x2="580" y2="110" stroke="#BFFF00" stroke-width="2"/>
+          <line x1="510" y1="230" x2="580" y2="230" stroke="#BFFF00" stroke-width="2"/>
+          <line x1="510" y1="350" x2="580" y2="350" stroke="#BFFF00" stroke-width="2"/>
+          <line x1="510" y1="470" x2="580" y2="470" stroke="#BFFF00" stroke-width="2"/>
+          <line x1="510" y1="590" x2="580" y2="590" stroke="#BFFF00" stroke-width="2"/>
+          <line x1="510" y1="710" x2="580" y2="710" stroke="#BFFF00" stroke-width="2"/>
+          <!-- IMG → VID (right 700 → left 780) -->
+          <line x1="700" y1="110" x2="780" y2="110" stroke="#FF9500" stroke-width="2"/>
+          <line x1="700" y1="230" x2="780" y2="230" stroke="#FF9500" stroke-width="2"/>
+          <line x1="700" y1="350" x2="780" y2="350" stroke="#FF9500" stroke-width="2"/>
+          <line x1="700" y1="470" x2="780" y2="470" stroke="#FF9500" stroke-width="2"/>
+          <line x1="700" y1="590" x2="780" y2="590" stroke="#FF9500" stroke-width="2"/>
+          <line x1="700" y1="710" x2="780" y2="710" stroke="#FF9500" stroke-width="2"/>
+          <!-- VID → Sound & Edit (right 900 → left 1010) -->
+          <line x1="900" y1="110" x2="1010" y2="410" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="900" y1="230" x2="1010" y2="410" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="900" y1="350" x2="1010" y2="410" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="900" y1="470" x2="1010" y2="410" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="900" y1="590" x2="1010" y2="410" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="900" y1="710" x2="1010" y2="410" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
 
           <!-- Column headers -->
-          <text class="sv-hdr" x="442" y="55">Shotlist</text>
-          <text class="sv-hdr" x="640" y="55">Txt&#x2011;2&#x2011;Img</text>
-          <text class="sv-hdr" x="840" y="55">Img&#x2011;2&#x2011;Vid</text>
+          <text class="sv-hdr" x="440" y="48">Shotlist</text>
+          <text class="sv-hdr" x="640" y="48">Txt&#x2011;2&#x2011;Img</text>
+          <text class="sv-hdr" x="840" y="48">Img&#x2011;2&#x2011;Vid</text>
 
           <!-- Idea -->
-          <rect x="18" y="376" width="92" height="48" rx="12" fill="#FFD60A" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box-lg" x="64" y="400" fill="#0d0d1a">Idea</text>
+          <rect x="15" y="382" width="110" height="56" rx="14" fill="#FFD60A" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box-lg" x="70" y="410" fill="#0d0d1a">Idea</text>
 
           <!-- Script / Story -->
-          <rect x="138" y="372" width="170" height="56" rx="12" fill="#FFD60A" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box-lg" x="223" y="400" fill="#0d0d1a">Script / Story</text>
+          <rect x="148" y="378" width="190" height="64" rx="14" fill="#FFD60A" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box-lg" x="243" y="410" fill="#0d0d1a">Script / Story</text>
 
-          <!-- Shot column — center x=442, width=120 → x=382..502 -->
-          <rect x="382" y="99" width="120" height="42" rx="12" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box" x="442" y="120" fill="#fff">Shot 1</text>
-          <rect x="382" y="209" width="120" height="42" rx="12" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box" x="442" y="230" fill="#fff">Shot 2</text>
-          <rect x="382" y="319" width="120" height="42" rx="12" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box" x="442" y="340" fill="#fff">Shot 3</text>
-          <rect x="382" y="429" width="120" height="42" rx="12" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box" x="442" y="450" fill="#fff">Shot 4</text>
-          <rect x="382" y="539" width="120" height="42" rx="12" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box" x="442" y="560" fill="#fff">Shot 5</text>
-          <rect x="382" y="649" width="120" height="42" rx="12" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box" x="442" y="670" fill="#fff">Shot 6</text>
+          <!-- Shot column — center x=440, width=140 → x=370..510 -->
+          <rect x="370" y="84" width="140" height="52" rx="14" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="440" y="110" fill="#fff">Shot 1</text>
+          <rect x="370" y="204" width="140" height="52" rx="14" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="440" y="230" fill="#fff">Shot 2</text>
+          <rect x="370" y="324" width="140" height="52" rx="14" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="440" y="350" fill="#fff">Shot 3</text>
+          <rect x="370" y="444" width="140" height="52" rx="14" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="440" y="470" fill="#fff">Shot 4</text>
+          <rect x="370" y="564" width="140" height="52" rx="14" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="440" y="590" fill="#fff">Shot 5</text>
+          <rect x="370" y="684" width="140" height="52" rx="14" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="440" y="710" fill="#fff">Shot 6</text>
 
-          <!-- IMG column — center x=640, width=104 → x=588..692 -->
-          <rect x="588" y="99" width="104" height="42" rx="12" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box" x="640" y="120" fill="#0d0d1a">IMG</text>
-          <rect x="588" y="209" width="104" height="42" rx="12" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <!-- IMG column — center x=640, width=120 → x=580..700 -->
+          <rect x="580" y="84" width="120" height="52" rx="14" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="640" y="110" fill="#0d0d1a">IMG</text>
+          <rect x="580" y="204" width="120" height="52" rx="14" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
           <text class="sv-box" x="640" y="230" fill="#0d0d1a">IMG</text>
-          <rect x="588" y="319" width="104" height="42" rx="12" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box" x="640" y="340" fill="#0d0d1a">IMG</text>
-          <rect x="588" y="429" width="104" height="42" rx="12" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box" x="640" y="450" fill="#0d0d1a">IMG</text>
-          <rect x="588" y="539" width="104" height="42" rx="12" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box" x="640" y="560" fill="#0d0d1a">IMG</text>
-          <rect x="588" y="649" width="104" height="42" rx="12" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box" x="640" y="670" fill="#0d0d1a">IMG</text>
+          <rect x="580" y="324" width="120" height="52" rx="14" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="640" y="350" fill="#0d0d1a">IMG</text>
+          <rect x="580" y="444" width="120" height="52" rx="14" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="640" y="470" fill="#0d0d1a">IMG</text>
+          <rect x="580" y="564" width="120" height="52" rx="14" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="640" y="590" fill="#0d0d1a">IMG</text>
+          <rect x="580" y="684" width="120" height="52" rx="14" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="640" y="710" fill="#0d0d1a">IMG</text>
 
-          <!-- VID column — center x=840, width=104 → x=788..892 -->
-          <rect x="788" y="99" width="104" height="42" rx="12" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box" x="840" y="120" fill="#fff">VID</text>
-          <rect x="788" y="209" width="104" height="42" rx="12" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <!-- VID column — center x=840, width=120 → x=780..900 -->
+          <rect x="780" y="84" width="120" height="52" rx="14" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="840" y="110" fill="#fff">VID</text>
+          <rect x="780" y="204" width="120" height="52" rx="14" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
           <text class="sv-box" x="840" y="230" fill="#fff">VID</text>
-          <rect x="788" y="319" width="104" height="42" rx="12" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box" x="840" y="340" fill="#fff">VID</text>
-          <rect x="788" y="429" width="104" height="42" rx="12" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box" x="840" y="450" fill="#fff">VID</text>
-          <rect x="788" y="539" width="104" height="42" rx="12" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box" x="840" y="560" fill="#fff">VID</text>
-          <rect x="788" y="649" width="104" height="42" rx="12" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box" x="840" y="670" fill="#fff">VID</text>
+          <rect x="780" y="324" width="120" height="52" rx="14" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="840" y="350" fill="#fff">VID</text>
+          <rect x="780" y="444" width="120" height="52" rx="14" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="840" y="470" fill="#fff">VID</text>
+          <rect x="780" y="564" width="120" height="52" rx="14" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="840" y="590" fill="#fff">VID</text>
+          <rect x="780" y="684" width="120" height="52" rx="14" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="840" y="710" fill="#fff">VID</text>
 
           <!-- Sound & Edit -->
-          <rect x="1018" y="372" width="168" height="56" rx="12" fill="#f5f5f7" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
-          <text class="sv-box-lg" x="1102" y="400" fill="#0d0d1a">Sound &amp; Edit</text>
+          <rect x="1010" y="378" width="180" height="64" rx="14" fill="#f5f5f7" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box-lg" x="1100" y="410" fill="#0d0d1a">Sound &amp; Edit</text>
         </svg>
       </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 19: Let's Dig In -->
-  <div class="slide slide-pink centered" data-slide="19" data-dots="light">
-    <div class="deco-dot" style="top:15%;right:15%;background:var(--yellow);width:30px;height:30px;opacity:0.5;"></div>
-    <div class="deco-dot" style="bottom:20%;left:10%;background:var(--lime);width:24px;height:24px;opacity:0.5;"></div>
-    <div class="stagger">
-      <h1 style="font-size: clamp(3.5rem, 10vw, 8rem);">Let's<br>Dig In</h1>
     </div>
   </div>
 
@@ -1908,7 +1917,7 @@
     updateProgress();
 
     // Confetti burst on certain fun slides
-    var confettiSlides = ['5','6','14','19','23'];
+    var confettiSlides = ['5','6','14','15','23'];
     if (confettiSlides.indexOf(next.dataset.slide) !== -1) {
       spawnConfetti();
     }
@@ -1976,6 +1985,20 @@
     // Reset typewriter when leaving storytelling slide
     if (prev.dataset.slide === '22' && index !== 22) {
       resetTypewriter();
+    }
+
+    // Fade out constellation particles on video embed slides
+    var pCanvas = document.getElementById('particle-canvas');
+    if (next.querySelector('.video-embed-full')) {
+      // Show briefly on entry, then fade out
+      pCanvas.style.opacity = '1';
+      if (window._particleFadeTimer) clearTimeout(window._particleFadeTimer);
+      window._particleFadeTimer = setTimeout(function() {
+        pCanvas.style.opacity = '0';
+      }, 1200);
+    } else {
+      if (window._particleFadeTimer) { clearTimeout(window._particleFadeTimer); window._particleFadeTimer = null; }
+      pCanvas.style.opacity = '1';
     }
 
     setTimeout(function() {
@@ -3585,7 +3608,7 @@
     '16': function() { fxGravityWell(); },                                     // Roles: gravity well
     '17': function() { fxSpiral(); },                                          // Process: spiral
     '18': function() { fxDNAHelix(); },                                        // Process Fractal: DNA
-    '19': function() { fxEmojis(['🚀','🔥','💪','⚡','🎯']); },             // Let's Dig In: energy emojis
+    '15': function() { fxEmojis(['🚀','🔥','💪','⚡','🎯']); },             // Let's Dig In: energy emojis
     '20': function() { fxSnowfall(); },                                        // Tips: gentle snowfall
     '21': function() { fxAurora(); },                                          // Story World: aurora
     '22': function() { fxTextRain(['A','B','C','a','b','c','…','.','!']); },  // Storytelling: letter rain
@@ -3999,7 +4022,7 @@
       if (m.target.classList && m.target.classList.contains('slide') && m.target.classList.contains('active')) {
         var slideNum = m.target.dataset.slide;
         // Trigger ring burst on key transition slides
-        if (['1','5','14','19','23','33','34'].indexOf(slideNum) !== -1) {
+        if (['1','5','14','15','23','33','34'].indexOf(slideNum) !== -1) {
           spawnRingBurst();
         }
       }
