@@ -489,6 +489,27 @@
     filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));
   }
 
+  /* ---- Past GenJams gallery + fireworks ---- */
+  #genjam-fireworks-canvas {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 2; pointer-events: none;
+  }
+  .past-genjams-gallery {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1; pointer-events: none;
+    overflow: hidden;
+  }
+  .gj-photo {
+    position: absolute;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+    object-fit: cover;
+    will-change: transform, opacity;
+    border: 3px solid rgba(255,255,255,0.15);
+  }
+
   /* ---- Glass shatter canvas for title slide ---- */
   #glass-canvas {
     position: absolute; top: 0; left: 0;
@@ -668,8 +689,25 @@
     </div>
   </div>
 
-  <!-- SLIDE 4: Partner — Koyal -->
-  <div class="slide slide-dark centered" data-slide="4" data-dots="light">
+  <!-- SLIDE 4: Past GenJams -->
+  <div class="slide slide-dark centered" data-slide="4" data-dots="light" id="past-genjams-slide">
+    <canvas id="genjam-fireworks-canvas"></canvas>
+    <div class="past-genjams-gallery" id="past-genjams-gallery"></div>
+    <div class="stagger" style="position: relative; z-index: 3; text-align: center;">
+      <span class="pill pill-yellow">Our Journey</span>
+      <h1 style="font-size: clamp(2.5rem, 6vw, 5rem); color: #fff; margin-bottom: 10px;">Past <span class="color-pink">GenJams</span></h1>
+      <div class="accent-bar pink" style="margin: 12px auto 20px;"></div>
+      <h2 id="genjam-stat" style="font-size: clamp(1.5rem, 3.5vw, 2.8rem); color: var(--yellow); margin-bottom: 16px; opacity: 0;">
+        150 Events in 2025...
+      </h2>
+      <h1 id="genjam-countries" style="font-size: clamp(2.5rem, 7vw, 5.5rem); color: #fff; text-shadow: 0 0 40px rgba(255,45,85,0.5), 0 0 80px rgba(255,45,85,0.3); opacity: 0; transform: translateY(200px) scale(2) rotate(5deg);">
+        in 30 Countries
+      </h1>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: Partner — Koyal -->
+  <div class="slide slide-dark centered" data-slide="5" data-dots="light">
     <div class="deco-dot" style="top:12%;right:10%;background:var(--pink);width:26px;height:26px;opacity:0.4;"></div>
     <div class="deco-dot" style="bottom:18%;left:12%;background:var(--lime);width:20px;height:20px;opacity:0.4;"></div>
     <div class="stagger">
@@ -682,8 +720,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 5: Partner — PixVerse -->
-  <div class="slide slide-pink centered" data-slide="5" data-dots="light">
+  <!-- SLIDE 6: Partner — PixVerse -->
+  <div class="slide slide-pink centered" data-slide="6" data-dots="light">
     <div class="deco-dot" style="top:15%;left:8%;background:var(--yellow);width:24px;height:24px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:12%;right:14%;background:var(--lime);width:18px;height:18px;opacity:0.5;"></div>
     <div class="stagger">
@@ -696,8 +734,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 6: Partner — GMI Cloud -->
-  <div class="slide slide-yellow centered" data-slide="6">
+  <!-- SLIDE 7: Partner — GMI Cloud -->
+  <div class="slide slide-yellow centered" data-slide="7">
     <div class="deco-dot" style="top:10%;right:12%;background:var(--pink);width:22px;height:22px;opacity:0.4;"></div>
     <div class="deco-dot" style="bottom:15%;left:10%;background:var(--dark-navy);width:20px;height:20px;opacity:0.3;"></div>
     <div class="stagger">
@@ -710,8 +748,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 7: Who Are You / Icebreaker -->
-  <div class="slide slide-pink centered" data-slide="7" data-dots="light">
+  <!-- SLIDE 8: Who Are You / Icebreaker -->
+  <div class="slide slide-pink centered" data-slide="8" data-dots="light">
     <div class="deco-dot" style="top:10%;left:10%;background:var(--yellow);width:28px;height:28px;opacity:0.6;"></div>
     <div class="deco-dot" style="bottom:20%;right:12%;background:var(--lime);width:20px;height:20px;opacity:0.6;"></div>
     <div class="stagger">
@@ -731,8 +769,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 8: Schnozzo -->
-  <div class="slide slide-yellow centered" data-slide="8">
+  <!-- SLIDE 9: Schnozzo -->
+  <div class="slide slide-yellow centered" data-slide="9">
     <div class="stagger">
       <h1 style="font-size: clamp(3rem, 8vw, 7rem);">Schnozzo</h1>
       <div class="accent-bar dark" style="margin: 12px auto 20px;"></div>
@@ -741,8 +779,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 9: Meet the Founders -->
-  <div class="slide" data-slide="9">
+  <!-- SLIDE 10: Meet the Founders -->
+  <div class="slide" data-slide="10">
     <div class="stagger" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
       <span class="pill pill-dark">Your Hosts</span>
       <h2 style="text-align: center;">Meet the <span class="color-pink">Founders</span></h2>
@@ -783,8 +821,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 10: Our Model - AIRL -->
-  <div class="slide slide-dark centered" data-slide="10" data-dots="light">
+  <!-- SLIDE 11: Our Model - AIRL -->
+  <div class="slide slide-dark centered" data-slide="11" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">Our Model</span>
       <h1 style="font-size: clamp(3rem, 8vw, 7rem);"><span class="color-yellow">&ldquo;</span>AIRL<span class="color-yellow">&rdquo;</span></h1>
@@ -796,8 +834,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 11: Join the Community -->
-  <div class="slide centered" data-slide="11">
+  <!-- SLIDE 12: Join the Community -->
+  <div class="slide centered" data-slide="12">
     <div class="deco-circle" style="width:200px;height:200px;bottom:5%;left:-3%;border-color:var(--lime);opacity:0.12;"></div>
     <div class="stagger">
       <span class="pill pill-lime">Get Involved</span>
@@ -835,8 +873,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 12: Today's Workflow & Tools -->
-  <div class="slide slide-lime centered" data-slide="12">
+  <!-- SLIDE 13: Today's Workflow & Tools -->
+  <div class="slide slide-lime centered" data-slide="13">
     <div class="stagger">
       <span class="pill pill-dark">Workshop</span>
       <h2>Today's Workflow<br>&amp; <span style="color: var(--pink);">Tools</span></h2>
@@ -861,8 +899,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 13: Roles -->
-  <div class="slide centered" data-slide="13">
+  <!-- SLIDE 14: Roles -->
+  <div class="slide centered" data-slide="14">
     <div class="stagger">
       <span class="pill pill-pink">Team Up</span>
       <h2><span class="color-pink">Roles</span></h2>
@@ -895,8 +933,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 14: The Process -->
-  <div class="slide slide-dark centered" data-slide="14" data-dots="light">
+  <!-- SLIDE 15: The Process -->
+  <div class="slide slide-dark centered" data-slide="15" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">The Method</span>
       <h2>The <span class="color-yellow">Process</span></h2>
@@ -920,8 +958,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 15: Let's Dig In -->
-  <div class="slide slide-pink centered" data-slide="15" data-dots="light">
+  <!-- SLIDE 16: Let's Dig In -->
+  <div class="slide slide-pink centered" data-slide="16" data-dots="light">
     <div class="deco-dot" style="top:15%;right:15%;background:var(--yellow);width:30px;height:30px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:20%;left:10%;background:var(--lime);width:24px;height:24px;opacity:0.5;"></div>
     <div class="stagger">
@@ -929,8 +967,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 16: Tips for Group Work -->
-  <div class="slide slide-dark centered" data-slide="16" data-dots="light">
+  <!-- SLIDE 17: Tips for Group Work -->
+  <div class="slide slide-dark centered" data-slide="17" data-dots="light">
     <div class="stagger">
       <span class="pill pill-lime">Pro Tips</span>
       <h2>Tips for<br><span class="color-lime">Group Work</span></h2>
@@ -944,8 +982,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 17: Story Elements -->
-  <div class="slide centered" data-slide="17">
+  <!-- SLIDE 18: Story Elements -->
+  <div class="slide centered" data-slide="18">
     <div class="stagger">
       <span class="pill pill-pink">Storytelling</span>
       <h2>Story <span class="color-pink">Elements</span></h2>
@@ -977,8 +1015,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 18: What If? -->
-  <div class="slide slide-yellow centered" data-slide="18">
+  <!-- SLIDE 19: What If? -->
+  <div class="slide slide-yellow centered" data-slide="19">
     <div class="stagger">
       <span class="pill pill-dark">Start Here</span>
       <h3 style="text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-bottom: 8px;">Start with a question:</h3>
@@ -986,8 +1024,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 19: More Tips -->
-  <div class="slide slide-dark centered" data-slide="19" data-dots="light">
+  <!-- SLIDE 20: More Tips -->
+  <div class="slide slide-dark centered" data-slide="20" data-dots="light">
     <div class="stagger">
       <span class="pill pill-orange">Remember</span>
       <h2><span class="color-orange">Tips</span></h2>
@@ -1003,15 +1041,15 @@
     </div>
   </div>
 
-  <!-- SLIDE 20: Any Questions? -->
-  <div class="slide slide-lime centered" data-slide="20">
+  <!-- SLIDE 21: Any Questions? -->
+  <div class="slide slide-lime centered" data-slide="21">
     <div class="stagger">
       <h1 style="font-size: clamp(3rem, 8vw, 7rem);">Any<br>Questions?</h1>
     </div>
   </div>
 
-  <!-- SLIDE 21: Watch Examples -->
-  <div class="slide slide-dark centered" data-slide="21" data-dots="light">
+  <!-- SLIDE 22: Watch Examples -->
+  <div class="slide slide-dark centered" data-slide="22" data-dots="light">
     <div class="deco-dot" style="top:12%;left:15%;background:var(--pink);width:26px;height:26px;opacity:0.4;"></div>
     <div class="deco-dot" style="bottom:15%;right:12%;background:var(--yellow);width:20px;height:20px;opacity:0.5;"></div>
     <div class="stagger">
@@ -1022,8 +1060,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 22: 15 Minutes Left -->
-  <div class="slide slide-pink centered" data-slide="22" data-dots="light">
+  <!-- SLIDE 23: 15 Minutes Left -->
+  <div class="slide slide-pink centered" data-slide="23" data-dots="light">
     <div class="stagger">
       <div class="countdown pulse" id="countdown-display">15:00</div>
       <div class="countdown-label" style="color: rgba(255,255,255,0.7);">Minutes Remaining</div>
@@ -1031,8 +1069,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 23: Today's Challenge (Fireworks + Drumroll + Reveal) -->
-  <div class="slide slide-dark centered" data-slide="23" data-dots="light" id="challenge-slide">
+  <!-- SLIDE 24: Today's Challenge (Fireworks + Drumroll + Reveal) -->
+  <div class="slide slide-dark centered" data-slide="24" data-dots="light" id="challenge-slide">
     <canvas id="fireworks-canvas"></canvas>
     <div class="stagger" style="position: relative; z-index: 2; text-align: center;">
       <span class="pill pill-yellow">Challenge</span>
@@ -1048,8 +1086,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 24: Showcase & Discussion -->
-  <div class="slide slide-dark centered" data-slide="24" data-dots="light">
+  <!-- SLIDE 25: Showcase & Discussion -->
+  <div class="slide slide-dark centered" data-slide="25" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">Reflect</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 5rem);">Show<span class="color-pink">case</span></h1>
@@ -1064,8 +1102,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 25: Submissions -->
-  <div class="slide centered" data-slide="25">
+  <!-- SLIDE 26: Submissions -->
+  <div class="slide centered" data-slide="26">
     <div class="stagger">
       <span class="pill pill-pink">Submit</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem);">Sub<span class="color-pink">missions</span></h1>
@@ -1087,8 +1125,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 26: Goodbye / Community -->
-  <div class="slide slide-dark centered" data-slide="26" data-dots="light">
+  <!-- SLIDE 27: Goodbye / Community -->
+  <div class="slide slide-dark centered" data-slide="27" data-dots="light">
     <div class="deco-dot" style="top:10%;left:8%;background:var(--pink);width:28px;height:28px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:20%;right:10%;background:var(--lime);width:22px;height:22px;opacity:0.5;"></div>
     <div class="deco-dot" style="top:25%;right:18%;background:var(--yellow);width:18px;height:18px;opacity:0.4;"></div>
@@ -1298,18 +1336,37 @@
       if (pw) { pw.style.transition='none'; pw.style.opacity='0'; pw.style.transform='translate(1200px,150px) rotate(35deg) scale(2.5)'; pw.style.color=''; pw.style.textShadow=''; pw.classList.remove('landed'); }
     }
 
-    // Start countdown timer on slide 22
-    if (next.dataset.slide === '22') {
+    // Start countdown timer on slide 23
+    if (next.dataset.slide === '23') {
       startCountdown();
     }
 
-    // Start challenge animations on slide 23
-    if (next.dataset.slide === '23') {
+    // Start challenge animations on slide 24
+    if (next.dataset.slide === '24') {
       startChallengeSequence();
     }
 
+    // Start past genjams animation on slide 4
+    if (next.dataset.slide === '4') {
+      startPastGenjamsSequence();
+    }
+
+    // Reset past genjams when leaving
+    if (prev.dataset.slide === '4' && index !== 4) {
+      pastGenjamsStarted = false;
+      gjFwRunning = false;
+      if (gjFwCtx) gjFwCtx.clearRect(0, 0, gjFwCanvas.width, gjFwCanvas.height);
+      gjFireworks = [];
+      gjFwParticles = [];
+      var gjStat = document.getElementById('genjam-stat');
+      var gjCountries = document.getElementById('genjam-countries');
+      if (gjStat) { gjStat.style.transition='none'; gjStat.style.opacity='0'; }
+      if (gjCountries) { gjCountries.style.transition='none'; gjCountries.style.opacity='0'; gjCountries.style.transform='translateY(200px) scale(2) rotate(5deg)'; }
+      stopGalleryAnimation();
+    }
+
     // Reset challenge when leaving
-    if (prev.dataset.slide === '23' && index !== 23) {
+    if (prev.dataset.slide === '24' && index !== 24) {
       challengeStarted = false;
       fwRunning = false;
       if (fwCtx) fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
@@ -1410,6 +1467,305 @@
       }
       requestAnimationFrame(float);
     })(decoDots[i]);
+  }
+
+  // ---- Past GenJams: Fireworks + Gallery Animation ----
+  var gjFwCanvas = document.getElementById('genjam-fireworks-canvas');
+  var gjFwCtx = gjFwCanvas ? gjFwCanvas.getContext('2d') : null;
+  var gjFireworks = [];
+  var gjFwParticles = [];
+  var gjFwRunning = false;
+  var pastGenjamsStarted = false;
+  var galleryAnimId = null;
+
+  function resizeGjFwCanvas() {
+    if (!gjFwCanvas) return;
+    var slide = document.getElementById('past-genjams-slide');
+    if (slide) { gjFwCanvas.width = slide.offsetWidth; gjFwCanvas.height = slide.offsetHeight; }
+  }
+  resizeGjFwCanvas();
+  window.addEventListener('resize', resizeGjFwCanvas);
+
+  // Reuse firework particle classes with separate arrays
+  function GJFWParticle(x, y, color) {
+    this.x = x; this.y = y;
+    var angle = Math.random() * Math.PI * 2;
+    var speed = Math.random() * 3 + 1;
+    this.vx = Math.cos(angle) * speed;
+    this.vy = Math.sin(angle) * speed;
+    this.alpha = 1;
+    this.decay = Math.random() * 0.008 + 0.005;
+    this.size = Math.random() * 3 + 1.5;
+    this.color = color;
+    this.gravity = 0.02;
+    this.trail = [];
+  }
+  GJFWParticle.prototype.update = function() {
+    this.trail.push({ x: this.x, y: this.y, alpha: this.alpha * 0.4 });
+    if (this.trail.length > 8) this.trail.shift();
+    this.vy += this.gravity;
+    this.x += this.vx; this.y += this.vy;
+    this.vx *= 0.995; this.vy *= 0.995;
+    this.alpha -= this.decay;
+  };
+  GJFWParticle.prototype.draw = function(ctx) {
+    for (var i = 0; i < this.trail.length; i++) {
+      var t = this.trail[i];
+      ctx.beginPath(); ctx.arc(t.x, t.y, this.size * 0.5, 0, Math.PI * 2);
+      ctx.fillStyle = this.color; ctx.globalAlpha = t.alpha * 0.3; ctx.fill();
+    }
+    ctx.globalAlpha = this.alpha;
+    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = this.color; ctx.fill();
+    ctx.beginPath(); ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+    var grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 3);
+    grad.addColorStop(0, this.color); grad.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad; ctx.globalAlpha = this.alpha * 0.3; ctx.fill();
+  };
+
+  function GJFirework(targetX, targetY) {
+    this.x = gjFwCanvas.width * (0.2 + Math.random() * 0.6);
+    this.y = gjFwCanvas.height;
+    this.targetX = targetX; this.targetY = targetY;
+    var dx = targetX - this.x, dy = targetY - this.y;
+    var dist = Math.sqrt(dx * dx + dy * dy);
+    this.speed = dist / 50;
+    this.vx = (dx / dist) * this.speed; this.vy = (dy / dist) * this.speed;
+    this.done = false;
+    this.color = fwColors[Math.floor(Math.random() * fwColors.length)];
+    this.trail = [];
+  }
+  GJFirework.prototype.update = function() {
+    this.trail.push({ x: this.x, y: this.y });
+    if (this.trail.length > 10) this.trail.shift();
+    this.x += this.vx; this.y += this.vy;
+    var dx = this.targetX - this.x, dy = this.targetY - this.y;
+    if (Math.sqrt(dx * dx + dy * dy) < this.speed * 2) {
+      this.done = true;
+      var count = 50 + Math.floor(Math.random() * 30);
+      for (var i = 0; i < count; i++) {
+        gjFwParticles.push(new GJFWParticle(this.x, this.y, this.color));
+      }
+    }
+  };
+  GJFirework.prototype.draw = function(ctx) {
+    for (var i = 0; i < this.trail.length; i++) {
+      var t = this.trail[i];
+      ctx.beginPath(); ctx.arc(t.x, t.y, 2, 0, Math.PI * 2);
+      ctx.fillStyle = this.color; ctx.globalAlpha = (i / this.trail.length) * 0.5; ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    ctx.beginPath(); ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff'; ctx.fill();
+  };
+
+  function animateGjFireworks() {
+    if (!gjFwRunning) return;
+    gjFwCtx.globalCompositeOperation = 'destination-out';
+    gjFwCtx.fillStyle = 'rgba(0,0,0,0.08)';
+    gjFwCtx.fillRect(0, 0, gjFwCanvas.width, gjFwCanvas.height);
+    gjFwCtx.globalCompositeOperation = 'lighter';
+    for (var i = gjFireworks.length - 1; i >= 0; i--) {
+      gjFireworks[i].update(); gjFireworks[i].draw(gjFwCtx);
+      if (gjFireworks[i].done) gjFireworks.splice(i, 1);
+    }
+    for (var i = gjFwParticles.length - 1; i >= 0; i--) {
+      gjFwParticles[i].update(); gjFwParticles[i].draw(gjFwCtx);
+      if (gjFwParticles[i].alpha <= 0) gjFwParticles.splice(i, 1);
+    }
+    gjFwCtx.globalAlpha = 1;
+    requestAnimationFrame(animateGjFireworks);
+  }
+
+  function launchGjFirework() {
+    if (!gjFwCanvas) return;
+    var tx = Math.random() * gjFwCanvas.width * 0.7 + gjFwCanvas.width * 0.15;
+    var ty = Math.random() * gjFwCanvas.height * 0.4 + gjFwCanvas.height * 0.1;
+    gjFireworks.push(new GJFirework(tx, ty));
+  }
+
+  // Parallax gallery
+  var gjPhotoPaths = [
+    'past-genjams/7image.png',
+    // 'past-genjams/IMG_9975 2.HEIC', // HEIC not supported in browsers
+    'past-genjams/EBB890D8-AEA2-4891-BE4A-1A4B12075B0A_1_102_o.jpg',
+    'past-genjams/WhatsApp Image 2025-07-13 at 13.48.33.jpg',
+    'past-genjams/vlcsnap-2025-07-14-15h21m30s635.png',
+    'past-genjams/5image.png',
+    'past-genjams/250325 OPENAI_SORAJAM_0785.jpg',
+    'past-genjams/AIOTL TIFF Toronto DNG.jpg',
+    'past-genjams/3image.png',
+    'past-genjams/2image.png',
+    'past-genjams/image.png'
+  ];
+  var gjPhotoEls = [];
+
+  function initGallery() {
+    var gallery = document.getElementById('past-genjams-gallery');
+    if (!gallery) return;
+    gallery.innerHTML = '';
+    gjPhotoEls = [];
+    var w = gallery.offsetWidth || window.innerWidth;
+    var h = gallery.offsetHeight || window.innerHeight;
+
+    for (var i = 0; i < gjPhotoPaths.length; i++) {
+      var img = document.createElement('img');
+      img.src = gjPhotoPaths[i];
+      img.className = 'gj-photo';
+      img.alt = 'GenJam event';
+      var size = 120 + Math.random() * 140;
+      img.style.width = size + 'px';
+      img.style.height = (size * 0.7) + 'px';
+      img.style.opacity = '0';
+      gallery.appendChild(img);
+
+      gjPhotoEls.push({
+        el: img,
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 1.2,
+        vy: (Math.random() - 0.5) * 0.8,
+        baseSize: size,
+        scalePhase: Math.random() * Math.PI * 2,
+        scaleSpeed: 0.3 + Math.random() * 0.4,
+        rotPhase: Math.random() * Math.PI * 2,
+        rotSpeed: 0.1 + Math.random() * 0.2,
+        depth: 0.5 + Math.random() * 0.5,
+        targetOpacity: 0.6 + Math.random() * 0.35
+      });
+    }
+  }
+
+  function animateGallery(t) {
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    for (var i = 0; i < gjPhotoEls.length; i++) {
+      var p = gjPhotoEls[i];
+      // Parallax movement
+      p.x += p.vx * p.depth;
+      p.y += p.vy * p.depth;
+
+      // Wrap around
+      if (p.x > w + 200) p.x = -200;
+      if (p.x < -200) p.x = w + 200;
+      if (p.y > h + 200) p.y = -200;
+      if (p.y < -200) p.y = h + 200;
+
+      // Breathe scale
+      var scale = 0.85 + Math.sin(t * 0.001 * p.scaleSpeed + p.scalePhase) * 0.2;
+      var rot = Math.sin(t * 0.001 * p.rotSpeed + p.rotPhase) * 5;
+
+      p.el.style.transform = 'translate(' + p.x + 'px, ' + p.y + 'px) scale(' + scale + ') rotate(' + rot + 'deg)';
+      p.el.style.zIndex = Math.floor(p.depth * 10);
+    }
+    galleryAnimId = requestAnimationFrame(animateGallery);
+  }
+
+  function fadeInPhotos() {
+    for (var i = 0; i < gjPhotoEls.length; i++) {
+      (function(idx) {
+        setTimeout(function() {
+          gjPhotoEls[idx].el.style.transition = 'opacity 1s ease';
+          gjPhotoEls[idx].el.style.opacity = String(gjPhotoEls[idx].targetOpacity);
+        }, idx * 200);
+      })(i);
+    }
+  }
+
+  function stopGalleryAnimation() {
+    if (galleryAnimId) { cancelAnimationFrame(galleryAnimId); galleryAnimId = null; }
+    var gallery = document.getElementById('past-genjams-gallery');
+    if (gallery) gallery.innerHTML = '';
+    gjPhotoEls = [];
+  }
+
+  function startPastGenjamsSequence() {
+    if (pastGenjamsStarted) return;
+    pastGenjamsStarted = true;
+    resizeGjFwCanvas();
+
+    var stat = document.getElementById('genjam-stat');
+    var countries = document.getElementById('genjam-countries');
+
+    // Reset
+    stat.style.transition = 'none'; stat.style.opacity = '0';
+    countries.style.transition = 'none'; countries.style.opacity = '0';
+    countries.style.transform = 'translateY(200px) scale(2) rotate(5deg)';
+
+    // Init gallery
+    initGallery();
+
+    // Step 1: fade in stat text
+    setTimeout(function() {
+      stat.style.transition = 'opacity 1s ease';
+      stat.style.opacity = '1';
+    }, 400);
+
+    // Step 2: start gallery photos fading in
+    setTimeout(function() {
+      fadeInPhotos();
+      galleryAnimId = requestAnimationFrame(animateGallery);
+    }, 800);
+
+    // Step 3: launch fireworks
+    setTimeout(function() {
+      gjFwRunning = true;
+      gjFwCtx.clearRect(0, 0, gjFwCanvas.width, gjFwCanvas.height);
+      animateGjFireworks();
+      for (var i = 0; i < 6; i++) {
+        setTimeout(launchGjFirework, i * 120);
+      }
+    }, 2200);
+
+    // Step 4: "in 30 Countries" slams in
+    setTimeout(function() {
+      countries.style.transition = 'opacity 0.7s cubic-bezier(.17,.67,.35,1.3), transform 0.7s cubic-bezier(.17,.67,.35,1.3)';
+      countries.style.opacity = '1';
+      countries.style.transform = 'translateY(0) scale(1) rotate(0deg)';
+
+      // Burst fireworks from the text
+      var rect = countries.getBoundingClientRect();
+      var slideRect = document.getElementById('past-genjams-slide').getBoundingClientRect();
+      var cx = rect.left - slideRect.left + rect.width / 2;
+      var cy = rect.top - slideRect.top + rect.height / 2;
+
+      // Fireworks burst from text position
+      for (var i = 0; i < 8; i++) {
+        (function(idx) {
+          setTimeout(function() {
+            var tx = cx + (Math.random() - 0.5) * rect.width;
+            var ty = cy + (Math.random() - 0.5) * 60;
+            gjFireworks.push(new GJFirework(tx, ty));
+          }, idx * 80);
+        })(i);
+      }
+
+      // Screen shake
+      var slide = document.getElementById('past-genjams-slide');
+      var stagger = slide.querySelector('.stagger');
+      var shakeCount = 0;
+      var shakeAmp = 14;
+      var shakeInt = setInterval(function() {
+        var sx = (Math.random() - 0.5) * shakeAmp;
+        var sy = (Math.random() - 0.5) * shakeAmp;
+        stagger.style.transform = 'translate(' + sx + 'px,' + sy + 'px)';
+        shakeCount++;
+        shakeAmp *= 0.85;
+        if (shakeCount > 12) {
+          clearInterval(shakeInt);
+          stagger.style.transform = '';
+        }
+      }, 30);
+    }, 2800);
+
+    // Step 5: continuous ambient fireworks
+    setTimeout(function() {
+      var ambientInt = setInterval(function() {
+        if (!gjFwRunning) { clearInterval(ambientInt); return; }
+        launchGjFirework();
+      }, 1500);
+      setTimeout(function() { clearInterval(ambientInt); }, 25000);
+    }, 5000);
   }
 
   // ---- Glass Shatter + Fly-in for Title Slide ----
