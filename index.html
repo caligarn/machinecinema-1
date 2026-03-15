@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GenJam — Learn. Create. Play.</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-cream: #FFF8E7;
+    --bg-white: #FFFFFF;
+    --dark: #1a1a2e;
+    --dark-navy: #0d0d1a;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a5a;
+    --pink: #FF2D55;
+    --lime: #C8FF00;
+    --yellow: #FFD600;
+    --teal: #2D3436;
+    --font-primary: 'Space Grotesk', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --border: 3px solid var(--dark-navy);
+    --radius: 16px;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: var(--bg-cream);
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+  }
+
+  /* ---- Canvas for confetti/shapes ---- */
+  #particle-canvas {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0; pointer-events: none;
+  }
+
+  /* ---- Slide container ---- */
+  #deck {
+    position: relative; z-index: 1;
+    width: 100%; height: 100%;
+  }
+
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 60px 80px;
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+    transition: opacity 0.5s cubic-bezier(.4,0,.2,1), transform 0.5s cubic-bezier(.4,0,.2,1);
+    pointer-events: none;
+    will-change: opacity, transform;
+  }
+  .slide.active {
+    opacity: 1; transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+  .slide.exit-up {
+    opacity: 0; transform: translateY(-30px) scale(0.98);
+  }
+
+  /* ---- Slide backgrounds ---- */
+  .slide-dark {
+    background: var(--dark-navy);
+    color: #f0f0f5;
+  }
+  .slide-dark .text-secondary,
+  .slide-dark p,
+  .slide-dark li { color: #b0b0c8; }
+  .slide-dark h1, .slide-dark h2, .slide-dark h3 { color: #f0f0f5; }
+
+  .slide-pink { background: var(--pink); color: #fff; }
+  .slide-pink p, .slide-pink li { color: rgba(255,255,255,0.85); }
+  .slide-pink h1, .slide-pink h2, .slide-pink h3 { color: #fff; }
+
+  .slide-lime { background: var(--lime); color: var(--dark-navy); }
+  .slide-lime p, .slide-lime li { color: rgba(13,13,26,0.7); }
+
+  .slide-yellow { background: var(--yellow); color: var(--dark-navy); }
+  .slide-yellow p, .slide-yellow li { color: rgba(13,13,26,0.7); }
+
+  /* ---- Typography ---- */
+  h1 {
+    font-size: clamp(3rem, 7vw, 6rem); font-weight: 800;
+    line-height: 1.0; letter-spacing: -0.03em;
+    text-transform: uppercase;
+  }
+  h2 {
+    font-size: clamp(2rem, 4.5vw, 3.8rem); font-weight: 700;
+    line-height: 1.1; letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  h3 { font-size: clamp(1.3rem, 2.2vw, 1.8rem); font-weight: 600; }
+  p, li {
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    line-height: 1.7; color: var(--text-secondary);
+  }
+
+  .color-pink { color: var(--pink); }
+  .color-lime { color: var(--lime); }
+  .color-yellow { color: var(--yellow); }
+
+  .mono { font-family: var(--font-mono); }
+
+  /* ---- Accent bar ---- */
+  .accent-bar {
+    width: 80px; height: 5px; border-radius: 3px;
+    margin: 16px 0 28px;
+  }
+  .accent-bar.pink { background: var(--pink); }
+  .accent-bar.lime { background: var(--lime); }
+  .accent-bar.yellow { background: var(--yellow); }
+  .accent-bar.dark { background: var(--dark-navy); }
+
+  /* ---- Pill badge (Machine Cinema style) ---- */
+  .pill {
+    display: inline-block; padding: 6px 16px;
+    border-radius: 6px; font-size: 0.8rem;
+    font-family: var(--font-mono); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 14px;
+  }
+  .pill-pink { background: var(--pink); color: #fff; }
+  .pill-lime { background: var(--lime); color: var(--dark-navy); }
+  .pill-yellow { background: var(--yellow); color: var(--dark-navy); }
+  .pill-dark { background: var(--dark-navy); color: #fff; }
+  .pill-outline {
+    background: transparent;
+    border: 2px solid var(--dark-navy);
+    color: var(--dark-navy);
+  }
+
+  /* ---- Bento cards (thick borders) ---- */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px; width: 100%; max-width: 1100px; margin-top: 20px;
+  }
+  .card {
+    background: var(--bg-white);
+    border: var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 6px 6px 0 var(--dark-navy);
+  }
+  .card h3 { margin-bottom: 10px; }
+  .card p { font-size: 1rem; }
+
+  .card-pink { background: var(--pink); color: #fff; border-color: var(--dark-navy); }
+  .card-pink p { color: rgba(255,255,255,0.85); }
+  .card-pink h3 { color: #fff; }
+
+  .card-lime { background: var(--lime); color: var(--dark-navy); border-color: var(--dark-navy); }
+  .card-lime p { color: rgba(13,13,26,0.7); }
+
+  .card-yellow { background: var(--yellow); color: var(--dark-navy); border-color: var(--dark-navy); }
+  .card-yellow p { color: rgba(13,13,26,0.7); }
+
+  .card-dark { background: var(--dark-navy); color: #f0f0f5; border-color: var(--dark-navy); }
+  .card-dark p { color: #b0b0c8; }
+  .card-dark h3 { color: #f0f0f5; }
+
+  /* ---- Timeline ---- */
+  .timeline {
+    display: flex; flex-direction: column; gap: 0;
+    width: 100%; max-width: 900px; margin-top: 10px;
+  }
+  .timeline-item {
+    display: flex; align-items: flex-start; gap: 24px;
+    padding: 22px 0;
+    border-left: 4px solid var(--dark-navy);
+    padding-left: 28px;
+    position: relative;
+    opacity: 0; transform: translateX(-20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -10px; top: 28px;
+    width: 16px; height: 16px; border-radius: 50%;
+    border: 3px solid var(--dark-navy);
+  }
+  .timeline-item:nth-child(1)::before { background: var(--yellow); }
+  .timeline-item:nth-child(2)::before { background: var(--pink); }
+  .timeline-item:nth-child(3)::before { background: var(--lime); }
+  .timeline-item:nth-child(4)::before { background: var(--dark-navy); }
+  .time-label {
+    font-family: var(--font-mono); font-size: 0.9rem; font-weight: 600;
+    min-width: 100px; padding-top: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ---- Marquee ---- */
+  .marquee-wrap {
+    width: 100vw; overflow: hidden;
+    position: absolute; bottom: 0; left: 0;
+    background: var(--yellow);
+    border-top: var(--border);
+    padding: 12px 0;
+  }
+  .marquee-track {
+    display: flex; gap: 40px;
+    animation: marquee 25s linear infinite;
+    width: max-content;
+  }
+  .marquee-track span {
+    font-family: var(--font-mono);
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--dark-navy);
+    white-space: nowrap; text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .marquee-track .dot {
+    color: var(--pink);
+  }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* ---- Big number ---- */
+  .big-num {
+    font-size: clamp(3.5rem, 9vw, 7rem); font-weight: 800;
+    line-height: 1; letter-spacing: -0.03em;
+  }
+
+  /* ---- Phase icon ---- */
+  .phase-icon {
+    font-size: 2.5rem; margin-bottom: 10px;
+  }
+
+  /* ---- Staggered children animation ---- */
+  .slide.active .stagger > * {
+    animation: fadeSlideUp 0.45s ease both;
+  }
+  .slide.active .stagger > *:nth-child(1) { animation-delay: 0.08s; }
+  .slide.active .stagger > *:nth-child(2) { animation-delay: 0.16s; }
+  .slide.active .stagger > *:nth-child(3) { animation-delay: 0.24s; }
+  .slide.active .stagger > *:nth-child(4) { animation-delay: 0.32s; }
+  .slide.active .stagger > *:nth-child(5) { animation-delay: 0.40s; }
+  .slide.active .stagger > *:nth-child(6) { animation-delay: 0.48s; }
+  .slide.active .stagger > *:nth-child(7) { animation-delay: 0.56s; }
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- Progress bar ---- */
+  #progress {
+    position: fixed; top: 0; left: 0; height: 4px; z-index: 100;
+    background: var(--pink);
+    transition: width 0.4s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* ---- Nav dots ---- */
+  #nav-dots {
+    position: fixed; right: 24px; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 10px; z-index: 100;
+  }
+  .nav-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: rgba(26,26,26,0.15);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    border: 2px solid transparent; padding: 0;
+  }
+  .nav-dot:hover { background: rgba(26,26,26,0.35); transform: scale(1.3); }
+  .nav-dot.active {
+    background: var(--pink);
+    border-color: var(--dark-navy);
+    transform: scale(1.3);
+  }
+  /* Invert dots on dark slides */
+  .dots-light .nav-dot { background: rgba(255,255,255,0.2); }
+  .dots-light .nav-dot:hover { background: rgba(255,255,255,0.5); }
+  .dots-light .nav-dot.active { background: var(--yellow); border-color: #fff; }
+
+  /* ---- Keyboard hint ---- */
+  .key-hint {
+    position: fixed; bottom: 16px; right: 24px;
+    font-family: var(--font-mono); font-size: 0.7rem;
+    color: rgba(26,26,26,0.25); z-index: 100;
+  }
+
+  /* ---- Stamp / pop animation ---- */
+  .stamp {
+    animation: stampIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  }
+  @keyframes stampIn {
+    0% { transform: scale(1.8) rotate(-8deg); opacity: 0; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  /* ---- Bounce in ---- */
+  .slide.active .bounce-in {
+    animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  }
+  @keyframes bounceIn {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 768px) {
+    .slide { padding: 40px 24px; }
+    .cards { grid-template-columns: 1fr; }
+    .timeline-item { flex-direction: column; gap: 6px; }
+    .time-label { min-width: auto; }
+    #nav-dots { right: 10px; }
+    .two-col { grid-template-columns: 1fr !important; gap: 24px !important; }
+    .bento-hero { grid-template-columns: 1fr !important; }
+  }
+
+  /* ---- Centered content ---- */
+  .centered { text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+  /* ---- Two-col layout ---- */
+  .two-col {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 50px; width: 100%; max-width: 1100px; align-items: center;
+  }
+
+  /* ---- Bento hero grid ---- */
+  .bento-hero {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-rows: auto auto;
+    gap: 16px;
+    width: 100%; max-width: 1100px;
+  }
+  .bento-main {
+    grid-row: 1 / 3;
+    background: var(--bg-white);
+    border: var(--border);
+    border-radius: var(--radius);
+    padding: 48px 40px;
+    display: flex; flex-direction: column;
+    justify-content: center;
+  }
+  .bento-stat {
+    background: var(--pink);
+    border: var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    color: #fff;
+    display: flex; flex-direction: column;
+    justify-content: center;
+  }
+  .bento-stat .big-num { color: #fff; }
+  .bento-stat-sub {
+    font-family: var(--font-mono); font-size: 0.85rem;
+    font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em; margin-top: 4px;
+    color: rgba(255,255,255,0.9);
+  }
+  .bento-counts {
+    display: flex; gap: 12px;
+  }
+  .bento-count-box {
+    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 10px; padding: 14px 20px;
+    text-align: center; flex: 1;
+  }
+  .bento-count-num {
+    font-size: 1.6rem; font-weight: 800; color: #fff;
+  }
+  .bento-count-label {
+    font-family: var(--font-mono); font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.8); margin-top: 2px;
+  }
+
+  /* ---- Quote ---- */
+  .quote {
+    font-size: clamp(1.3rem, 2.5vw, 2rem);
+    font-weight: 600; line-height: 1.5;
+    max-width: 750px; position: relative;
+    padding-left: 28px;
+    border-left: 5px solid var(--pink);
+  }
+  .quote-attr {
+    margin-top: 20px; font-size: 0.95rem;
+    font-weight: 400; color: var(--text-secondary);
+  }
+
+  /* ---- Decorative shapes ---- */
+  .deco-circle {
+    position: absolute; border-radius: 50%;
+    border: var(--border); pointer-events: none;
+    opacity: 0.08;
+  }
+  .deco-dot {
+    position: absolute; width: 16px; height: 16px;
+    border-radius: 50%; pointer-events: none;
+  }
+
+  /* ---- Stat row for dark slide ---- */
+  .stat-row {
+    display: flex; gap: 40px; margin-top: 30px;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800;
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: var(--font-mono); font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-top: 6px; opacity: 0.7;
+  }
+
+  /* ---- CTA button ---- */
+  .btn {
+    display: inline-block; padding: 14px 32px;
+    border: var(--border); border-radius: 10px;
+    font-family: var(--font-primary); font-size: 1rem;
+    font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 20px;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 var(--dark-navy);
+  }
+  .btn-dark { background: var(--dark-navy); color: #fff; }
+  .btn-pink { background: var(--pink); color: #fff; border-color: var(--dark-navy); }
+  .btn-outline { background: transparent; color: var(--dark-navy); }
+</style>
+</head>
+<body>
+
+<canvas id="particle-canvas"></canvas>
+<div id="progress" style="width: 0%"></div>
+<div id="nav-dots"></div>
+<div class="key-hint">← → navigate</div>
+
+<div id="deck">
+
+  <!-- SLIDE 0: Title (Bento Hero) -->
+  <div class="slide active" data-slide="0">
+    <div class="bento-hero stagger">
+      <div class="bento-main">
+        <div>
+          <span class="pill pill-pink">AI Creativity</span>
+          <span class="pill pill-lime" style="margin-left: 8px;">Community</span>
+        </div>
+        <h1 style="margin-top: 16px;">Learn.<br>Create.<br>Play.</h1>
+        <p style="margin-top: 20px; max-width: 420px; font-size: 1.15rem;">
+          The future of storytelling is being written right now. You can be part of it.
+        </p>
+      </div>
+      <div class="bento-stat">
+        <div style="font-size: 1.5rem; margin-bottom: 8px;">&#9734;</div>
+        <div class="big-num" id="counter-creators" data-target="3000" style="font-size: clamp(3rem, 6vw, 5rem);">0</div>
+        <div class="bento-stat-sub">Creators Worldwide</div>
+      </div>
+      <div class="bento-stat" style="padding: 20px 24px;">
+        <div class="bento-counts">
+          <div class="bento-count-box">
+            <div class="bento-count-num" id="counter-events" data-target="170">0</div>
+            <div class="bento-count-label">Events</div>
+          </div>
+          <div class="bento-count-box">
+            <div class="bento-count-num" id="counter-countries" data-target="30">0</div>
+            <div class="bento-count-label">Countries</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+        <span>Google</span><span class="dot">&#9679;</span>
+        <span>Luma AI</span><span class="dot">&#9679;</span>
+        <span>ElevenLabs</span><span class="dot">&#9679;</span>
+        <span>Runway</span><span class="dot">&#9679;</span>
+        <span>OpenAI</span><span class="dot">&#9679;</span>
+        <span>Midjourney</span><span class="dot">&#9679;</span>
+        <span>ByteDance</span><span class="dot">&#9679;</span>
+        <span>McCann</span><span class="dot">&#9679;</span>
+        <span>R/GA</span><span class="dot">&#9679;</span>
+        <span>VML</span><span class="dot">&#9679;</span>
+        <span>Curious Refuge</span><span class="dot">&#9679;</span>
+        <span>Google</span><span class="dot">&#9679;</span>
+        <span>Luma AI</span><span class="dot">&#9679;</span>
+        <span>ElevenLabs</span><span class="dot">&#9679;</span>
+        <span>Runway</span><span class="dot">&#9679;</span>
+        <span>OpenAI</span><span class="dot">&#9679;</span>
+        <span>Midjourney</span><span class="dot">&#9679;</span>
+        <span>ByteDance</span><span class="dot">&#9679;</span>
+        <span>McCann</span><span class="dot">&#9679;</span>
+        <span>R/GA</span><span class="dot">&#9679;</span>
+        <span>VML</span><span class="dot">&#9679;</span>
+        <span>Curious Refuge</span><span class="dot">&#9679;</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 1: What is a GenJam -->
+  <div class="slide centered" data-slide="1">
+    <div class="deco-circle" style="width:300px;height:300px;top:-5%;right:-5%;border-color:var(--pink);"></div>
+    <div class="deco-circle" style="width:200px;height:200px;bottom:10%;left:-3%;border-color:var(--lime);opacity:0.15;"></div>
+    <div class="stagger">
+      <span class="pill pill-dark">The Format</span>
+      <h2>What is a<br><span class="color-pink">GenJam</span>?</h2>
+      <div class="accent-bar pink" style="margin: 16px auto 28px;"></div>
+      <p style="max-width: 640px; text-align: center; font-size: clamp(1.1rem, 1.6vw, 1.3rem);">
+        Part workshop, part creative sprint, part underground showcase.
+        A GenJam is a <strong style="color:var(--text-primary);">live collaborative jam session</strong>
+        where artists, filmmakers, and technologists create together using AI &mdash; in real time.
+      </p>
+      <p style="max-width: 640px; text-align: center; margin-top: 14px;">
+        Not a panel. Not a lecture. A hands-on creative experiment in human + machine collaboration.
+      </p>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: Three Phases -->
+  <div class="slide centered" data-slide="2">
+    <div class="stagger">
+      <span class="pill pill-outline">The Flow</span>
+      <h2>Three Phases,<br>One Session</h2>
+      <div class="accent-bar dark" style="margin: 16px auto 28px;"></div>
+      <div class="cards" style="max-width: 1000px;">
+        <div class="card card-yellow centered">
+          <div class="phase-icon">&#x1F9E0;</div>
+          <h3>Learn</h3>
+          <p>Get a crash course in cutting-edge generative AI tools from expert practitioners.</p>
+        </div>
+        <div class="card card-pink centered">
+          <div class="phase-icon">&#x1F3A8;</div>
+          <h3>Create</h3>
+          <p>Break into teams and make something original &mdash; a short film, game trailer, or visual experiment.</p>
+        </div>
+        <div class="card card-lime centered">
+          <div class="phase-icon">&#x1F3AC;</div>
+          <h3>Play</h3>
+          <p>Return to the main room, share your work, and vote for the most inventive creation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: Timeline -->
+  <div class="slide" data-slide="3">
+    <div class="stagger" style="width:100%;display:flex;flex-direction:column;align-items:center;">
+      <span class="pill pill-yellow">The Schedule</span>
+      <h2 style="text-align:center;">Hour by Hour</h2>
+      <div class="accent-bar pink" style="margin: 16px auto 20px;"></div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="time-label" style="color:var(--dark-navy);">Hour 1</div>
+          <div>
+            <h3 style="color: var(--dark-navy);">Learn</h3>
+            <p>Crash course in a generative AI tool. See what's possible, get hands-on demos, and ask questions.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="time-label" style="color:var(--pink);">Hours 2&ndash;3</div>
+          <div>
+            <h3 class="color-pink">Create</h3>
+            <p>Form small teams with new creative allies. Ideate, generate, iterate. Make something you're proud of.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="time-label" style="color:var(--dark-navy);">Hour 4</div>
+          <div>
+            <h3 style="color: var(--dark-navy);">Play</h3>
+            <p>Screening and showcase. Watch or play each team's creation. Vote. Celebrate. Connect.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="time-label" style="color: var(--text-secondary);">After</div>
+          <div>
+            <h3 style="color: var(--text-primary);">Connect</h3>
+            <p>New ideas, new skills, new creative allies. Take what you made and keep building.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: Learn deep-dive -->
+  <div class="slide slide-yellow" data-slide="4">
+    <div class="deco-dot" style="top:15%;left:12%;background:var(--pink);width:24px;height:24px;"></div>
+    <div class="deco-dot" style="bottom:20%;right:10%;background:var(--dark-navy);width:18px;height:18px;"></div>
+    <div class="two-col">
+      <div class="stagger">
+        <span class="pill pill-dark">Phase 1</span>
+        <h2>Learn</h2>
+        <div class="accent-bar dark" style="margin: 12px 0 24px;"></div>
+        <p>Every GenJam begins with a focused tool demo from an expert practitioner. This isn't a sales pitch &mdash; it's a working session.</p>
+        <ul style="margin-top: 14px; padding-left: 20px; display: flex; flex-direction: column; gap: 6px;">
+          <li>Live walkthrough of a generative AI tool</li>
+          <li>Real-time creative demos</li>
+          <li>Tips, tricks, and creative workflows</li>
+          <li>Q&A with the presenter</li>
+        </ul>
+      </div>
+      <div class="centered">
+        <div class="big-num" style="opacity: 0.12; font-size: clamp(8rem, 18vw, 14rem);">01</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: Create deep-dive -->
+  <div class="slide slide-pink" data-slide="5">
+    <div class="deco-dot" style="top:10%;right:15%;background:var(--yellow);width:24px;height:24px;"></div>
+    <div class="deco-dot" style="bottom:15%;left:8%;background:var(--lime);width:20px;height:20px;"></div>
+    <div class="two-col">
+      <div class="centered">
+        <div class="big-num" style="opacity: 0.15; font-size: clamp(8rem, 18vw, 14rem); color: #fff;">02</div>
+      </div>
+      <div class="stagger">
+        <span class="pill" style="background:rgba(255,255,255,0.2); color:#fff;">Phase 2</span>
+        <h2>Create</h2>
+        <div class="accent-bar" style="background: #fff; margin: 12px 0 24px;"></div>
+        <p>This is the heart of the GenJam. Teams form organically, ideas collide, and creations emerge from the chaos.</p>
+        <ul style="margin-top: 14px; padding-left: 20px; display: flex; flex-direction: column; gap: 6px;">
+          <li>Form teams of 3&ndash;5 people</li>
+          <li>2 hours to ideate, generate, and refine</li>
+          <li>Mentors float between teams</li>
+          <li>AI tools provided and ready to go</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: Play deep-dive -->
+  <div class="slide slide-lime" data-slide="6">
+    <div class="deco-dot" style="top:12%;left:10%;background:var(--pink);width:22px;height:22px;"></div>
+    <div class="deco-dot" style="bottom:18%;right:12%;background:var(--yellow);width:16px;height:16px;"></div>
+    <div class="two-col">
+      <div class="stagger">
+        <span class="pill pill-dark">Phase 3</span>
+        <h2>Play</h2>
+        <div class="accent-bar dark" style="margin: 12px 0 24px;"></div>
+        <p>The finale. Every team presents their creation to the room. It's part screening, part celebration, part friendly competition.</p>
+        <ul style="margin-top: 14px; padding-left: 20px; display: flex; flex-direction: column; gap: 6px;">
+          <li>Live screening of all team creations</li>
+          <li>Audience voting for favorites</li>
+          <li>Awards and recognition</li>
+          <li>Networking and celebration</li>
+        </ul>
+      </div>
+      <div class="centered">
+        <div class="big-num" style="opacity: 0.1; font-size: clamp(8rem, 18vw, 14rem);">03</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: Quote -->
+  <div class="slide centered" data-slide="7">
+    <div class="deco-circle" style="width:400px;height:400px;top:-8%;left:-8%;border-color:var(--yellow);opacity:0.1;"></div>
+    <div class="stagger">
+      <span class="pill pill-pink" style="margin-bottom: 24px;">&#9734; Philosophy</span>
+      <div class="quote" style="text-align: left;">
+        "We believe AI unlocks the creativity in everyone. Not by replacing imagination, but by giving it new tools."
+        <div class="quote-attr">&mdash; Minh Do, Co-Founder, Machine Cinema</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: AIRL -->
+  <div class="slide slide-dark centered" data-slide="8" data-dots="light">
+    <div class="stagger">
+      <span class="pill pill-yellow">The Philosophy</span>
+      <h2 style="margin-top: 8px;"><span class="color-yellow">AIRL</span></h2>
+      <h3 style="font-weight: 400; color: #b0b0c8; margin-top: 4px; text-transform: none;">AI In Real Life</h3>
+      <div class="accent-bar yellow" style="margin: 16px auto 28px;"></div>
+      <p style="max-width: 600px; text-align: center; font-size: clamp(1.05rem, 1.5vw, 1.2rem);">
+        AIRL is about more than talking &mdash; it's about <strong style="color:#f0f0f5;">doing</strong>.
+        Our events are designed for hands-on collaboration, where creators leave with something tangible.
+      </p>
+      <div class="cards" style="margin-top: 28px; max-width: 800px;">
+        <div class="card card-yellow centered">
+          <h3>Not Passive</h3>
+          <p>No sitting and watching. Every attendee is a creator.</p>
+        </div>
+        <div class="card card-pink centered">
+          <h3>Not Theoretical</h3>
+          <p>You leave with something you made, not just notes.</p>
+        </div>
+        <div class="card card-lime centered">
+          <h3>Not Solo</h3>
+          <p>You create with others. New friends, new collaborators.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: Community -->
+  <div class="slide centered" data-slide="9">
+    <div class="stagger">
+      <span class="pill pill-lime">The Community</span>
+      <h2>Join a Global Community<br>of <span class="color-pink">AI Creators</span></h2>
+      <div class="accent-bar pink" style="margin: 16px auto 28px;"></div>
+      <p style="max-width: 550px; text-align: center; font-size: clamp(1.05rem, 1.5vw, 1.2rem);">
+        From beginners to experts, everyone's welcome to learn, make, and experiment.
+      </p>
+      <div class="stat-row" style="margin-top: 36px;">
+        <div class="stat-item">
+          <div class="stat-num color-pink" id="counter-creators2" data-target="3000">0</div>
+          <div class="stat-label" style="color: var(--text-secondary);">Creators</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" style="color: var(--dark-navy);" id="counter-events2" data-target="170">0</div>
+          <div class="stat-label" style="color: var(--text-secondary);">Events</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num color-yellow" style="-webkit-text-stroke: 2px var(--dark-navy);" id="counter-countries2" data-target="30">0</div>
+          <div class="stat-label" style="color: var(--text-secondary);">Countries</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: GenJam Editions -->
+  <div class="slide centered" data-slide="10">
+    <div class="stagger">
+      <span class="pill pill-pink">Editions</span>
+      <h2>GenJam <span class="color-pink">Flavors</span></h2>
+      <div class="accent-bar dark" style="margin: 16px auto 28px;"></div>
+      <div class="cards" style="max-width: 1000px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <div class="card centered">
+          <div class="phase-icon">&#x1F3AC;</div>
+          <h3 style="font-size: 1.1rem;">Classic</h3>
+          <p style="font-size: 0.9rem;">AI filmmaking &amp; visual storytelling</p>
+        </div>
+        <div class="card card-pink centered">
+          <div class="phase-icon">&#x1F3AE;</div>
+          <h3 style="font-size: 1.1rem;">Game Edition</h3>
+          <p style="font-size: 0.9rem;">Create games &amp; interactive experiences</p>
+        </div>
+        <div class="card card-yellow centered">
+          <div class="phase-icon">&#x1F30D;</div>
+          <h3 style="font-size: 1.1rem;">360&deg;</h3>
+          <p style="font-size: 0.9rem;">Immersive AI for dome &amp; VR</p>
+        </div>
+        <div class="card card-lime centered">
+          <div class="phase-icon">&#x1F9D8;</div>
+          <h3 style="font-size: 1.1rem;">Meditation</h3>
+          <p style="font-size: 0.9rem;">Create &amp; experience AI meditation</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 11: CTA -->
+  <div class="slide slide-dark centered" data-slide="11" data-dots="light">
+    <div class="deco-dot" style="top:15%;left:10%;background:var(--pink);width:30px;height:30px;opacity:0.6;"></div>
+    <div class="deco-dot" style="bottom:20%;right:8%;background:var(--lime);width:24px;height:24px;opacity:0.6;"></div>
+    <div class="deco-dot" style="top:25%;right:20%;background:var(--yellow);width:18px;height:18px;opacity:0.5;"></div>
+    <div class="stagger">
+      <h1 style="color: #fff;">Ready to<br><span class="color-pink">Jam</span><span class="color-yellow">?</span></h1>
+      <div class="accent-bar pink" style="margin: 16px auto 28px;"></div>
+      <p style="max-width: 500px; text-align: center; font-size: clamp(1.05rem, 1.5vw, 1.2rem); color: #b0b0c8;">
+        Bring a GenJam to your community, company, or festival. Or join the next one.
+      </p>
+      <div style="display: flex; gap: 14px; margin-top: 24px; flex-wrap: wrap; justify-content: center;">
+        <span class="btn btn-pink">Join Us</span>
+        <span class="btn" style="background:var(--lime);color:var(--dark-navy);border-color:var(--lime);">Learn More</span>
+      </div>
+      <p style="margin-top: 36px; font-family: var(--font-mono); font-size: 0.95rem; color: rgba(255,255,255,0.4);">
+        machinecinema.ai
+      </p>
+      <p style="margin-top: 16px; font-size: 1.3rem; color: #fff; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">
+        Learn. Create. Play.
+      </p>
+    </div>
+    <div class="marquee-wrap" style="background: var(--yellow);">
+      <div class="marquee-track">
+        <span>Learn</span><span class="dot">&#9679;</span>
+        <span>Create</span><span class="dot">&#9679;</span>
+        <span>Play</span><span class="dot">&#9679;</span>
+        <span>GenJam</span><span class="dot">&#9679;</span>
+        <span>AIRL</span><span class="dot">&#9679;</span>
+        <span>Machine Cinema</span><span class="dot">&#9679;</span>
+        <span>Learn</span><span class="dot">&#9679;</span>
+        <span>Create</span><span class="dot">&#9679;</span>
+        <span>Play</span><span class="dot">&#9679;</span>
+        <span>GenJam</span><span class="dot">&#9679;</span>
+        <span>AIRL</span><span class="dot">&#9679;</span>
+        <span>Machine Cinema</span><span class="dot">&#9679;</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ---- Floating shapes particle system (colorful dots, on-brand) ----
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  const PARTICLE_COUNT = 35;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  const brandColors = [
+    { r: 255, g: 45, b: 85 },   // pink
+    { r: 200, g: 255, b: 0 },   // lime
+    { r: 255, g: 214, b: 0 },   // yellow
+    { r: 13, g: 13, b: 26 },    // dark navy
+  ];
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 6 + 3;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.speedY = (Math.random() - 0.5) * 0.3;
+      this.opacity = Math.random() * 0.08 + 0.03;
+      this.color = brandColors[Math.floor(Math.random() * brandColors.length)];
+      this.rotation = Math.random() * Math.PI * 2;
+      this.rotSpeed = (Math.random() - 0.5) * 0.01;
+      // shape: 0 = circle, 1 = square, 2 = triangle
+      this.shape = Math.floor(Math.random() * 3);
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.rotation += this.rotSpeed;
+      if (this.x < -20 || this.x > canvas.width + 20 || this.y < -20 || this.y > canvas.height + 20) this.reset();
+    }
+    draw() {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.rotation);
+      ctx.globalAlpha = this.opacity;
+      ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
+
+      if (this.shape === 0) {
+        ctx.beginPath();
+        ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (this.shape === 1) {
+        ctx.fillRect(-this.size, -this.size, this.size * 2, this.size * 2);
+      } else {
+        ctx.beginPath();
+        ctx.moveTo(0, -this.size);
+        ctx.lineTo(this.size, this.size);
+        ctx.lineTo(-this.size, this.size);
+        ctx.closePath();
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+  }
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+
+  // ---- Slide navigation ----
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  let currentSlide = 0;
+  let isTransitioning = false;
+
+  const progressBar = document.getElementById('progress');
+  const navDotsContainer = document.getElementById('nav-dots');
+
+  // Create nav dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    dot.addEventListener('click', function() { goToSlide(i); });
+    navDotsContainer.appendChild(dot);
+  });
+
+  function updateProgress() {
+    const pct = (currentSlide / (totalSlides - 1)) * 100;
+    progressBar.style.width = pct + '%';
+
+    // Update nav dots
+    const dots = document.querySelectorAll('.nav-dot');
+    dots.forEach(function(d, i) {
+      d.classList.toggle('active', i === currentSlide);
+    });
+
+    // Update dot color scheme based on slide background
+    const activeSlide = slides[currentSlide];
+    if (activeSlide.dataset.dots === 'light' || activeSlide.classList.contains('slide-dark')) {
+      navDotsContainer.classList.add('dots-light');
+    } else {
+      navDotsContainer.classList.remove('dots-light');
+    }
+
+    // Update progress bar color on dark slides
+    if (activeSlide.classList.contains('slide-dark')) {
+      progressBar.style.background = 'var(--yellow)';
+    } else {
+      progressBar.style.background = 'var(--pink)';
+    }
+  }
+
+  function goToSlide(index) {
+    if (index === currentSlide || isTransitioning || index < 0 || index >= totalSlides) return;
+    isTransitioning = true;
+    var direction = index > currentSlide ? 1 : -1;
+    var prev = slides[currentSlide];
+    var next = slides[index];
+
+    prev.classList.remove('active');
+    if (direction > 0) prev.classList.add('exit-up');
+
+    // Reset stagger animations
+    var staggerEls = next.querySelectorAll('.stagger > *');
+    staggerEls.forEach(function(el) {
+      el.style.animation = 'none';
+      el.offsetHeight;
+      el.style.animation = '';
+    });
+
+    next.classList.remove('exit-up');
+    next.classList.add('active');
+
+    currentSlide = index;
+    updateProgress();
+
+    // Trigger timeline animations
+    if (next.querySelector('.timeline')) {
+      var items = next.querySelectorAll('.timeline-item');
+      items.forEach(function(item, i) {
+        item.classList.remove('visible');
+        setTimeout(function() { item.classList.add('visible'); }, 200 + i * 180);
+      });
+    }
+
+    // Trigger counter animations
+    next.querySelectorAll('[data-target]').forEach(function(el) { animateCounter(el); });
+
+    setTimeout(function() {
+      prev.classList.remove('exit-up');
+      isTransitioning = false;
+    }, 550);
+  }
+
+  function nextSlide() { goToSlide(currentSlide + 1); }
+  function prevSlide() { goToSlide(currentSlide - 1); }
+
+  // Keyboard
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevSlide(); }
+    if (e.key === 'Home') { e.preventDefault(); goToSlide(0); }
+    if (e.key === 'End') { e.preventDefault(); goToSlide(totalSlides - 1); }
+  });
+
+  // Touch / swipe
+  var touchStartX = 0, touchStartY = 0;
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  document.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    var dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      dx < 0 ? nextSlide() : prevSlide();
+    } else if (Math.abs(dy) > 50) {
+      dy < 0 ? nextSlide() : prevSlide();
+    }
+  }, { passive: true });
+
+  // Mouse wheel
+  var wheelTimeout;
+  document.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    clearTimeout(wheelTimeout);
+    wheelTimeout = setTimeout(function() {
+      e.deltaY > 0 ? nextSlide() : prevSlide();
+    }, 100);
+  }, { passive: false });
+
+  // Counter animation
+  function animateCounter(el) {
+    var target = parseInt(el.dataset.target);
+    var duration = 1200;
+    var start = performance.now();
+    function tick(now) {
+      var elapsed = now - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target).toLocaleString() + (progress >= 1 ? '+' : '');
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // Animate counters on first slide
+  slides[0].querySelectorAll('[data-target]').forEach(function(el) {
+    setTimeout(function() { animateCounter(el); }, 400);
+  });
+
+  // Animate decorative dots floating
+  var decoDots = document.querySelectorAll('.deco-dot');
+  decoDots.forEach(function(dot) {
+    var baseX = parseFloat(dot.style.left || dot.style.right) || 10;
+    var baseY = parseFloat(dot.style.top || dot.style.bottom) || 10;
+    var phase = Math.random() * Math.PI * 2;
+    var speed = 0.5 + Math.random() * 0.5;
+    var amp = 8 + Math.random() * 12;
+
+    function float(t) {
+      var dx = Math.sin(t * speed * 0.001 + phase) * amp;
+      var dy = Math.cos(t * speed * 0.0013 + phase) * amp * 0.7;
+      dot.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+      requestAnimationFrame(float);
+    }
+    requestAnimationFrame(float);
+  });
+
+  updateProgress();
+})();
+</script>
+</body>
+</html>
