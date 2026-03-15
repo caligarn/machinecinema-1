@@ -325,6 +325,11 @@
     color: var(--text-secondary);
   }
   .bio-card ul li:last-child { border-bottom: none; }
+  .bio-card .bio-photo {
+    width: 110px; height: 110px; border-radius: 50%;
+    object-fit: cover; margin: 0 auto 16px;
+    display: block; border: 3px solid var(--pink);
+  }
 
   /* ---- Process flow ---- */
   .process-flow {
@@ -669,8 +674,9 @@
       <span class="pill pill-dark">Your Hosts</span>
       <h2 style="text-align: center;">Meet the <span class="color-pink">Founders</span></h2>
       <div class="accent-bar pink" style="margin: 12px auto 20px;"></div>
-      <div class="two-col" style="max-width: 900px; gap: 24px;">
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); max-width: 1050px; gap: 24px;">
         <div class="bio-card">
+          <img class="bio-photo" src="cofounders/fred.avif" alt="Fred Grinstein">
           <div class="bio-name">Fred Grinstein</div>
           <div class="bio-title">Co-Founder, Machine Cinema</div>
           <ul>
@@ -680,6 +686,7 @@
           </ul>
         </div>
         <div class="bio-card">
+          <img class="bio-photo" src="cofounders/minh.avif" alt="Minh Do">
           <div class="bio-name">Minh Do</div>
           <div class="bio-title">Co-Founder, Machine Cinema</div>
           <ul>
@@ -687,6 +694,16 @@
             <li>Producer at Fairground.tv, an AI TV channel</li>
             <li>Currently hiring AI creators &amp; AI studios</li>
             <li style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--pink);">@minhsmind</li>
+          </ul>
+        </div>
+        <div class="bio-card">
+          <img class="bio-photo" src="cofounders/affan.avif" alt="Affan Butt">
+          <div class="bio-name">Affan Butt</div>
+          <div class="bio-title">Co-Founder, Machine Cinema</div>
+          <ul>
+            <li>Serial entrepreneur &amp; technologist</li>
+            <li>AI product builder &amp; creative technologist</li>
+            <li>Bridging engineering and storytelling</li>
           </ul>
         </div>
       </div>
