@@ -1414,6 +1414,8 @@
     this.startX = this.x;
     this.startY = this.y;
     this.age = 0;
+    // Swap to a new random image every 15-30 seconds
+    this.nextSwap = randomRange(15, 30);
   };
 
   SchnozzoSprite.prototype.update = function(dt) {
@@ -1449,6 +1451,12 @@
         if (this.y > H + this.size * 2) { this.y = -this.size; }
         if (this.y < -this.size * 2) { this.y = H + this.size; }
         break;
+    }
+
+    // Periodically swap image
+    if (t >= this.nextSwap) {
+      this.el.src = schnozzoPNGs[Math.floor(Math.random() * schnozzoPNGs.length)];
+      this.nextSwap = t + randomRange(15, 30);
     }
 
     // Rotation
