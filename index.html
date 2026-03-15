@@ -1300,7 +1300,7 @@
   // Animation behaviors
   var ANIM_FLOAT = 0, ANIM_BOUNCE = 1, ANIM_FLY = 2, ANIM_DRIFT = 3, ANIM_ZIGZAG = 4;
   var ANIM_COUNT = 5;
-  var SPRITE_COUNT = 12; // robots on screen at once
+  var SPRITE_COUNT = 4; // fewer, larger robots
   var schnozzoLayer = document.getElementById('schnozzo-layer');
   var schnozzoSprites = [];
 
@@ -1319,20 +1319,21 @@
     // Pick a random robot PNG
     this.el.src = schnozzoPNGs[Math.floor(Math.random() * schnozzoPNGs.length)];
 
-    // Size: small enough to be decorative, not overwhelming
-    this.size = randomRange(50, 120);
+    // Size: large and prominent
+    this.size = randomRange(200, 400);
     this.el.style.width = this.size + 'px';
     this.el.style.height = 'auto';
 
-    // Pick animation type
-    this.animType = Math.floor(Math.random() * ANIM_COUNT);
+    // Pick animation type — only persistent ones (float, bounce, drift)
+    var persistentAnims = [ANIM_FLOAT, ANIM_BOUNCE, ANIM_DRIFT];
+    this.animType = persistentAnims[Math.floor(Math.random() * persistentAnims.length)];
 
-    // Opacity: subtle, ghostly presence
-    this.baseOpacity = randomRange(0.08, 0.25);
+    // Opacity: subtle but visible at large size
+    this.baseOpacity = randomRange(0.06, 0.18);
 
     // Rotation
     this.rotation = randomRange(0, 360);
-    this.rotSpeed = randomRange(-0.8, 0.8);
+    this.rotSpeed = randomRange(-0.3, 0.3);
 
     // Scale oscillation
     this.scaleBase = 1;
@@ -1407,11 +1408,11 @@
       case ANIM_FLOAT:
         this.x = this.startX + this.vx * t * 60 + Math.sin(t * this.floatSpeed + this.floatPhase) * this.floatAmpX;
         this.y = this.startY + this.vy * t * 60 + Math.cos(t * this.floatSpeed * 0.7 + this.floatPhase) * this.floatAmpY;
-        // Wrap around
-        if (this.x > W + this.size) this.x = -this.size;
-        if (this.x < -this.size * 2) this.x = W;
-        if (this.y > H + this.size) this.y = -this.size;
-        if (this.y < -this.size * 2) this.y = H;
+        // Wrap around seamlessly
+        if (this.x > W + this.size) { this.x = -this.size; this.startX = this.x - this.vx * t * 60; }
+        if (this.x < -this.size * 2) { this.x = W; this.startX = this.x - this.vx * t * 60; }
+        if (this.y > H + this.size) { this.y = -this.size; this.startY = this.y - this.vy * t * 60; }
+        if (this.y < -this.size * 2) { this.y = H; this.startY = this.y - this.vy * t * 60; }
         break;
 
       case ANIM_BOUNCE:
@@ -1423,26 +1424,12 @@
         this.y = Math.max(0, Math.min(this.y, H - this.size));
         break;
 
-      case ANIM_FLY:
-        this.x += this.vx;
-        this.y += this.vy;
-        // Reset when off screen
-        if (this.x < -this.size * 2 || this.x > W + this.size * 2 ||
-            this.y < -this.size * 2 || this.y > H + this.size * 2) {
-          this.reset(false);
-        }
-        break;
-
       case ANIM_DRIFT:
         this.x += this.vx + Math.sin(t * this.wobbleSpeed + this.wobblePhase) * this.wobbleAmp * 0.01;
         this.y += this.vy;
-        if (this.y > H + this.size * 2) this.reset(false);
-        break;
-
-      case ANIM_ZIGZAG:
-        this.x += this.vx;
-        this.y = this.startY + Math.sin(t * this.zigSpeed + this.zigPhase) * this.zigAmp;
-        if (this.x > W + this.size * 2) this.reset(false);
+        // Wrap vertically — come back from the top
+        if (this.y > H + this.size * 2) { this.y = -this.size; }
+        if (this.y < -this.size * 2) { this.y = H + this.size; }
         break;
     }
 
