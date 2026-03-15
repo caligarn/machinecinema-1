@@ -488,6 +488,30 @@
     image-rendering: auto;
     filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));
   }
+
+  /* ---- Fireworks canvas for challenge slide ---- */
+  #fireworks-canvas {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1; pointer-events: none;
+  }
+
+  /* Drumroll bounce dots */
+  .drumroll-dot {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--pink);
+    animation: drumBounce 0.4s ease-in-out infinite alternate;
+  }
+  .drumroll-dot:nth-child(2) { background: var(--yellow); animation-delay: 0.1s; }
+  .drumroll-dot:nth-child(3) { background: var(--lime); animation-delay: 0.2s; }
+  .drumroll-dot:nth-child(4) { background: var(--orange); animation-delay: 0.3s; }
+  .drumroll-dot:nth-child(5) { background: var(--purple); animation-delay: 0.15s; }
+
+  @keyframes drumBounce {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-24px) scale(1.3); }
+  }
 </style>
 </head>
 <body>
@@ -959,8 +983,25 @@
     </div>
   </div>
 
-  <!-- SLIDE 21: Showcase & Discussion -->
-  <div class="slide slide-dark centered" data-slide="21" data-dots="light">
+  <!-- SLIDE 21: Today's Challenge (Fireworks + Drumroll + Reveal) -->
+  <div class="slide slide-dark centered" data-slide="21" data-dots="light" id="challenge-slide">
+    <canvas id="fireworks-canvas"></canvas>
+    <div class="stagger" style="position: relative; z-index: 2; text-align: center;">
+      <span class="pill pill-yellow">Challenge</span>
+      <h1 style="font-size: clamp(2.5rem, 6vw, 5rem); margin-bottom: 20px;">Today's <span class="color-pink">Challenge</span></h1>
+      <div class="accent-bar pink" style="margin: 12px auto 24px;"></div>
+      <h2 id="challenge-prompt" style="font-size: clamp(1.4rem, 3vw, 2.4rem); color: #b0b0c8; margin-bottom: 30px; opacity: 0;">Make a Short Film About</h2>
+      <div id="drumroll-container" style="display: none; margin: 20px auto; width: 200px; height: 60px; position: relative;">
+        <div id="drumroll-dots" style="display: flex; justify-content: center; align-items: center; gap: 16px; height: 100%;"></div>
+      </div>
+      <h1 id="challenge-reveal" style="font-size: clamp(3rem, 8vw, 7rem); color: var(--yellow); text-shadow: 0 0 40px rgba(255,214,0,0.6), 0 0 80px rgba(255,214,0,0.3); opacity: 0; transform: translateY(120px) scale(0.3); transition: none; white-space: nowrap;">
+        Movie Night
+      </h1>
+    </div>
+  </div>
+
+  <!-- SLIDE 22: Showcase & Discussion -->
+  <div class="slide slide-dark centered" data-slide="22" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">Reflect</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 5rem);">Show<span class="color-pink">case</span></h1>
@@ -975,8 +1016,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 22: Submissions -->
-  <div class="slide centered" data-slide="22">
+  <!-- SLIDE 23: Submissions -->
+  <div class="slide centered" data-slide="23">
     <div class="stagger">
       <span class="pill pill-pink">Submit</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem);">Sub<span class="color-pink">missions</span></h1>
@@ -998,8 +1039,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 23: Goodbye / Community -->
-  <div class="slide slide-dark centered" data-slide="23" data-dots="light">
+  <!-- SLIDE 24: Goodbye / Community -->
+  <div class="slide slide-dark centered" data-slide="24" data-dots="light">
     <div class="deco-dot" style="top:10%;left:8%;background:var(--pink);width:28px;height:28px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:20%;right:10%;background:var(--lime);width:22px;height:22px;opacity:0.5;"></div>
     <div class="deco-dot" style="top:25%;right:18%;background:var(--yellow);width:18px;height:18px;opacity:0.4;"></div>
@@ -1193,6 +1234,20 @@
       startCountdown();
     }
 
+    // Start challenge animations on slide 21
+    if (next.dataset.slide === '21') {
+      startChallengeSequence();
+    }
+
+    // Reset challenge when leaving
+    if (prev.dataset.slide === '21' && index !== 21) {
+      challengeStarted = false;
+      fwRunning = false;
+      if (fwCtx) fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
+      fireworks = [];
+      fwParticles = [];
+    }
+
     setTimeout(function() {
       prev.classList.remove('exit-up');
       isTransitioning = false;
@@ -1286,6 +1341,227 @@
       }
       requestAnimationFrame(float);
     })(decoDots[i]);
+  }
+
+  // ---- Fireworks + Challenge Reveal System ----
+  var fwCanvas = document.getElementById('fireworks-canvas');
+  var fwCtx = fwCanvas ? fwCanvas.getContext('2d') : null;
+  var fireworks = [];
+  var fwParticles = [];
+  var fwRunning = false;
+
+  function resizeFwCanvas() {
+    if (!fwCanvas) return;
+    var slide = document.getElementById('challenge-slide');
+    if (slide) {
+      fwCanvas.width = slide.offsetWidth;
+      fwCanvas.height = slide.offsetHeight;
+    }
+  }
+  resizeFwCanvas();
+  window.addEventListener('resize', resizeFwCanvas);
+
+  var fwColors = ['#FF2D55','#C8FF00','#FFD600','#FF904D','#CB6BE6','#0074B1','#6ACB9D','#fff'];
+
+  function FWParticle(x, y, color) {
+    this.x = x; this.y = y;
+    var angle = Math.random() * Math.PI * 2;
+    var speed = Math.random() * 6 + 2;
+    this.vx = Math.cos(angle) * speed;
+    this.vy = Math.sin(angle) * speed;
+    this.alpha = 1;
+    this.decay = Math.random() * 0.02 + 0.015;
+    this.size = Math.random() * 3 + 1.5;
+    this.color = color;
+    this.gravity = 0.06;
+    this.trail = [];
+  }
+  FWParticle.prototype.update = function() {
+    this.trail.push({ x: this.x, y: this.y, alpha: this.alpha * 0.4 });
+    if (this.trail.length > 6) this.trail.shift();
+    this.vy += this.gravity;
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vx *= 0.98;
+    this.vy *= 0.98;
+    this.alpha -= this.decay;
+  };
+  FWParticle.prototype.draw = function(ctx) {
+    for (var i = 0; i < this.trail.length; i++) {
+      var t = this.trail[i];
+      ctx.beginPath();
+      ctx.arc(t.x, t.y, this.size * 0.5, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = t.alpha * 0.3;
+      ctx.fill();
+    }
+    ctx.globalAlpha = this.alpha;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+    // glow
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+    var grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 3);
+    grad.addColorStop(0, this.color);
+    grad.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad;
+    ctx.globalAlpha = this.alpha * 0.3;
+    ctx.fill();
+  };
+
+  function Firework(targetX, targetY) {
+    this.x = fwCanvas.width * (0.2 + Math.random() * 0.6);
+    this.y = fwCanvas.height;
+    this.targetX = targetX;
+    this.targetY = targetY;
+    var dx = targetX - this.x, dy = targetY - this.y;
+    var dist = Math.sqrt(dx * dx + dy * dy);
+    this.speed = dist / 30;
+    this.vx = (dx / dist) * this.speed;
+    this.vy = (dy / dist) * this.speed;
+    this.alpha = 1;
+    this.done = false;
+    this.color = fwColors[Math.floor(Math.random() * fwColors.length)];
+    this.trail = [];
+  }
+  Firework.prototype.update = function() {
+    this.trail.push({ x: this.x, y: this.y });
+    if (this.trail.length > 10) this.trail.shift();
+    this.x += this.vx;
+    this.y += this.vy;
+    var dx = this.targetX - this.x, dy = this.targetY - this.y;
+    if (Math.sqrt(dx * dx + dy * dy) < this.speed * 2) {
+      this.done = true;
+      var count = 40 + Math.floor(Math.random() * 40);
+      for (var i = 0; i < count; i++) {
+        fwParticles.push(new FWParticle(this.x, this.y, this.color));
+      }
+    }
+  };
+  Firework.prototype.draw = function(ctx) {
+    for (var i = 0; i < this.trail.length; i++) {
+      var t = this.trail[i];
+      ctx.beginPath();
+      ctx.arc(t.x, t.y, 2, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = (i / this.trail.length) * 0.5;
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+  };
+
+  function animateFireworks() {
+    if (!fwRunning) return;
+    fwCtx.globalCompositeOperation = 'destination-out';
+    fwCtx.fillStyle = 'rgba(0,0,0,0.15)';
+    fwCtx.fillRect(0, 0, fwCanvas.width, fwCanvas.height);
+    fwCtx.globalCompositeOperation = 'lighter';
+
+    for (var i = fireworks.length - 1; i >= 0; i--) {
+      fireworks[i].update();
+      fireworks[i].draw(fwCtx);
+      if (fireworks[i].done) fireworks.splice(i, 1);
+    }
+    for (var i = fwParticles.length - 1; i >= 0; i--) {
+      fwParticles[i].update();
+      fwParticles[i].draw(fwCtx);
+      if (fwParticles[i].alpha <= 0) fwParticles.splice(i, 1);
+    }
+    fwCtx.globalAlpha = 1;
+    requestAnimationFrame(animateFireworks);
+  }
+
+  function launchFirework() {
+    if (!fwCanvas) return;
+    var tx = Math.random() * fwCanvas.width * 0.7 + fwCanvas.width * 0.15;
+    var ty = Math.random() * fwCanvas.height * 0.4 + fwCanvas.height * 0.1;
+    fireworks.push(new Firework(tx, ty));
+  }
+
+  var challengeStarted = false;
+  function startChallengeSequence() {
+    if (challengeStarted) return;
+    challengeStarted = true;
+    resizeFwCanvas();
+
+    var prompt = document.getElementById('challenge-prompt');
+    var drumContainer = document.getElementById('drumroll-container');
+    var drumDots = document.getElementById('drumroll-dots');
+    var reveal = document.getElementById('challenge-reveal');
+
+    // Reset state
+    prompt.style.opacity = '0';
+    prompt.style.transform = 'translateY(20px)';
+    prompt.style.transition = 'none';
+    reveal.style.opacity = '0';
+    reveal.style.transform = 'translateY(120px) scale(0.3)';
+    reveal.style.transition = 'none';
+    drumContainer.style.display = 'none';
+    drumDots.innerHTML = '';
+
+    // Step 1: fade in "Make a Short Film About" (0.5s delay)
+    setTimeout(function() {
+      prompt.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      prompt.style.opacity = '1';
+      prompt.style.transform = 'translateY(0)';
+    }, 500);
+
+    // Step 2: show drumroll dots (1.8s delay)
+    setTimeout(function() {
+      drumContainer.style.display = 'block';
+      for (var i = 0; i < 5; i++) {
+        var dot = document.createElement('div');
+        dot.className = 'drumroll-dot';
+        drumDots.appendChild(dot);
+      }
+    }, 1800);
+
+    // Step 3: Start fireworks barrage right before reveal (3.5s)
+    setTimeout(function() {
+      fwRunning = true;
+      fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
+      animateFireworks();
+      // rapid-fire fireworks
+      for (var i = 0; i < 5; i++) {
+        setTimeout(launchFirework, i * 150);
+      }
+    }, 3500);
+
+    // Step 4: Reveal "Movie Night" with zoom-in (4.2s)
+    setTimeout(function() {
+      drumContainer.style.display = 'none';
+      reveal.style.transition = 'opacity 0.9s cubic-bezier(.17,.67,.35,1.3), transform 0.9s cubic-bezier(.17,.67,.35,1.3)';
+      reveal.style.opacity = '1';
+      reveal.style.transform = 'translateY(0) scale(1)';
+
+      // Continue fireworks celebration
+      var burstCount = 0;
+      var burstInterval = setInterval(function() {
+        launchFirework();
+        if (Math.random() > 0.5) launchFirework();
+        burstCount++;
+        if (burstCount > 30) clearInterval(burstInterval);
+      }, 300);
+    }, 4200);
+
+    // Step 5: Ongoing ambient fireworks
+    setTimeout(function() {
+      var ambientInterval = setInterval(function() {
+        if (!fwRunning) { clearInterval(ambientInterval); return; }
+        launchFirework();
+      }, 1200);
+      // Stop after 20 seconds
+      setTimeout(function() {
+        fwRunning = false;
+        clearInterval(ambientInterval);
+      }, 20000);
+    }, 14000);
   }
 
   updateProgress();
