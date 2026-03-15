@@ -514,7 +514,7 @@
     position: relative;
     width: 100%;
     max-width: 1200px;
-    aspect-ratio: 1200 / 560;
+    aspect-ratio: 1200 / 700;
     margin-top: 8px;
   }
   .fractal-lines {
@@ -526,11 +526,12 @@
   .fn {
     position: absolute;
     font-family: var(--font-mono);
-    font-size: clamp(0.6rem, 1.2vw, 0.85rem);
-    font-weight: 600;
+    font-size: clamp(0.75rem, 1.4vw, 1.05rem);
+    font-weight: 700;
     text-transform: uppercase;
-    padding: 10px 18px;
-    border-radius: 10px;
+    letter-spacing: 0.04em;
+    padding: 12px 22px;
+    border-radius: 12px;
     border: 2.5px solid rgba(0,0,0,0.25);
     white-space: nowrap;
     transform: translate(-50%, -50%);
@@ -540,29 +541,29 @@
   .fn-header {
     position: absolute;
     font-family: var(--font-mono);
-    font-size: clamp(0.5rem, 0.9vw, 0.7rem);
-    font-weight: 600;
+    font-size: clamp(0.6rem, 1vw, 0.8rem);
+    font-weight: 700;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.5);
-    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.12em;
     transform: translate(-50%, -50%);
     white-space: nowrap;
   }
-  .fn-idea   { left: 4%; top: 50%; }
-  .fn-script { left: 18%; top: 50%; }
-  .fn-hdr-shot { left: 36%; top: 1%; }
-  .fn-hdr-img  { left: 54%;  top: 1%; }
-  .fn-hdr-vid  { left: 72%; top: 1%; }
-  .fn-final  { left: 92%; top: 50%; padding: 10px 18px; }
-  .fn-shot { left: 36%; }
-  .fn-img  { left: 54%; }
-  .fn-vid  { left: 72%; }
-  .fn-r1 { top: 8.6%; }
-  .fn-r2 { top: 25%; }
-  .fn-r3 { top: 41.9%; }
-  .fn-r4 { top: 58.3%; }
-  .fn-r5 { top: 75%; }
-  .fn-r6 { top: 91.3%; }
+  .fn-idea   { left: 5%; top: 50%; }
+  .fn-script { left: 19%; top: 50%; padding: 14px 24px; }
+  .fn-hdr-shot { left: 37%; top: 2%; }
+  .fn-hdr-img  { left: 55%; top: 2%; }
+  .fn-hdr-vid  { left: 73%; top: 2%; }
+  .fn-final  { left: 92%; top: 50%; padding: 14px 24px; font-size: clamp(0.75rem, 1.4vw, 1.05rem); }
+  .fn-shot { left: 37%; }
+  .fn-img  { left: 55%; }
+  .fn-vid  { left: 73%; }
+  .fn-r1 { top: 12%; }
+  .fn-r2 { top: 26.5%; }
+  .fn-r3 { top: 41%; }
+  .fn-r4 { top: 55.5%; }
+  .fn-r5 { top: 70%; }
+  .fn-r6 { top: 84.5%; }
 
   /* ---- Tips grid ---- */
   .tips-grid {
@@ -1302,37 +1303,37 @@
       <h2>The <span class="color-yellow">Process</span> — Expanded</h2>
       <div class="accent-bar yellow" style="margin: 12px auto 16px;"></div>
       <div class="fractal-wrap">
-        <svg class="fractal-lines" viewBox="0 0 1200 560" preserveAspectRatio="xMidYMid meet">
+        <svg class="fractal-lines" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid meet">
           <!-- Idea to Script -->
-          <line x1="80" y1="280" x2="170" y2="280" stroke="var(--yellow)" stroke-width="2.5"/>
+          <line x1="80" y1="350" x2="175" y2="350" stroke="var(--yellow)" stroke-width="2.5"/>
           <!-- Script fan-out to shots -->
-          <line x1="270" y1="280" x2="385" y2="48" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="270" y1="280" x2="385" y2="140" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="270" y1="280" x2="385" y2="235" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="270" y1="280" x2="385" y2="326" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="270" y1="280" x2="385" y2="420" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="270" y1="280" x2="385" y2="511" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="280" y1="350" x2="390" y2="84" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="280" y1="350" x2="390" y2="186" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="280" y1="350" x2="390" y2="287" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="280" y1="350" x2="390" y2="389" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="280" y1="350" x2="390" y2="490" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="280" y1="350" x2="390" y2="592" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
           <!-- Shot to IMG arrows -->
-          <line x1="485" y1="48" x2="598" y2="48" stroke="var(--lime)" stroke-width="2"/>
-          <line x1="485" y1="140" x2="598" y2="140" stroke="var(--lime)" stroke-width="2"/>
-          <line x1="485" y1="235" x2="598" y2="235" stroke="var(--lime)" stroke-width="2"/>
-          <line x1="485" y1="326" x2="598" y2="326" stroke="var(--lime)" stroke-width="2"/>
-          <line x1="485" y1="420" x2="598" y2="420" stroke="var(--lime)" stroke-width="2"/>
-          <line x1="485" y1="511" x2="598" y2="511" stroke="var(--lime)" stroke-width="2"/>
+          <line x1="500" y1="84" x2="605" y2="84" stroke="var(--lime)" stroke-width="2"/>
+          <line x1="500" y1="186" x2="605" y2="186" stroke="var(--lime)" stroke-width="2"/>
+          <line x1="500" y1="287" x2="605" y2="287" stroke="var(--lime)" stroke-width="2"/>
+          <line x1="500" y1="389" x2="605" y2="389" stroke="var(--lime)" stroke-width="2"/>
+          <line x1="500" y1="490" x2="605" y2="490" stroke="var(--lime)" stroke-width="2"/>
+          <line x1="500" y1="592" x2="605" y2="592" stroke="var(--lime)" stroke-width="2"/>
           <!-- IMG to VID arrows -->
-          <line x1="700" y1="48" x2="812" y2="48" stroke="var(--orange)" stroke-width="2"/>
-          <line x1="700" y1="140" x2="812" y2="140" stroke="var(--orange)" stroke-width="2"/>
-          <line x1="700" y1="235" x2="812" y2="235" stroke="var(--orange)" stroke-width="2"/>
-          <line x1="700" y1="326" x2="812" y2="326" stroke="var(--orange)" stroke-width="2"/>
-          <line x1="700" y1="420" x2="812" y2="420" stroke="var(--orange)" stroke-width="2"/>
-          <line x1="700" y1="511" x2="812" y2="511" stroke="var(--orange)" stroke-width="2"/>
+          <line x1="715" y1="84" x2="820" y2="84" stroke="var(--orange)" stroke-width="2"/>
+          <line x1="715" y1="186" x2="820" y2="186" stroke="var(--orange)" stroke-width="2"/>
+          <line x1="715" y1="287" x2="820" y2="287" stroke="var(--orange)" stroke-width="2"/>
+          <line x1="715" y1="389" x2="820" y2="389" stroke="var(--orange)" stroke-width="2"/>
+          <line x1="715" y1="490" x2="820" y2="490" stroke="var(--orange)" stroke-width="2"/>
+          <line x1="715" y1="592" x2="820" y2="592" stroke="var(--orange)" stroke-width="2"/>
           <!-- VID converge to Sound & Edit -->
-          <line x1="920" y1="48" x2="1055" y2="280" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="920" y1="140" x2="1055" y2="280" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="920" y1="235" x2="1055" y2="280" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="920" y1="326" x2="1055" y2="280" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="920" y1="420" x2="1055" y2="280" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="920" y1="511" x2="1055" y2="280" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="930" y1="84" x2="1060" y2="350" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="930" y1="186" x2="1060" y2="350" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="930" y1="287" x2="1060" y2="350" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="930" y1="389" x2="1060" y2="350" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="930" y1="490" x2="1060" y2="350" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="930" y1="592" x2="1060" y2="350" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
         </svg>
         <!-- Nodes -->
         <div class="fn fn-idea" style="background:var(--yellow);color:var(--dark-navy);">Idea</div>
