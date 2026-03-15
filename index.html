@@ -503,11 +503,11 @@
   }
   .gj-photo {
     position: absolute;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     object-fit: cover;
     will-change: transform, opacity;
-    border: 3px solid rgba(255,255,255,0.15);
+    opacity: 0;
   }
 
   /* ---- Glass shatter canvas for title slide ---- */
@@ -1610,80 +1610,111 @@
   ];
   var gjPhotoEls = [];
 
+  var gjCurrentIdx = 0;
+  var gjCrossfadeTimer = null;
+  var gjKenBurnsAnimId = null;
+
+  // Each image gets a random Ken Burns motion (slow pan + zoom)
+  var gjKenBurnsPresets = [
+    { sx: 1.15, sy: 1.15, ex: 1.35, ey: 1.35, stx: -5, sty: -3, etx: 5, ety: 3 },
+    { sx: 1.3, sy: 1.3, ex: 1.15, ey: 1.15, stx: 4, sty: 2, etx: -4, ety: -2 },
+    { sx: 1.2, sy: 1.2, ex: 1.4, ey: 1.4, stx: -6, sty: 4, etx: 3, ety: -3 },
+    { sx: 1.35, sy: 1.35, ex: 1.2, ey: 1.2, stx: 3, sty: -4, etx: -5, ety: 2 },
+    { sx: 1.25, sy: 1.25, ex: 1.3, ey: 1.3, stx: -3, sty: -5, etx: 4, ety: 4 },
+    { sx: 1.3, sy: 1.3, ex: 1.25, ey: 1.25, stx: 5, sty: 3, etx: -3, ety: -4 },
+    { sx: 1.15, sy: 1.15, ex: 1.35, ey: 1.35, stx: 4, sty: -2, etx: -4, ety: 3 },
+    { sx: 1.35, sy: 1.35, ex: 1.15, ey: 1.15, stx: -4, sty: 5, etx: 3, ety: -3 },
+    { sx: 1.2, sy: 1.2, ex: 1.4, ey: 1.4, stx: 2, sty: -4, etx: -5, ety: 5 },
+  ];
+
   function initGallery() {
     var gallery = document.getElementById('past-genjams-gallery');
     if (!gallery) return;
     gallery.innerHTML = '';
     gjPhotoEls = [];
-    var w = gallery.offsetWidth || window.innerWidth;
-    var h = gallery.offsetHeight || window.innerHeight;
+    gjCurrentIdx = 0;
 
     for (var i = 0; i < gjPhotoPaths.length; i++) {
       var img = document.createElement('img');
       img.src = gjPhotoPaths[i];
       img.className = 'gj-photo';
       img.alt = 'GenJam event';
-      var size = 120 + Math.random() * 140;
-      img.style.width = size + 'px';
-      img.style.height = (size * 0.7) + 'px';
       img.style.opacity = '0';
       gallery.appendChild(img);
-
+      var preset = gjKenBurnsPresets[i % gjKenBurnsPresets.length];
       gjPhotoEls.push({
         el: img,
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 1.2,
-        vy: (Math.random() - 0.5) * 0.8,
-        baseSize: size,
-        scalePhase: Math.random() * Math.PI * 2,
-        scaleSpeed: 0.3 + Math.random() * 0.4,
-        rotPhase: Math.random() * Math.PI * 2,
-        rotSpeed: 0.1 + Math.random() * 0.2,
-        depth: 0.5 + Math.random() * 0.5,
-        targetOpacity: 0.6 + Math.random() * 0.35
+        preset: preset,
+        startTime: 0,
+        active: false
       });
     }
   }
 
+  var GJ_PHOTO_DURATION = 4000; // how long each photo is fully visible
+  var GJ_FADE_DURATION = 1500; // crossfade time
+
+  function startKenBurnsCrossfade() {
+    if (gjPhotoEls.length === 0) return;
+    // Show first image
+    showGjPhoto(0);
+    // Start crossfade cycle
+    gjCrossfadeTimer = setInterval(function() {
+      var nextIdx = (gjCurrentIdx + 1) % gjPhotoEls.length;
+      showGjPhoto(nextIdx);
+      // Fade out previous after new one is visible
+      var prevIdx = gjCurrentIdx;
+      setTimeout(function() {
+        if (gjPhotoEls[prevIdx]) {
+          gjPhotoEls[prevIdx].el.style.transition = 'opacity ' + GJ_FADE_DURATION + 'ms ease';
+          gjPhotoEls[prevIdx].el.style.opacity = '0';
+          gjPhotoEls[prevIdx].active = false;
+        }
+      }, GJ_FADE_DURATION * 0.3);
+      gjCurrentIdx = nextIdx;
+    }, GJ_PHOTO_DURATION);
+  }
+
+  function showGjPhoto(idx) {
+    var p = gjPhotoEls[idx];
+    p.active = true;
+    p.startTime = performance.now();
+    // Reset transform to start position
+    var pr = p.preset;
+    p.el.style.transform = 'scale(' + pr.sx + ') translate(' + pr.stx + '%, ' + pr.sty + '%)';
+    p.el.style.transition = 'opacity ' + GJ_FADE_DURATION + 'ms ease';
+    p.el.style.opacity = '0.55';
+    p.el.style.zIndex = String(gjCurrentIdx + 1);
+  }
+
   function animateGallery(t) {
-    var w = window.innerWidth;
-    var h = window.innerHeight;
     for (var i = 0; i < gjPhotoEls.length; i++) {
       var p = gjPhotoEls[i];
-      // Parallax movement
-      p.x += p.vx * p.depth;
-      p.y += p.vy * p.depth;
-
-      // Wrap around
-      if (p.x > w + 200) p.x = -200;
-      if (p.x < -200) p.x = w + 200;
-      if (p.y > h + 200) p.y = -200;
-      if (p.y < -200) p.y = h + 200;
-
-      // Breathe scale
-      var scale = 0.85 + Math.sin(t * 0.001 * p.scaleSpeed + p.scalePhase) * 0.2;
-      var rot = Math.sin(t * 0.001 * p.rotSpeed + p.rotPhase) * 5;
-
-      p.el.style.transform = 'translate(' + p.x + 'px, ' + p.y + 'px) scale(' + scale + ') rotate(' + rot + 'deg)';
-      p.el.style.zIndex = Math.floor(p.depth * 10);
+      if (!p.active) continue;
+      var elapsed = t - p.startTime;
+      var totalDur = GJ_PHOTO_DURATION + GJ_FADE_DURATION;
+      var progress = Math.min(elapsed / totalDur, 1);
+      // Ease
+      var ease = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+      var pr = p.preset;
+      var sc = pr.sx + (pr.ex - pr.sx) * ease;
+      var tx = pr.stx + (pr.etx - pr.stx) * ease;
+      var ty = pr.sty + (pr.ety - pr.sty) * ease;
+      p.el.style.transform = 'scale(' + sc + ') translate(' + tx + '%, ' + ty + '%)';
     }
-    galleryAnimId = requestAnimationFrame(animateGallery);
+    gjKenBurnsAnimId = requestAnimationFrame(animateGallery);
   }
 
   function fadeInPhotos() {
-    for (var i = 0; i < gjPhotoEls.length; i++) {
-      (function(idx) {
-        setTimeout(function() {
-          gjPhotoEls[idx].el.style.transition = 'opacity 1s ease';
-          gjPhotoEls[idx].el.style.opacity = String(gjPhotoEls[idx].targetOpacity);
-        }, idx * 200);
-      })(i);
-    }
+    // Start the Ken Burns crossfade slideshow
+    startKenBurnsCrossfade();
+    gjKenBurnsAnimId = requestAnimationFrame(animateGallery);
   }
 
   function stopGalleryAnimation() {
     if (galleryAnimId) { cancelAnimationFrame(galleryAnimId); galleryAnimId = null; }
+    if (gjKenBurnsAnimId) { cancelAnimationFrame(gjKenBurnsAnimId); gjKenBurnsAnimId = null; }
+    if (gjCrossfadeTimer) { clearInterval(gjCrossfadeTimer); gjCrossfadeTimer = null; }
     var gallery = document.getElementById('past-genjams-gallery');
     if (gallery) gallery.innerHTML = '';
     gjPhotoEls = [];
