@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GenJam — Learn. Create. Play.</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,600;1,700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,600;1,700&family=Gaegu:wght@400;700&display=swap');
 
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -456,6 +456,78 @@
     font-size: clamp(4rem, 12vw, 10rem);
     text-transform: uppercase; letter-spacing: -0.04em;
     line-height: 0.95;
+  }
+
+  /* ---- Story World slide ---- */
+  .story-world-slide {
+    font-family: 'Gaegu', cursive;
+    text-align: left;
+    padding: 40px 5% !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+  .story-world-slide h1.sw-title {
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    text-align: center;
+    width: 100%;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+  .story-world-slide .sw-subtitle {
+    font-family: 'Gaegu', cursive;
+    font-size: clamp(0.9rem, 1.6vw, 1.2rem);
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .sw-categories {
+    display: flex;
+    gap: clamp(6px, 1.2vw, 14px);
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  .sw-cat {
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+    font-size: clamp(1rem, 2vw, 1.6rem);
+    background: #f0ebe0;
+    color: #1a1a2e;
+    border: 2px solid #bbb;
+    border-radius: 999px;
+    padding: 8px clamp(14px, 2vw, 28px);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .sw-columns {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    width: 100%;
+    margin-top: 8px;
+  }
+  .sw-col {
+    font-family: 'Gaegu', cursive;
+    font-size: clamp(0.75rem, 1.3vw, 1.1rem);
+    line-height: 1.6;
+    text-align: center;
+  }
+  @media (max-width: 800px) {
+    .sw-columns { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* ---- Storytelling tips slide ---- */
+  .storytelling-tips {
+    font-family: 'Gaegu', cursive;
+  }
+  .storytelling-tips .st-line {
+    font-size: clamp(1.3rem, 3vw, 2.2rem);
+    font-weight: 700;
+    margin: 10px 0;
+    text-align: left;
   }
 
   /* ---- CTA button ---- */
@@ -1005,45 +1077,80 @@
     </div>
   </div>
 
-  <!-- SLIDE 19: Story Elements -->
-  <div class="slide centered" data-slide="19">
-    <div class="stagger">
-      <span class="pill pill-pink">Storytelling</span>
-      <h2>Story <span class="color-pink">Elements</span></h2>
-      <div class="accent-bar dark" style="margin: 12px auto 16px;"></div>
-      <p style="max-width: 550px; text-align: center; font-size: 0.95rem; margin-bottom: 16px;">
-        Spend some time discussing these things before AND during prompting.
-      </p>
-      <div class="cards" style="max-width: 900px; grid-template-columns: repeat(3, 1fr);">
-        <div class="card card-yellow centered">
-          <h4>Premise &amp; Story Arc</h4>
-        </div>
-        <div class="card card-pink centered">
-          <h4>Aesthetics &amp; World</h4>
-        </div>
-        <div class="card card-dark centered">
-          <h4>Theme</h4>
-        </div>
+  <!-- SLIDE 19: Story World -->
+  <div class="slide story-world-slide" data-slide="19">
+    <h1 class="sw-title">Story World</h1>
+    <p class="sw-subtitle">Spend some time discussing these things before AND DURING prompting for images and videos.</p>
+    <div class="sw-categories">
+      <span class="sw-cat">Story Arc</span>
+      <span class="sw-cat">Aesthetics</span>
+      <span class="sw-cat">Genre</span>
+      <span class="sw-cat">World</span>
+      <span class="sw-cat">Theme</span>
+      <span class="sw-cat">Premise</span>
+    </div>
+    <div class="sw-columns">
+      <div class="sw-col">
+        <p>Hero's Journey</p>
+        <p>3-Act Structure</p>
+        <p>Circular</p>
+        <p>Montage</p>
       </div>
-      <h4 style="margin-top: 20px; text-transform: uppercase; letter-spacing: 0.08em;">Genre:</h4>
-      <div class="tag-cloud" style="max-width: 700px; margin-top: 8px;">
-        <span class="tag tag-pink">Horror</span>
-        <span class="tag tag-dark">Sci-Fi</span>
-        <span class="tag tag-yellow">Fantasy</span>
-        <span class="tag tag-lime">Drama</span>
-        <span class="tag tag-orange">Comedy</span>
-        <span class="tag tag-white">Romance</span>
-        <span class="tag tag-dark">Mashup?</span>
+      <div class="sw-col">
+        <p>Visual Style</p>
+        <p>Color Palette</p>
+        <p>Mood / Tone</p>
+        <p>Art Direction</p>
+      </div>
+      <div class="sw-col">
+        <p>Horror?</p>
+        <p>Sci-Fi?</p>
+        <p>Fantasy?</p>
+        <p>Drama?</p>
+        <p>Comedy?</p>
+        <p>Romance?</p>
+        <p>Subgenre?</p>
+        <p>Mashup?</p>
+      </div>
+      <div class="sw-col">
+        <p>Complex</p>
+        <p>Simple</p>
+        <p>City</p>
+        <p>Countryside</p>
+        <p>Nature</p>
+        <p>Planet</p>
+        <p>Room</p>
+        <p>Building</p>
+      </div>
+      <div class="sw-col">
+        <p>Power</p>
+        <p>Love</p>
+        <p>Innocence</p>
+        <p>Coming of Age</p>
+        <p>Freedom</p>
+        <p>Humanity</p>
+      </div>
+      <div class="sw-col">
+        <p>Start with a question:</p>
+        <p style="font-size: 1.8em; margin-top: 8px; font-weight: 700;">What If?</p>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 20: What If? -->
-  <div class="slide slide-yellow centered" data-slide="20">
+  <!-- SLIDE 20: Storytelling Tips -->
+  <div class="slide centered storytelling-tips" data-slide="20">
     <div class="stagger">
-      <span class="pill pill-dark">Start Here</span>
-      <h3 style="text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-bottom: 8px;">Start with a question:</h3>
-      <div class="whatif">What<br>If?</div>
+      <span class="pill pill-pink">Storytelling</span>
+      <h2 style="font-family: 'Gaegu', cursive; margin-bottom: 20px;">Story <span class="color-pink">Structure</span></h2>
+      <div class="accent-bar dark" style="margin: 12px auto 24px;"></div>
+      <div style="max-width: 600px; text-align: left;">
+        <p class="st-line">Once upon a time....</p>
+        <p class="st-line">Every day...</p>
+        <p class="st-line">Until one day...</p>
+        <p class="st-line">Because of that...</p>
+        <p class="st-line">Because of that....</p>
+        <p class="st-line">Until finally...</p>
+      </div>
     </div>
   </div>
 
