@@ -468,11 +468,27 @@
   .btn-dark { background: var(--dark-navy); color: #fff; }
   .btn-pink { background: var(--pink); color: #fff; border-color: var(--dark-navy); }
   .btn-lime { background: var(--lime); color: var(--dark-navy); border-color: var(--dark-navy); }
+
+  /* ---- Schnozzo robot sprites ---- */
+  #schnozzo-layer {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0; pointer-events: none;
+    overflow: hidden;
+  }
+  .schnozzo-sprite {
+    position: absolute;
+    pointer-events: none;
+    will-change: transform, opacity;
+    image-rendering: auto;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));
+  }
 </style>
 </head>
 <body>
 
 <canvas id="particle-canvas"></canvas>
+<div id="schnozzo-layer"></div>
 <div id="progress" style="width: 0%"></div>
 <div id="nav-dots"></div>
 <div class="key-hint">&larr; &rarr; navigate</div>
@@ -1255,6 +1271,211 @@
   }
 
   updateProgress();
+
+  // ---- Schnozzo Robot Sprite Animation System ----
+  var schnozzoPNGs = [
+    'schnozzo/A_black_and_white_line_drawing_depicts_a_SePAGDzf.png',
+    'schnozzo/A_cartoonish_red_robot_with_a_camera_for_a_head_0fy3XEu.png',
+    'schnozzo/A_droid_with_a_camera_for_a_head_performs_a_mPkEMN0y.png',
+    'schnozzo/A_line_drawing_depicts_a_robot_with_a_camera_for_lZzo2P7d.png',
+    'schnozzo/A_minimalist_illustration_depicts_a_white_robot_i4HzuOCv.png',
+    'schnozzo/A_simplified_cartoon-like_robot_with_a_camera_lQikCdqp.png',
+    'schnozzo/A_stylized_black_robot_with_a_camera_for_a_head_ruyiJ42G.png',
+    'schnozzo/A_stylized_illustration_depicts_a_robot_in_X_iUz7az.png',
+    'schnozzo/A_stylized_robot_with_a_camera_for_a_head_is_gtFc3B7L.png',
+    'schnozzo/A_stylized_robot_with_a_camera_for_a_head_is_j_nWb94F.png',
+    'schnozzo/A_stylized_robot_with_a_camera_for_a_head_stands_vYGBsiXC.png',
+    'schnozzo/A_stylized_robot_with_a_camera_lens_for_a_head_q_tbJ_h9.png',
+    'schnozzo/A_white_line-drawn_robot_is_depicted_in_a_tree_jtNKF0sp.png',
+    'schnozzo/A_white_line_drawing_depicts_a_robot_upside_down_mmPO-wMa.png',
+    'schnozzo/A_white_line_drawing_of_a_robot_with_a_camera_for_N_Ojb17V.png',
+    'schnozzo/In_a_graphic_illustration_style_a_stylized_robot_m-fi5Acu.png',
+    'schnozzo/In_a_minimalist_cartoon_style_a_small_stylized_bFGOGCnx.png',
+    'schnozzo/In_a_minimalist_graphic_style_a_white_line_IDfYvjQ6.png',
+    'schnozzo/In_a_minimalist_line_art_style_a_white_outline_0Q_iwtpp.png',
+    'schnozzo/In_a_stylized_illustration_a_white_line-art_1FjQxUfv.png',
+    'schnozzo/In_a_vintage_illustration_style_a_robotic_figure_6phadamP.png'
+  ];
+
+  // Animation behaviors
+  var ANIM_FLOAT = 0, ANIM_BOUNCE = 1, ANIM_FLY = 2, ANIM_DRIFT = 3, ANIM_ZIGZAG = 4;
+  var ANIM_COUNT = 5;
+  var SPRITE_COUNT = 12; // robots on screen at once
+  var schnozzoLayer = document.getElementById('schnozzo-layer');
+  var schnozzoSprites = [];
+
+  function randomRange(min, max) { return min + Math.random() * (max - min); }
+
+  function SchnozzoSprite() {
+    this.el = document.createElement('img');
+    this.el.className = 'schnozzo-sprite';
+    this.el.draggable = false;
+    this.el.alt = '';
+    schnozzoLayer.appendChild(this.el);
+    this.reset(true);
+  }
+
+  SchnozzoSprite.prototype.reset = function(initial) {
+    // Pick a random robot PNG
+    this.el.src = schnozzoPNGs[Math.floor(Math.random() * schnozzoPNGs.length)];
+
+    // Size: small enough to be decorative, not overwhelming
+    this.size = randomRange(50, 120);
+    this.el.style.width = this.size + 'px';
+    this.el.style.height = 'auto';
+
+    // Pick animation type
+    this.animType = Math.floor(Math.random() * ANIM_COUNT);
+
+    // Opacity: subtle, ghostly presence
+    this.baseOpacity = randomRange(0.08, 0.25);
+
+    // Rotation
+    this.rotation = randomRange(0, 360);
+    this.rotSpeed = randomRange(-0.8, 0.8);
+
+    // Scale oscillation
+    this.scaleBase = 1;
+    this.scaleAmp = randomRange(0, 0.15);
+    this.scalePhase = randomRange(0, Math.PI * 2);
+    this.scaleSpeed = randomRange(0.3, 1.2);
+
+    // Position & velocity based on animation type
+    var W = window.innerWidth;
+    var H = window.innerHeight;
+
+    switch (this.animType) {
+      case ANIM_FLOAT: // gentle float
+        this.x = randomRange(-this.size, W);
+        this.y = randomRange(-this.size, H);
+        this.vx = randomRange(-0.3, 0.3);
+        this.vy = randomRange(-0.2, 0.2);
+        this.floatAmpX = randomRange(15, 50);
+        this.floatAmpY = randomRange(10, 40);
+        this.floatPhase = randomRange(0, Math.PI * 2);
+        this.floatSpeed = randomRange(0.2, 0.7);
+        break;
+
+      case ANIM_BOUNCE: // bounce off edges
+        this.x = randomRange(0, W - this.size);
+        this.y = randomRange(0, H - this.size);
+        this.vx = randomRange(0.5, 2) * (Math.random() > 0.5 ? 1 : -1);
+        this.vy = randomRange(0.5, 2) * (Math.random() > 0.5 ? 1 : -1);
+        break;
+
+      case ANIM_FLY: // fly across screen (enter from edge)
+        var side = Math.floor(Math.random() * 4);
+        if (side === 0) { this.x = -this.size - 20; this.y = randomRange(0, H); this.vx = randomRange(1, 3); this.vy = randomRange(-0.5, 0.5); }
+        else if (side === 1) { this.x = W + 20; this.y = randomRange(0, H); this.vx = randomRange(-3, -1); this.vy = randomRange(-0.5, 0.5); }
+        else if (side === 2) { this.x = randomRange(0, W); this.y = -this.size - 20; this.vx = randomRange(-0.5, 0.5); this.vy = randomRange(1, 3); }
+        else { this.x = randomRange(0, W); this.y = H + 20; this.vx = randomRange(-0.5, 0.5); this.vy = randomRange(-3, -1); }
+        break;
+
+      case ANIM_DRIFT: // slow lazy drift with wobble
+        this.x = randomRange(0, W);
+        this.y = initial ? randomRange(0, H) : -this.size - 20;
+        this.vx = randomRange(-0.15, 0.15);
+        this.vy = randomRange(0.3, 1.0);
+        this.wobbleAmp = randomRange(30, 80);
+        this.wobblePhase = randomRange(0, Math.PI * 2);
+        this.wobbleSpeed = randomRange(0.3, 0.8);
+        break;
+
+      case ANIM_ZIGZAG: // zigzag across
+        this.x = initial ? randomRange(0, W) : -this.size - 20;
+        this.y = randomRange(H * 0.2, H * 0.8);
+        this.vx = randomRange(0.8, 2.5);
+        this.vy = 0;
+        this.zigAmp = randomRange(40, 120);
+        this.zigSpeed = randomRange(1.5, 4);
+        this.zigPhase = randomRange(0, Math.PI * 2);
+        break;
+    }
+
+    this.startX = this.x;
+    this.startY = this.y;
+    this.age = 0;
+  };
+
+  SchnozzoSprite.prototype.update = function(dt) {
+    this.age += dt;
+    var t = this.age;
+    var W = window.innerWidth;
+    var H = window.innerHeight;
+
+    switch (this.animType) {
+      case ANIM_FLOAT:
+        this.x = this.startX + this.vx * t * 60 + Math.sin(t * this.floatSpeed + this.floatPhase) * this.floatAmpX;
+        this.y = this.startY + this.vy * t * 60 + Math.cos(t * this.floatSpeed * 0.7 + this.floatPhase) * this.floatAmpY;
+        // Wrap around
+        if (this.x > W + this.size) this.x = -this.size;
+        if (this.x < -this.size * 2) this.x = W;
+        if (this.y > H + this.size) this.y = -this.size;
+        if (this.y < -this.size * 2) this.y = H;
+        break;
+
+      case ANIM_BOUNCE:
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x <= 0 || this.x >= W - this.size) { this.vx *= -1; this.rotSpeed *= -1; }
+        if (this.y <= 0 || this.y >= H - this.size) { this.vy *= -1; this.rotSpeed *= -1; }
+        this.x = Math.max(0, Math.min(this.x, W - this.size));
+        this.y = Math.max(0, Math.min(this.y, H - this.size));
+        break;
+
+      case ANIM_FLY:
+        this.x += this.vx;
+        this.y += this.vy;
+        // Reset when off screen
+        if (this.x < -this.size * 2 || this.x > W + this.size * 2 ||
+            this.y < -this.size * 2 || this.y > H + this.size * 2) {
+          this.reset(false);
+        }
+        break;
+
+      case ANIM_DRIFT:
+        this.x += this.vx + Math.sin(t * this.wobbleSpeed + this.wobblePhase) * this.wobbleAmp * 0.01;
+        this.y += this.vy;
+        if (this.y > H + this.size * 2) this.reset(false);
+        break;
+
+      case ANIM_ZIGZAG:
+        this.x += this.vx;
+        this.y = this.startY + Math.sin(t * this.zigSpeed + this.zigPhase) * this.zigAmp;
+        if (this.x > W + this.size * 2) this.reset(false);
+        break;
+    }
+
+    // Rotation
+    this.rotation += this.rotSpeed;
+
+    // Scale pulse
+    var scale = this.scaleBase + Math.sin(t * this.scaleSpeed + this.scalePhase) * this.scaleAmp;
+
+    // Apply transforms
+    this.el.style.transform = 'translate(' + this.x.toFixed(1) + 'px,' + this.y.toFixed(1) + 'px) rotate(' + this.rotation.toFixed(1) + 'deg) scale(' + scale.toFixed(3) + ')';
+    this.el.style.opacity = this.baseOpacity;
+  };
+
+  // Create sprites
+  for (var s = 0; s < SPRITE_COUNT; s++) {
+    schnozzoSprites.push(new SchnozzoSprite());
+  }
+
+  // Animation loop
+  var schnozzoLastTime = performance.now();
+  function animateSchnozzos(now) {
+    var dt = (now - schnozzoLastTime) / 1000;
+    schnozzoLastTime = now;
+    // Cap dt to avoid huge jumps on tab refocus
+    if (dt > 0.1) dt = 0.016;
+    for (var i = 0; i < schnozzoSprites.length; i++) {
+      schnozzoSprites[i].update(dt);
+    }
+    requestAnimationFrame(animateSchnozzos);
+  }
+  requestAnimationFrame(animateSchnozzos);
+
 })();
 </script>
 </body>
