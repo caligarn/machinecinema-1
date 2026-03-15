@@ -509,6 +509,59 @@
     font-size: 1.5rem; color: var(--pink); font-weight: 800;
   }
 
+  /* ---- Fractal process diagram ---- */
+  .fractal-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    aspect-ratio: 1000 / 520;
+    margin-top: 8px;
+  }
+  .fractal-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .fn {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-size: clamp(0.55rem, 1.1vw, 0.8rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .fn-header {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-size: clamp(0.5rem, 0.9vw, 0.7rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.08em;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+  }
+  .fn-idea   { left: 5.5%; top: 50%; }
+  .fn-script { left: 23%; top: 50%; }
+  .fn-hdr-shot { left: 41.2%; top: 1%; }
+  .fn-hdr-img  { left: 57%;  top: 1%; }
+  .fn-hdr-vid  { left: 72.8%; top: 1%; }
+  .fn-final  { left: 91.5%; top: 50%; padding: 8px 16px; }
+  .fn-shot { left: 41.2%; }
+  .fn-img  { left: 57%; }
+  .fn-vid  { left: 72.8%; }
+  .fn-r1 { top: 8.6%; }
+  .fn-r2 { top: 25%; }
+  .fn-r3 { top: 41.9%; }
+  .fn-r4 { top: 58.3%; }
+  .fn-r5 { top: 75%; }
+  .fn-r6 { top: 91.3%; }
+
   /* ---- Tips grid ---- */
   .tips-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1194,8 +1247,79 @@
     </div>
   </div>
 
-  <!-- SLIDE 17: Let's Dig In -->
-  <div class="slide slide-pink centered" data-slide="17" data-dots="light">
+  <!-- SLIDE 17: The Process - Fractal -->
+  <div class="slide slide-dark centered" data-slide="17" data-dots="light">
+    <div class="stagger">
+      <span class="pill pill-yellow">The Method</span>
+      <h2>The <span class="color-yellow">Process</span> — Expanded</h2>
+      <div class="accent-bar yellow" style="margin: 12px auto 16px;"></div>
+      <div class="fractal-wrap">
+        <svg class="fractal-lines" viewBox="0 0 1000 520" preserveAspectRatio="xMidYMid meet">
+          <!-- Idea to Script -->
+          <line x1="95" y1="260" x2="175" y2="260" stroke="var(--yellow)" stroke-width="2.5"/>
+          <!-- Script fan-out to shots -->
+          <line x1="285" y1="260" x2="370" y2="45" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="285" y1="260" x2="370" y2="130" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="285" y1="260" x2="370" y2="218" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="285" y1="260" x2="370" y2="303" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="285" y1="260" x2="370" y2="390" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="285" y1="260" x2="370" y2="475" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <!-- Shot to IMG arrows -->
+          <line x1="455" y1="45" x2="525" y2="45" stroke="var(--lime)" stroke-width="2"/>
+          <line x1="455" y1="130" x2="525" y2="130" stroke="var(--lime)" stroke-width="2"/>
+          <line x1="455" y1="218" x2="525" y2="218" stroke="var(--lime)" stroke-width="2"/>
+          <line x1="455" y1="303" x2="525" y2="303" stroke="var(--lime)" stroke-width="2"/>
+          <line x1="455" y1="390" x2="525" y2="390" stroke="var(--lime)" stroke-width="2"/>
+          <line x1="455" y1="475" x2="525" y2="475" stroke="var(--lime)" stroke-width="2"/>
+          <!-- IMG to VID arrows -->
+          <line x1="615" y1="45" x2="685" y2="45" stroke="var(--orange)" stroke-width="2"/>
+          <line x1="615" y1="130" x2="685" y2="130" stroke="var(--orange)" stroke-width="2"/>
+          <line x1="615" y1="218" x2="685" y2="218" stroke="var(--orange)" stroke-width="2"/>
+          <line x1="615" y1="303" x2="685" y2="303" stroke="var(--orange)" stroke-width="2"/>
+          <line x1="615" y1="390" x2="685" y2="390" stroke="var(--orange)" stroke-width="2"/>
+          <line x1="615" y1="475" x2="685" y2="475" stroke="var(--orange)" stroke-width="2"/>
+          <!-- VID converge to Sound & Edit -->
+          <line x1="770" y1="45" x2="855" y2="260" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="770" y1="130" x2="855" y2="260" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="770" y1="218" x2="855" y2="260" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="770" y1="303" x2="855" y2="260" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="770" y1="390" x2="855" y2="260" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+          <line x1="770" y1="475" x2="855" y2="260" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+        </svg>
+        <!-- Nodes -->
+        <div class="fn fn-idea" style="background:var(--yellow);color:var(--dark-navy);">Idea</div>
+        <div class="fn fn-script" style="background:var(--yellow);color:var(--dark-navy);">Script / Story</div>
+        <!-- Column headers -->
+        <div class="fn-header fn-hdr-shot">Shotlist</div>
+        <div class="fn-header fn-hdr-img">TXT&#8209;2&#8209;IMG</div>
+        <div class="fn-header fn-hdr-vid">IMG&#8209;2&#8209;VID</div>
+        <!-- Shot rows -->
+        <div class="fn fn-shot fn-r1" style="background:var(--pink);color:#fff;">Shot 1</div>
+        <div class="fn fn-img fn-r1" style="background:var(--lime);color:var(--dark-navy);">IMG</div>
+        <div class="fn fn-vid fn-r1" style="background:var(--orange);color:#fff;">VID</div>
+        <div class="fn fn-shot fn-r2" style="background:var(--pink);color:#fff;">Shot 2</div>
+        <div class="fn fn-img fn-r2" style="background:var(--lime);color:var(--dark-navy);">IMG</div>
+        <div class="fn fn-vid fn-r2" style="background:var(--orange);color:#fff;">VID</div>
+        <div class="fn fn-shot fn-r3" style="background:var(--pink);color:#fff;">Shot 3</div>
+        <div class="fn fn-img fn-r3" style="background:var(--lime);color:var(--dark-navy);">IMG</div>
+        <div class="fn fn-vid fn-r3" style="background:var(--orange);color:#fff;">VID</div>
+        <div class="fn fn-shot fn-r4" style="background:var(--pink);color:#fff;">Shot 4</div>
+        <div class="fn fn-img fn-r4" style="background:var(--lime);color:var(--dark-navy);">IMG</div>
+        <div class="fn fn-vid fn-r4" style="background:var(--orange);color:#fff;">VID</div>
+        <div class="fn fn-shot fn-r5" style="background:var(--pink);color:#fff;">Shot 5</div>
+        <div class="fn fn-img fn-r5" style="background:var(--lime);color:var(--dark-navy);">IMG</div>
+        <div class="fn fn-vid fn-r5" style="background:var(--orange);color:#fff;">VID</div>
+        <div class="fn fn-shot fn-r6" style="background:var(--pink);color:#fff;">Shot 6</div>
+        <div class="fn fn-img fn-r6" style="background:var(--lime);color:var(--dark-navy);">IMG</div>
+        <div class="fn fn-vid fn-r6" style="background:var(--orange);color:#fff;">VID</div>
+        <!-- Sound & Edit -->
+        <div class="fn fn-final" style="background:var(--bg-white);color:var(--dark-navy);">Sound &amp; Edit</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 18: Let's Dig In -->
+  <div class="slide slide-pink centered" data-slide="18" data-dots="light">
     <div class="deco-dot" style="top:15%;right:15%;background:var(--yellow);width:30px;height:30px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:20%;left:10%;background:var(--lime);width:24px;height:24px;opacity:0.5;"></div>
     <div class="stagger">
@@ -1203,8 +1327,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 18: Tips -->
-  <div class="slide slide-dark centered" data-slide="18" data-dots="light">
+  <!-- SLIDE 19: Tips -->
+  <div class="slide slide-dark centered" data-slide="19" data-dots="light">
     <div class="stagger">
       <span class="pill pill-lime">Pro Tips</span>
       <h2><span class="color-lime">Tips</span></h2>
@@ -1224,8 +1348,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 19: Story World -->
-  <div class="slide slide-dark story-world-slide" data-slide="19" data-dots="light">
+  <!-- SLIDE 20: Story World -->
+  <div class="slide slide-dark story-world-slide" data-slide="20" data-dots="light">
     <h1 class="sw-title" style="color: #fff;">Story <span class="color-pink">World</span></h1>
     <p class="sw-subtitle" style="color: #b0b0c8;">Discuss these things before AND during prompting for images and videos.</p>
     <div class="sw-grid">
@@ -1269,8 +1393,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 20: Storytelling Tips -->
-  <div class="slide centered storytelling-tips" data-slide="20">
+  <!-- SLIDE 21: Storytelling Tips -->
+  <div class="slide centered storytelling-tips" data-slide="21">
     <div class="stagger">
       <span class="pill pill-pink">Storytelling</span>
       <h2 style="font-family: 'Gaegu', cursive; margin-bottom: 20px;">Story <span class="color-pink">Structure</span></h2>
@@ -1286,15 +1410,15 @@
     </div>
   </div>
 
-  <!-- SLIDE 21: Any Questions? -->
-  <div class="slide slide-lime centered" data-slide="21">
+  <!-- SLIDE 22: Any Questions? -->
+  <div class="slide slide-lime centered" data-slide="22">
     <div class="stagger">
       <h1 style="font-size: clamp(3rem, 8vw, 7rem);">Any<br>Questions?</h1>
     </div>
   </div>
 
-  <!-- SLIDE 22: Watch Examples -->
-  <div class="slide slide-dark centered" data-slide="22" data-dots="light">
+  <!-- SLIDE 23: Watch Examples -->
+  <div class="slide slide-dark centered" data-slide="23" data-dots="light">
     <div class="deco-dot" style="top:12%;left:15%;background:var(--pink);width:26px;height:26px;opacity:0.4;"></div>
     <div class="deco-dot" style="bottom:15%;right:12%;background:var(--yellow);width:20px;height:20px;opacity:0.5;"></div>
     <div class="stagger">
@@ -1305,8 +1429,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 23: Showcase & Discussion -->
-  <div class="slide slide-dark centered" data-slide="23" data-dots="light">
+  <!-- SLIDE 24: Showcase & Discussion -->
+  <div class="slide slide-dark centered" data-slide="24" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">Reflect</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 5rem);">Show<span class="color-pink">case</span></h1>
@@ -1321,8 +1445,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 24: Submissions -->
-  <div class="slide centered" data-slide="24">
+  <!-- SLIDE 25: Submissions -->
+  <div class="slide centered" data-slide="25">
     <div class="stagger">
       <span class="pill pill-pink">Submit</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem);">Sub<span class="color-pink">missions</span></h1>
@@ -1344,8 +1468,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 25: Goodbye / Community -->
-  <div class="slide slide-dark centered" data-slide="25" data-dots="light">
+  <!-- SLIDE 26: Goodbye / Community -->
+  <div class="slide slide-dark centered" data-slide="26" data-dots="light">
     <div class="deco-dot" style="top:10%;left:8%;background:var(--pink);width:28px;height:28px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:20%;right:10%;background:var(--lime);width:22px;height:22px;opacity:0.5;"></div>
     <div class="deco-dot" style="top:25%;right:18%;background:var(--yellow);width:18px;height:18px;opacity:0.4;"></div>
@@ -1656,13 +1780,13 @@
     updateProgress();
 
     // Confetti burst on certain fun slides
-    var confettiSlides = ['5','6','13','17','21'];
+    var confettiSlides = ['5','6','13','18','22'];
     if (confettiSlides.indexOf(next.dataset.slide) !== -1) {
       spawnConfetti();
     }
 
     // Typewriter on storytelling slide
-    if (next.dataset.slide === '20') {
+    if (next.dataset.slide === '21') {
       startTypewriter();
     }
 
@@ -1722,7 +1846,7 @@
     }
 
     // Reset typewriter when leaving storytelling slide
-    if (prev.dataset.slide === '20' && index !== 20) {
+    if (prev.dataset.slide === '21' && index !== 21) {
       resetTypewriter();
     }
 
