@@ -630,6 +630,25 @@
     display: inline-block;
   }
 
+  /* ---- Full-screen video embed ---- */
+  .video-embed-full {
+    position: absolute;
+    inset: 60px 30px 30px 30px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #0d0d1a;
+    box-shadow: 0 0 40px rgba(255,45,85,0.15), 0 0 80px rgba(0,0,0,0.5);
+  }
+  .video-embed-full iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .video-embed-16x9 {
+    inset: 10% 5% 10% 5%;
+  }
+
   /* ---- Responsive ---- */
   @media (max-width: 768px) {
     .slide { padding: 36px 22px; }
@@ -1434,73 +1453,49 @@
 
   <!-- SLIDE 24: Video Example 1 - Chess Tweet -->
   <div class="slide slide-dark centered" data-slide="24" data-dots="light">
-    <div class="stagger">
-      <span class="pill pill-pink">Example 1</span>
-      <div style="max-width: 550px; width: 90%; margin: 16px auto;">
-        <div style="position:relative;padding-bottom:120%;height:0;overflow:hidden;border-radius:12px;">
-          <iframe src="https://twitframe.com/show?url=https://x.com/Chesschick01/status/2032617758416859163" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:12px;" allowfullscreen></iframe>
-        </div>
-      </div>
+    <span class="pill pill-pink" style="position:absolute;top:30px;z-index:2;">Example 1</span>
+    <div class="video-embed-full">
+      <iframe data-lazy-src="https://platform.twitter.com/embed/Tweet.html?id=2032617758416859163&theme=dark" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
     </div>
   </div>
 
   <!-- SLIDE 25: Video Example 2 - Mark Gadala -->
   <div class="slide slide-dark centered" data-slide="25" data-dots="light">
-    <div class="stagger">
-      <span class="pill pill-yellow">Example 2</span>
-      <div style="max-width: 550px; width: 90%; margin: 16px auto;">
-        <div style="position:relative;padding-bottom:120%;height:0;overflow:hidden;border-radius:12px;">
-          <iframe src="https://twitframe.com/show?url=https://x.com/markgadala/status/2029461912585383938" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:12px;" allowfullscreen></iframe>
-        </div>
-      </div>
+    <span class="pill pill-yellow" style="position:absolute;top:30px;z-index:2;">Example 2</span>
+    <div class="video-embed-full">
+      <iframe data-lazy-src="https://platform.twitter.com/embed/Tweet.html?id=2029461912585383938&theme=dark" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
     </div>
   </div>
 
   <!-- SLIDE 26: Video Example 3 - Instagram Reel -->
   <div class="slide slide-dark centered" data-slide="26" data-dots="light">
-    <div class="stagger">
-      <span class="pill pill-pink">Example 3</span>
-      <div style="max-width: 550px; width: 90%; margin: 16px auto;">
-        <div style="position:relative;padding-bottom:120%;height:0;overflow:hidden;border-radius:12px;">
-          <iframe src="https://www.instagram.com/reel/DVLwSD_gVpI/embed/" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:12px;" allowfullscreen></iframe>
-        </div>
-      </div>
+    <span class="pill pill-pink" style="position:absolute;top:30px;z-index:2;">Example 3</span>
+    <div class="video-embed-full">
+      <iframe data-lazy-src="https://www.instagram.com/reel/DVLwSD_gVpI/embed/" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
     </div>
   </div>
 
   <!-- SLIDE 27: Video Example 4 - YouTube -->
   <div class="slide slide-dark centered" data-slide="27" data-dots="light">
-    <div class="stagger">
-      <span class="pill pill-yellow">Example 4</span>
-      <div style="max-width: 700px; width: 90%; margin: 16px auto;">
-        <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;">
-          <iframe src="https://www.youtube.com/embed/QetEEZQcV-U" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-      </div>
+    <span class="pill pill-yellow" style="position:absolute;top:30px;z-index:2;">Example 4</span>
+    <div class="video-embed-full video-embed-16x9">
+      <iframe data-lazy-src="https://www.youtube.com/embed/QetEEZQcV-U" style="width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
   </div>
 
   <!-- SLIDE 28: Video Example 5 - Aiden Guo -->
   <div class="slide slide-dark centered" data-slide="28" data-dots="light">
-    <div class="stagger">
-      <span class="pill pill-pink">Example 5</span>
-      <div style="max-width: 550px; width: 90%; margin: 16px auto;">
-        <div style="position:relative;padding-bottom:120%;height:0;overflow:hidden;border-radius:12px;">
-          <iframe src="https://twitframe.com/show?url=https://x.com/aidenguoai/status/2026375487665353167" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:12px;" allowfullscreen></iframe>
-        </div>
-      </div>
+    <span class="pill pill-pink" style="position:absolute;top:30px;z-index:2;">Example 5</span>
+    <div class="video-embed-full">
+      <iframe data-lazy-src="https://platform.twitter.com/embed/Tweet.html?id=2026375487665353167&theme=dark" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
     </div>
   </div>
 
   <!-- SLIDE 29: Video Example 6 - NACHOS2D -->
   <div class="slide slide-dark centered" data-slide="29" data-dots="light">
-    <div class="stagger">
-      <span class="pill pill-yellow">Example 6</span>
-      <div style="max-width: 550px; width: 90%; margin: 16px auto;">
-        <div style="position:relative;padding-bottom:120%;height:0;overflow:hidden;border-radius:12px;">
-          <iframe src="https://twitframe.com/show?url=https://x.com/NACHOS2D_/status/2033126071151837491" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:12px;" allowfullscreen></iframe>
-        </div>
-      </div>
+    <span class="pill pill-yellow" style="position:absolute;top:30px;z-index:2;">Example 6</span>
+    <div class="video-embed-full">
+      <iframe data-lazy-src="https://platform.twitter.com/embed/Tweet.html?id=2033126071151837491&theme=dark" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
     </div>
   </div>
 
@@ -1605,7 +1600,7 @@
         <!-- QR Code + Minh -->
         <div style="text-align: center; max-width: 240px;">
           <h3 style="color: var(--yellow); font-size: 1.1rem; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.1em;">Minh Do</h3>
-          <img src="Custom QR Code (1).png" alt="LinkedIn QR Code - Minh Do" style="width: 160px; height: 160px; border-radius: 12px; border: 3px solid var(--yellow); margin-bottom: 8px;">
+          <canvas id="qr-canvas" width="160" height="160" style="width: 160px; height: 160px; border-radius: 12px; border: 3px solid var(--yellow); margin-bottom: 8px;"></canvas>
           <p style="color: #b0b0c8; font-size: 0.85rem; font-family: var(--font-mono);">Scan to connect on LinkedIn</p>
         </div>
       </div>
@@ -2887,6 +2882,257 @@
     requestAnimationFrame(animateSchnozzos);
   }
   requestAnimationFrame(animateSchnozzos);
+
+  // ---- Lazy-load iframes when slides become visible ----
+  var slideObserverLazy = new MutationObserver(function(mutations) {
+    mutations.forEach(function(m) {
+      if (m.target.classList && m.target.classList.contains('slide') && m.target.classList.contains('active')) {
+        var iframes = m.target.querySelectorAll('iframe[data-lazy-src]');
+        for (var i = 0; i < iframes.length; i++) {
+          if (!iframes[i].src || iframes[i].src === 'about:blank') {
+            iframes[i].src = iframes[i].getAttribute('data-lazy-src');
+          }
+        }
+      }
+    });
+  });
+  document.querySelectorAll('.slide').forEach(function(slide) {
+    slideObserverLazy.observe(slide, { attributes: true, attributeFilter: ['class'] });
+  });
+  // Also load iframe for currently active slide
+  var activeSlide = document.querySelector('.slide.active');
+  if (activeSlide) {
+    var iframes = activeSlide.querySelectorAll('iframe[data-lazy-src]');
+    for (var ii = 0; ii < iframes.length; ii++) {
+      iframes[ii].src = iframes[ii].getAttribute('data-lazy-src');
+    }
+  }
+
+  // ---- QR Code generator (minimal implementation) ----
+  // Generates a QR code on a canvas for a given URL
+  (function generateQR() {
+    var canvas = document.getElementById('qr-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var url = 'https://www.linkedin.com/in/minhdo';
+    // Use a simple QR code via an image from a public API
+    var img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = function() {
+      ctx.fillStyle = '#0d0d1a';
+      ctx.fillRect(0, 0, 160, 160);
+      ctx.drawImage(img, 10, 10, 140, 140);
+    };
+    img.onerror = function() {
+      // Fallback: draw a stylized placeholder
+      ctx.fillStyle = '#0d0d1a';
+      ctx.fillRect(0, 0, 160, 160);
+      ctx.fillStyle = 'var(--yellow)';
+      ctx.fillStyle = '#FFD600';
+      ctx.font = 'bold 14px "Space Grotesk", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('SCAN ME', 80, 70);
+      ctx.font = '11px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#b0b0c8';
+      ctx.fillText('LinkedIn', 80, 95);
+      ctx.fillText('Minh Do', 80, 112);
+    };
+    img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=' + encodeURIComponent(url) + '&bgcolor=0d0d1a&color=FFD600&format=png';
+  })();
+
+  // ---- Sparkle Trail on Mouse Move ----
+  var sparkleCanvas = document.createElement('canvas');
+  sparkleCanvas.id = 'sparkle-canvas';
+  sparkleCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:9998;pointer-events:none;';
+  document.body.appendChild(sparkleCanvas);
+  var sparkCtx = sparkleCanvas.getContext('2d');
+  var sparkles = [];
+
+  function resizeSparkle() {
+    sparkleCanvas.width = window.innerWidth;
+    sparkleCanvas.height = window.innerHeight;
+  }
+  resizeSparkle();
+  window.addEventListener('resize', resizeSparkle);
+
+  var sparkleColors = ['#FF2D55','#C8FF00','#FFD600','#FF904D','#CB6BE6','#fff'];
+  var lastSparkleTime = 0;
+
+  document.addEventListener('mousemove', function(e) {
+    var now = performance.now();
+    if (now - lastSparkleTime < 30) return; // throttle
+    lastSparkleTime = now;
+    for (var i = 0; i < 2; i++) {
+      sparkles.push({
+        x: e.clientX + (Math.random() - 0.5) * 10,
+        y: e.clientY + (Math.random() - 0.5) * 10,
+        vx: (Math.random() - 0.5) * 2,
+        vy: (Math.random() - 0.5) * 2 - 1,
+        size: Math.random() * 3 + 1,
+        alpha: 1,
+        color: sparkleColors[Math.floor(Math.random() * sparkleColors.length)],
+        rotation: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.2
+      });
+    }
+  });
+
+  function animateSparkles(t) {
+    sparkCtx.clearRect(0, 0, sparkleCanvas.width, sparkleCanvas.height);
+    for (var i = sparkles.length - 1; i >= 0; i--) {
+      var s = sparkles[i];
+      s.x += s.vx;
+      s.y += s.vy;
+      s.vy += 0.02;
+      s.alpha -= 0.02;
+      s.rotation += s.rotSpeed;
+      s.size *= 0.98;
+      if (s.alpha <= 0) { sparkles.splice(i, 1); continue; }
+
+      sparkCtx.save();
+      sparkCtx.translate(s.x, s.y);
+      sparkCtx.rotate(s.rotation);
+      sparkCtx.globalAlpha = s.alpha;
+
+      // Draw 4-pointed star
+      sparkCtx.beginPath();
+      for (var p = 0; p < 4; p++) {
+        var angle = (p / 4) * Math.PI * 2 - Math.PI / 2;
+        var outerR = s.size * 2;
+        var innerR = s.size * 0.5;
+        sparkCtx.lineTo(Math.cos(angle) * outerR, Math.sin(angle) * outerR);
+        var midAngle = angle + Math.PI / 4;
+        sparkCtx.lineTo(Math.cos(midAngle) * innerR, Math.sin(midAngle) * innerR);
+      }
+      sparkCtx.closePath();
+      sparkCtx.fillStyle = s.color;
+      sparkCtx.fill();
+
+      // Glow
+      sparkCtx.globalAlpha = s.alpha * 0.3;
+      sparkCtx.beginPath();
+      sparkCtx.arc(0, 0, s.size * 4, 0, Math.PI * 2);
+      var grd = sparkCtx.createRadialGradient(0, 0, 0, 0, 0, s.size * 4);
+      grd.addColorStop(0, s.color);
+      grd.addColorStop(1, 'transparent');
+      sparkCtx.fillStyle = grd;
+      sparkCtx.fill();
+
+      sparkCtx.restore();
+    }
+    requestAnimationFrame(animateSparkles);
+  }
+  requestAnimationFrame(animateSparkles);
+
+  // ---- Slide transition: Radial wipe flash ----
+  var flashOverlay = document.createElement('div');
+  flashOverlay.style.cssText = 'position:fixed;inset:0;z-index:9997;pointer-events:none;opacity:0;transition:opacity 0.15s;';
+  document.body.appendChild(flashOverlay);
+
+  var slideFlashObserver = new MutationObserver(function(mutations) {
+    mutations.forEach(function(m) {
+      if (m.target.classList && m.target.classList.contains('slide') && m.target.classList.contains('active')) {
+        // Brief radial gradient flash on slide transition
+        var colors = ['rgba(255,45,85,0.08)', 'rgba(200,255,0,0.06)', 'rgba(255,214,0,0.07)'];
+        var c = colors[Math.floor(Math.random() * colors.length)];
+        flashOverlay.style.background = 'radial-gradient(circle at 50% 50%, ' + c + ' 0%, transparent 70%)';
+        flashOverlay.style.opacity = '1';
+        setTimeout(function() { flashOverlay.style.opacity = '0'; }, 300);
+      }
+    });
+  });
+  document.querySelectorAll('.slide').forEach(function(slide) {
+    slideFlashObserver.observe(slide, { attributes: true, attributeFilter: ['class'] });
+  });
+
+  // ---- Floating emoji particles on fun slides ----
+  var emojiCanvas = document.createElement('canvas');
+  emojiCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:9996;pointer-events:none;';
+  document.body.appendChild(emojiCanvas);
+  var emojiCtx = emojiCanvas.getContext('2d');
+  var emojiParticles = [];
+
+  function resizeEmojiCanvas() {
+    emojiCanvas.width = window.innerWidth;
+    emojiCanvas.height = window.innerHeight;
+  }
+  resizeEmojiCanvas();
+  window.addEventListener('resize', resizeEmojiCanvas);
+
+  var funEmojis = ['✨', '🎬', '🎥', '🌟', '⚡', '🎨', '🔥', '💫'];
+
+  function spawnEmojiParticles() {
+    for (var i = 0; i < 15; i++) {
+      emojiParticles.push({
+        x: Math.random() * window.innerWidth,
+        y: window.innerHeight + 20,
+        vy: -(2 + Math.random() * 3),
+        vx: (Math.random() - 0.5) * 2,
+        emoji: funEmojis[Math.floor(Math.random() * funEmojis.length)],
+        size: 16 + Math.random() * 20,
+        alpha: 1,
+        rotation: (Math.random() - 0.5) * 0.5,
+        rot: 0
+      });
+    }
+  }
+
+  function animateEmojiParticles() {
+    emojiCtx.clearRect(0, 0, emojiCanvas.width, emojiCanvas.height);
+    for (var i = emojiParticles.length - 1; i >= 0; i--) {
+      var p = emojiParticles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.01; // very slight gravity
+      p.rot += p.rotation;
+      p.alpha -= 0.005;
+      if (p.alpha <= 0 || p.y < -50) { emojiParticles.splice(i, 1); continue; }
+
+      emojiCtx.save();
+      emojiCtx.translate(p.x, p.y);
+      emojiCtx.rotate(p.rot);
+      emojiCtx.globalAlpha = p.alpha;
+      emojiCtx.font = p.size + 'px serif';
+      emojiCtx.textAlign = 'center';
+      emojiCtx.textBaseline = 'middle';
+      emojiCtx.fillText(p.emoji, 0, 0);
+      emojiCtx.restore();
+    }
+    if (emojiParticles.length > 0) {
+      requestAnimationFrame(animateEmojiParticles);
+    }
+  }
+
+  // Trigger emoji particles on key slides
+  var emojiSlideObserver = new MutationObserver(function(mutations) {
+    mutations.forEach(function(m) {
+      if (m.target.classList && m.target.classList.contains('slide') && m.target.classList.contains('active')) {
+        var slideNum = m.target.dataset.slide;
+        if (['1','5','13','18','22','23'].indexOf(slideNum) !== -1) {
+          spawnEmojiParticles();
+          requestAnimationFrame(animateEmojiParticles);
+        }
+      }
+    });
+  });
+  document.querySelectorAll('.slide').forEach(function(slide) {
+    emojiSlideObserver.observe(slide, { attributes: true, attributeFilter: ['class'] });
+  });
+
+  // ---- Magnetic hover effect on pills and buttons ----
+  document.querySelectorAll('.pill, .btn, .card').forEach(function(el) {
+    el.addEventListener('mousemove', function(e) {
+      var rect = el.getBoundingClientRect();
+      var x = e.clientX - rect.left - rect.width / 2;
+      var y = e.clientY - rect.top - rect.height / 2;
+      el.style.transform = 'translate(' + (x * 0.15) + 'px, ' + (y * 0.15) + 'px) scale(1.05)';
+      el.style.transition = 'transform 0.15s ease-out';
+    });
+    el.addEventListener('mouseleave', function() {
+      el.style.transform = '';
+      el.style.transition = 'transform 0.3s ease-out';
+    });
+  });
 
 })();
 </script>
