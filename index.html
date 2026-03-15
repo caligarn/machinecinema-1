@@ -226,23 +226,201 @@
 
   /* ---- Staggered children animation ---- */
   .slide.active .stagger > * {
-    animation: fadeSlideUp 0.45s ease both;
+    animation: springIn 0.6s cubic-bezier(.175,.885,.32,1.275) both;
   }
-  .slide.active .stagger > *:nth-child(1) { animation-delay: 0.06s; }
+  .slide.active .stagger > *:nth-child(1) { animation-delay: 0.05s; }
   .slide.active .stagger > *:nth-child(2) { animation-delay: 0.12s; }
-  .slide.active .stagger > *:nth-child(3) { animation-delay: 0.18s; }
-  .slide.active .stagger > *:nth-child(4) { animation-delay: 0.24s; }
-  .slide.active .stagger > *:nth-child(5) { animation-delay: 0.30s; }
-  .slide.active .stagger > *:nth-child(6) { animation-delay: 0.36s; }
-  .slide.active .stagger > *:nth-child(7) { animation-delay: 0.42s; }
-  .slide.active .stagger > *:nth-child(8) { animation-delay: 0.48s; }
-  .slide.active .stagger > *:nth-child(9) { animation-delay: 0.54s; }
-  .slide.active .stagger > *:nth-child(10) { animation-delay: 0.60s; }
-  .slide.active .stagger > *:nth-child(11) { animation-delay: 0.66s; }
+  .slide.active .stagger > *:nth-child(3) { animation-delay: 0.19s; }
+  .slide.active .stagger > *:nth-child(4) { animation-delay: 0.26s; }
+  .slide.active .stagger > *:nth-child(5) { animation-delay: 0.33s; }
+  .slide.active .stagger > *:nth-child(6) { animation-delay: 0.40s; }
+  .slide.active .stagger > *:nth-child(7) { animation-delay: 0.47s; }
+  .slide.active .stagger > *:nth-child(8) { animation-delay: 0.54s; }
+  .slide.active .stagger > *:nth-child(9) { animation-delay: 0.61s; }
+  .slide.active .stagger > *:nth-child(10) { animation-delay: 0.68s; }
+  .slide.active .stagger > *:nth-child(11) { animation-delay: 0.75s; }
+  @keyframes springIn {
+    0%   { opacity: 0; transform: translateY(40px) scale(0.92); }
+    60%  { opacity: 1; transform: translateY(-6px) scale(1.02); }
+    80%  { transform: translateY(2px) scale(0.99); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
   @keyframes fadeSlideUp {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+
+  /* ---- Transition confetti layer ---- */
+  #confetti-canvas {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 50; pointer-events: none;
+  }
+
+  /* ---- Card pop-in animations ---- */
+  .slide.active .cards .card {
+    animation: cardPop 0.5s cubic-bezier(.175,.885,.32,1.275) both;
+  }
+  .slide.active .cards .card:nth-child(1) { animation-delay: 0.15s; }
+  .slide.active .cards .card:nth-child(2) { animation-delay: 0.22s; }
+  .slide.active .cards .card:nth-child(3) { animation-delay: 0.29s; }
+  .slide.active .cards .card:nth-child(4) { animation-delay: 0.36s; }
+  .slide.active .cards .card:nth-child(5) { animation-delay: 0.43s; }
+  .slide.active .cards .card:nth-child(6) { animation-delay: 0.50s; }
+  .slide.active .cards .card:nth-child(7) { animation-delay: 0.57s; }
+  .slide.active .cards .card:nth-child(8) { animation-delay: 0.64s; }
+  .slide.active .cards .card:nth-child(9) { animation-delay: 0.71s; }
+  @keyframes cardPop {
+    0%   { opacity: 0; transform: translateY(30px) scale(0.8) rotate(-2deg); }
+    70%  { opacity: 1; transform: translateY(-4px) scale(1.03) rotate(0.5deg); }
+    100% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+  }
+
+  /* ---- Tag scatter-in ---- */
+  .slide.active .tag-cloud .tag {
+    animation: tagScatter 0.5s cubic-bezier(.175,.885,.32,1.275) both;
+  }
+  .slide.active .tag-cloud .tag:nth-child(1) { animation-delay: 0.3s; }
+  .slide.active .tag-cloud .tag:nth-child(2) { animation-delay: 0.38s; }
+  .slide.active .tag-cloud .tag:nth-child(3) { animation-delay: 0.46s; }
+  .slide.active .tag-cloud .tag:nth-child(4) { animation-delay: 0.54s; }
+  @keyframes tagScatter {
+    0%   { opacity: 0; transform: scale(0.5) rotate(-8deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+
+  /* ---- Schedule list item slide-in ---- */
+  .slide.active .schedule-list li {
+    animation: listSlideIn 0.4s cubic-bezier(.175,.885,.32,1.275) both;
+  }
+  .slide.active .schedule-list li:nth-child(1) { animation-delay: 0.1s; }
+  .slide.active .schedule-list li:nth-child(2) { animation-delay: 0.16s; }
+  .slide.active .schedule-list li:nth-child(3) { animation-delay: 0.22s; }
+  .slide.active .schedule-list li:nth-child(4) { animation-delay: 0.28s; }
+  .slide.active .schedule-list li:nth-child(5) { animation-delay: 0.34s; }
+  .slide.active .schedule-list li:nth-child(6) { animation-delay: 0.40s; }
+  .slide.active .schedule-list li:nth-child(7) { animation-delay: 0.46s; }
+  .slide.active .schedule-list li:nth-child(8) { animation-delay: 0.52s; }
+  .slide.active .schedule-list li:nth-child(9) { animation-delay: 0.58s; }
+  @keyframes listSlideIn {
+    0%   { opacity: 0; transform: translateX(-30px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ---- Role card bounce ---- */
+  .slide.active .role-grid .role-card {
+    animation: roleBounce 0.6s cubic-bezier(.175,.885,.32,1.275) both;
+  }
+  .slide.active .role-grid .role-card:nth-child(1) { animation-delay: 0.15s; }
+  .slide.active .role-grid .role-card:nth-child(2) { animation-delay: 0.25s; }
+  .slide.active .role-grid .role-card:nth-child(3) { animation-delay: 0.35s; }
+  .slide.active .role-grid .role-card:nth-child(4) { animation-delay: 0.45s; }
+  .slide.active .role-grid .role-card:nth-child(5) { animation-delay: 0.55s; }
+  @keyframes roleBounce {
+    0%   { opacity: 0; transform: translateY(50px) rotate(-5deg) scale(0.7); }
+    50%  { opacity: 1; transform: translateY(-10px) rotate(1deg) scale(1.05); }
+    70%  { transform: translateY(4px) rotate(-0.5deg) scale(0.98); }
+    100% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+  }
+
+  /* ---- Process flow step cascade ---- */
+  .slide.active .process-flow > * {
+    animation: processCascade 0.45s cubic-bezier(.175,.885,.32,1.275) both;
+  }
+  .slide.active .process-flow > *:nth-child(1) { animation-delay: 0.15s; }
+  .slide.active .process-flow > *:nth-child(2) { animation-delay: 0.25s; }
+  .slide.active .process-flow > *:nth-child(3) { animation-delay: 0.35s; }
+  .slide.active .process-flow > *:nth-child(4) { animation-delay: 0.45s; }
+  .slide.active .process-flow > *:nth-child(5) { animation-delay: 0.55s; }
+  .slide.active .process-flow > *:nth-child(6) { animation-delay: 0.65s; }
+  .slide.active .process-flow > *:nth-child(7) { animation-delay: 0.75s; }
+  .slide.active .process-flow > *:nth-child(8) { animation-delay: 0.85s; }
+  .slide.active .process-flow > *:nth-child(9) { animation-delay: 0.95s; }
+  @keyframes processCascade {
+    0%   { opacity: 0; transform: translateX(-20px) scale(0.85); }
+    100% { opacity: 1; transform: translateX(0) scale(1); }
+  }
+
+  /* ---- Tips tile stagger ---- */
+  .slide.active .tips-grid .tip {
+    animation: tipFlip 0.5s cubic-bezier(.175,.885,.32,1.275) both;
+  }
+  .slide.active .tips-grid .tip:nth-child(1) { animation-delay: 0.1s; }
+  .slide.active .tips-grid .tip:nth-child(2) { animation-delay: 0.17s; }
+  .slide.active .tips-grid .tip:nth-child(3) { animation-delay: 0.24s; }
+  .slide.active .tips-grid .tip:nth-child(4) { animation-delay: 0.31s; }
+  .slide.active .tips-grid .tip:nth-child(5) { animation-delay: 0.38s; }
+  .slide.active .tips-grid .tip:nth-child(6) { animation-delay: 0.45s; }
+  .slide.active .tips-grid .tip:nth-child(7) { animation-delay: 0.52s; }
+  .slide.active .tips-grid .tip:nth-child(8) { animation-delay: 0.59s; }
+  .slide.active .tips-grid .tip:nth-child(9) { animation-delay: 0.66s; }
+  .slide.active .tips-grid .tip:nth-child(10) { animation-delay: 0.73s; }
+  @keyframes tipFlip {
+    0%   { opacity: 0; transform: perspective(600px) rotateX(-15deg) translateY(20px); }
+    100% { opacity: 1; transform: perspective(600px) rotateX(0deg) translateY(0); }
+  }
+
+  /* ---- Story world category pill pop ---- */
+  .slide.active .sw-categories .sw-cat {
+    animation: catPillPop 0.5s cubic-bezier(.175,.885,.32,1.275) both;
+  }
+  .slide.active .sw-categories .sw-cat:nth-child(1) { animation-delay: 0.1s; }
+  .slide.active .sw-categories .sw-cat:nth-child(2) { animation-delay: 0.18s; }
+  .slide.active .sw-categories .sw-cat:nth-child(3) { animation-delay: 0.26s; }
+  .slide.active .sw-categories .sw-cat:nth-child(4) { animation-delay: 0.34s; }
+  .slide.active .sw-categories .sw-cat:nth-child(5) { animation-delay: 0.42s; }
+  .slide.active .sw-categories .sw-cat:nth-child(6) { animation-delay: 0.50s; }
+  @keyframes catPillPop {
+    0%   { opacity: 0; transform: scale(0) rotate(-10deg); }
+    70%  { opacity: 1; transform: scale(1.1) rotate(2deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+
+  /* ---- Story world columns fade up ---- */
+  .slide.active .sw-columns .sw-col {
+    animation: colFadeUp 0.6s ease both;
+  }
+  .slide.active .sw-columns .sw-col:nth-child(1) { animation-delay: 0.5s; }
+  .slide.active .sw-columns .sw-col:nth-child(2) { animation-delay: 0.6s; }
+  .slide.active .sw-columns .sw-col:nth-child(3) { animation-delay: 0.7s; }
+  .slide.active .sw-columns .sw-col:nth-child(4) { animation-delay: 0.8s; }
+  .slide.active .sw-columns .sw-col:nth-child(5) { animation-delay: 0.9s; }
+  .slide.active .sw-columns .sw-col:nth-child(6) { animation-delay: 1.0s; }
+  @keyframes colFadeUp {
+    0%   { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- Storytelling typewriter cursor ---- */
+  .st-line .cursor {
+    display: inline-block;
+    width: 3px;
+    background: var(--pink);
+    animation: blink 0.6s steps(1) infinite;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+  }
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  /* ---- Discussion list items ---- */
+  .slide.active .discussion-list li {
+    animation: listSlideIn 0.4s cubic-bezier(.175,.885,.32,1.275) both;
+  }
+  .slide.active .discussion-list li:nth-child(1) { animation-delay: 0.2s; }
+  .slide.active .discussion-list li:nth-child(2) { animation-delay: 0.3s; }
+  .slide.active .discussion-list li:nth-child(3) { animation-delay: 0.4s; }
+  .slide.active .discussion-list li:nth-child(4) { animation-delay: 0.5s; }
+
+  /* ---- Bio card stagger ---- */
+  .slide.active .bio-card {
+    animation: cardPop 0.6s cubic-bezier(.175,.885,.32,1.275) both;
+  }
+  .slide.active .bio-card:nth-child(1) { animation-delay: 0.2s; }
+  .slide.active .bio-card:nth-child(2) { animation-delay: 0.35s; }
+  .slide.active .bio-card:nth-child(3) { animation-delay: 0.50s; }
 
   /* ---- Progress bar ---- */
   #progress {
@@ -638,6 +816,7 @@
 <body>
 
 <canvas id="particle-canvas"></canvas>
+<canvas id="confetti-canvas"></canvas>
 <div id="schnozzo-layer"></div>
 <div id="progress" style="width: 0%"></div>
 <div id="nav-dots"></div>
@@ -1266,11 +1445,13 @@
 (function() {
   'use strict';
 
-  // ---- Floating shapes particle system ----
+  // ---- Interactive constellation particle system ----
   var canvas = document.getElementById('particle-canvas');
   var ctx = canvas.getContext('2d');
-  var particles = [];
-  var PARTICLE_COUNT = 30;
+  var constellationNodes = [];
+  var CONSTELLATION_COUNT = 45;
+  var CONNECT_DIST = 150;
+  var mouseX = -1000, mouseY = -1000;
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -1279,66 +1460,190 @@
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  var brandColors = [
-    { r: 255, g: 45, b: 85 },
-    { r: 200, g: 255, b: 0 },
-    { r: 255, g: 214, b: 0 },
-    { r: 13, g: 13, b: 26 },
-  ];
+  document.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
 
-  function Particle() { this.reset(); }
-  Particle.prototype.reset = function() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.size = Math.random() * 5 + 3;
-    this.speedX = (Math.random() - 0.5) * 0.25;
-    this.speedY = (Math.random() - 0.5) * 0.25;
-    this.opacity = Math.random() * 0.06 + 0.02;
-    this.color = brandColors[Math.floor(Math.random() * brandColors.length)];
+  var brandHexes = ['#FF2D55', '#C8FF00', '#FFD600', '#FF904D', '#CB6BE6'];
+
+  function ConstellationNode() { this.reset(true); }
+  ConstellationNode.prototype.reset = function(initial) {
+    this.x = initial ? Math.random() * canvas.width : (Math.random() > 0.5 ? -10 : canvas.width + 10);
+    this.y = initial ? Math.random() * canvas.height : Math.random() * canvas.height;
+    this.baseSize = Math.random() * 2.5 + 1;
+    this.size = this.baseSize;
+    this.vx = (Math.random() - 0.5) * 0.4;
+    this.vy = (Math.random() - 0.5) * 0.4;
+    this.baseOpacity = Math.random() * 0.25 + 0.08;
+    this.opacity = this.baseOpacity;
+    this.color = brandHexes[Math.floor(Math.random() * brandHexes.length)];
+    this.pulsePhase = Math.random() * Math.PI * 2;
+    this.pulseSpeed = Math.random() * 0.02 + 0.01;
+  };
+  ConstellationNode.prototype.update = function(t) {
+    this.x += this.vx;
+    this.y += this.vy;
+    // Gentle sine drift
+    this.x += Math.sin(t * 0.0005 + this.pulsePhase) * 0.15;
+    this.y += Math.cos(t * 0.0004 + this.pulsePhase * 1.3) * 0.12;
+    // Pulse size
+    this.size = this.baseSize + Math.sin(t * this.pulseSpeed + this.pulsePhase) * 0.8;
+    this.opacity = this.baseOpacity + Math.sin(t * this.pulseSpeed * 0.7 + this.pulsePhase) * 0.05;
+    // Mouse repulsion (gentle)
+    var dx = this.x - mouseX, dy = this.y - mouseY;
+    var dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < 120 && dist > 0) {
+      var force = (120 - dist) / 120 * 0.8;
+      this.x += (dx / dist) * force;
+      this.y += (dy / dist) * force;
+    }
+    // Wrap
+    if (this.x < -20) this.x = canvas.width + 10;
+    if (this.x > canvas.width + 20) this.x = -10;
+    if (this.y < -20) this.y = canvas.height + 10;
+    if (this.y > canvas.height + 20) this.y = -10;
+  };
+
+  for (var i = 0; i < CONSTELLATION_COUNT; i++) constellationNodes.push(new ConstellationNode());
+
+  function animateConstellation(t) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Update nodes
+    for (var i = 0; i < constellationNodes.length; i++) {
+      constellationNodes[i].update(t);
+    }
+    // Draw connections
+    for (var i = 0; i < constellationNodes.length; i++) {
+      for (var j = i + 1; j < constellationNodes.length; j++) {
+        var a = constellationNodes[i], b = constellationNodes[j];
+        var dx = a.x - b.x, dy = a.y - b.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < CONNECT_DIST) {
+          var alpha = (1 - dist / CONNECT_DIST) * 0.08;
+          ctx.strokeStyle = a.color;
+          ctx.globalAlpha = alpha;
+          ctx.lineWidth = 0.5;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+    // Draw nodes
+    for (var i = 0; i < constellationNodes.length; i++) {
+      var n = constellationNodes[i];
+      ctx.globalAlpha = n.opacity;
+      ctx.fillStyle = n.color;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.size, 0, Math.PI * 2);
+      ctx.fill();
+      // Soft glow
+      ctx.globalAlpha = n.opacity * 0.2;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.size * 4, 0, Math.PI * 2);
+      var grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.size * 4);
+      grd.addColorStop(0, n.color);
+      grd.addColorStop(1, 'transparent');
+      ctx.fillStyle = grd;
+      ctx.fill();
+    }
+    // Mouse attraction glow
+    var mdx = mouseX, mdy = mouseY;
+    if (mdx > 0 && mdy > 0 && mdx < canvas.width && mdy < canvas.height) {
+      ctx.globalAlpha = 0.04;
+      ctx.beginPath();
+      ctx.arc(mdx, mdy, 80, 0, Math.PI * 2);
+      var mgrd = ctx.createRadialGradient(mdx, mdy, 0, mdx, mdy, 80);
+      mgrd.addColorStop(0, '#FF2D55');
+      mgrd.addColorStop(1, 'transparent');
+      ctx.fillStyle = mgrd;
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(animateConstellation);
+  }
+  requestAnimationFrame(animateConstellation);
+
+  // ---- Confetti burst on slide transitions ----
+  var confettiCanvas = document.getElementById('confetti-canvas');
+  var confettiCtx = confettiCanvas.getContext('2d');
+  var confettiPieces = [];
+  var confettiRunning = false;
+
+  function resizeConfetti() {
+    confettiCanvas.width = window.innerWidth;
+    confettiCanvas.height = window.innerHeight;
+  }
+  resizeConfetti();
+  window.addEventListener('resize', resizeConfetti);
+
+  var confettiColors = ['#FF2D55', '#C8FF00', '#FFD600', '#FF904D', '#CB6BE6', '#0074B1', '#6ACB9D'];
+
+  function ConfettiPiece(x, y) {
+    this.x = x; this.y = y;
+    this.vx = (Math.random() - 0.5) * 12;
+    this.vy = Math.random() * -8 - 4;
     this.rotation = Math.random() * Math.PI * 2;
-    this.rotSpeed = (Math.random() - 0.5) * 0.008;
-    this.shape = Math.floor(Math.random() * 3);
-  };
-  Particle.prototype.update = function() {
-    this.x += this.speedX;
-    this.y += this.speedY;
+    this.rotSpeed = (Math.random() - 0.5) * 0.3;
+    this.width = Math.random() * 8 + 4;
+    this.height = Math.random() * 4 + 2;
+    this.color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+    this.gravity = 0.15;
+    this.alpha = 1;
+    this.drag = 0.98;
+    this.wobble = Math.random() * Math.PI * 2;
+    this.wobbleSpeed = Math.random() * 0.1 + 0.05;
+  }
+  ConfettiPiece.prototype.update = function() {
+    this.vy += this.gravity;
+    this.vx *= this.drag;
+    this.x += this.vx + Math.sin(this.wobble) * 0.5;
+    this.y += this.vy;
     this.rotation += this.rotSpeed;
-    if (this.x < -20 || this.x > canvas.width + 20 || this.y < -20 || this.y > canvas.height + 20) this.reset();
+    this.wobble += this.wobbleSpeed;
+    if (this.y > confettiCanvas.height + 20) this.alpha = 0;
+    if (this.y > confettiCanvas.height * 0.7) this.alpha *= 0.97;
   };
-  Particle.prototype.draw = function() {
+  ConfettiPiece.prototype.draw = function(ctx) {
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.rotation);
-    ctx.globalAlpha = this.opacity;
-    ctx.fillStyle = 'rgb(' + this.color.r + ',' + this.color.g + ',' + this.color.b + ')';
-    if (this.shape === 0) {
-      ctx.beginPath();
-      ctx.arc(0, 0, this.size, 0, Math.PI * 2);
-      ctx.fill();
-    } else if (this.shape === 1) {
-      ctx.fillRect(-this.size, -this.size, this.size * 2, this.size * 2);
-    } else {
-      ctx.beginPath();
-      ctx.moveTo(0, -this.size);
-      ctx.lineTo(this.size, this.size);
-      ctx.lineTo(-this.size, this.size);
-      ctx.closePath();
-      ctx.fill();
-    }
+    ctx.globalAlpha = this.alpha;
+    ctx.fillStyle = this.color;
+    ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
     ctx.restore();
   };
 
-  for (var i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
-
-  function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (var i = 0; i < particles.length; i++) {
-      particles[i].update();
-      particles[i].draw();
+  function spawnConfetti() {
+    var cx = window.innerWidth / 2;
+    var cy = window.innerHeight / 2;
+    for (var i = 0; i < 40; i++) {
+      confettiPieces.push(new ConfettiPiece(
+        cx + (Math.random() - 0.5) * window.innerWidth * 0.6,
+        cy + (Math.random() - 0.5) * 100
+      ));
     }
-    requestAnimationFrame(animateParticles);
+    if (!confettiRunning) {
+      confettiRunning = true;
+      animateConfetti();
+    }
   }
-  animateParticles();
+
+  function animateConfetti() {
+    confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+    for (var i = confettiPieces.length - 1; i >= 0; i--) {
+      confettiPieces[i].update();
+      confettiPieces[i].draw(confettiCtx);
+      if (confettiPieces[i].alpha <= 0.01) confettiPieces.splice(i, 1);
+    }
+    if (confettiPieces.length > 0) {
+      requestAnimationFrame(animateConfetti);
+    } else {
+      confettiRunning = false;
+    }
+  }
 
   // ---- Slide navigation ----
   var slides = document.querySelectorAll('.slide');
@@ -1406,6 +1711,17 @@
     currentSlide = index;
     updateProgress();
 
+    // Confetti burst on certain fun slides
+    var confettiSlides = ['8','9','13','17','21'];
+    if (confettiSlides.indexOf(next.dataset.slide) !== -1) {
+      spawnConfetti();
+    }
+
+    // Typewriter on storytelling slide
+    if (next.dataset.slide === '20') {
+      startTypewriter();
+    }
+
     // Trigger counter animations
     var counters = next.querySelectorAll('[data-target]');
     for (var i = 0; i < counters.length; i++) {
@@ -1464,6 +1780,11 @@
       if (fwCtx) fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
       fireworks = [];
       fwParticles = [];
+    }
+
+    // Reset typewriter when leaving storytelling slide
+    if (prev.dataset.slide === '20' && index !== 20) {
+      resetTypewriter();
     }
 
     setTimeout(function() {
@@ -1544,21 +1865,30 @@
     countdownInterval = setInterval(update, 1000);
   }
 
-  // Animate decorative dots floating
+  // Animate decorative dots — float + parallax mouse response
   var decoDots = document.querySelectorAll('.deco-dot');
+  var parallaxMX = 0, parallaxMY = 0;
+  document.addEventListener('mousemove', function(e) {
+    parallaxMX = (e.clientX / window.innerWidth - 0.5) * 2;
+    parallaxMY = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
   for (var i = 0; i < decoDots.length; i++) {
-    (function(dot) {
+    (function(dot, idx) {
       var phase = Math.random() * Math.PI * 2;
       var speed = 0.4 + Math.random() * 0.4;
       var amp = 6 + Math.random() * 10;
+      var parallaxStr = 8 + Math.random() * 16; // each dot moves differently
+      var direction = (idx % 2 === 0) ? 1 : -1; // alternate direction for depth
       function float(t) {
-        var dx = Math.sin(t * speed * 0.001 + phase) * amp;
-        var dy = Math.cos(t * speed * 0.0013 + phase) * amp * 0.7;
-        dot.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+        var fx = Math.sin(t * speed * 0.001 + phase) * amp;
+        var fy = Math.cos(t * speed * 0.0013 + phase) * amp * 0.7;
+        var px = parallaxMX * parallaxStr * direction;
+        var py = parallaxMY * parallaxStr * direction * 0.7;
+        dot.style.transform = 'translate(' + (fx + px).toFixed(1) + 'px, ' + (fy + py).toFixed(1) + 'px)';
         requestAnimationFrame(float);
       }
       requestAnimationFrame(float);
-    })(decoDots[i]);
+    })(decoDots[i], i);
   }
 
   // ---- Past GenJams: Gallery Animation ----
@@ -2305,6 +2635,71 @@
   // Create sprites
   for (var s = 0; s < SPRITE_COUNT; s++) {
     schnozzoSprites.push(new SchnozzoSprite(s));
+  }
+
+  // ---- Typewriter effect for storytelling tips ----
+  var typewriterStarted = false;
+  function startTypewriter() {
+    if (typewriterStarted) return;
+    typewriterStarted = true;
+    var lines = document.querySelectorAll('.storytelling-tips .st-line');
+    if (!lines.length) return;
+    var lineTexts = [];
+    for (var i = 0; i < lines.length; i++) {
+      lineTexts.push(lines[i].textContent);
+      lines[i].textContent = '';
+      lines[i].style.opacity = '1';
+    }
+    var lineIdx = 0;
+    var charIdx = 0;
+    var cursorEl = document.createElement('span');
+    cursorEl.className = 'cursor';
+    cursorEl.innerHTML = '&nbsp;';
+
+    function typeNext() {
+      if (lineIdx >= lines.length) {
+        // Remove cursor at end
+        if (cursorEl.parentNode) cursorEl.parentNode.removeChild(cursorEl);
+        return;
+      }
+      var line = lines[lineIdx];
+      var text = lineTexts[lineIdx];
+      if (charIdx <= text.length) {
+        line.textContent = text.substring(0, charIdx);
+        line.appendChild(cursorEl);
+        charIdx++;
+        setTimeout(typeNext, 35 + Math.random() * 30);
+      } else {
+        // Move to next line
+        if (cursorEl.parentNode) cursorEl.parentNode.removeChild(cursorEl);
+        lineIdx++;
+        charIdx = 0;
+        setTimeout(typeNext, 400);
+      }
+    }
+    // Start after entrance animation
+    setTimeout(typeNext, 600);
+  }
+
+  // Reset typewriter when leaving storytelling slide
+  var origTypewriterTexts = null;
+  (function() {
+    var lines = document.querySelectorAll('.storytelling-tips .st-line');
+    if (lines.length) {
+      origTypewriterTexts = [];
+      for (var i = 0; i < lines.length; i++) {
+        origTypewriterTexts.push(lines[i].textContent);
+      }
+    }
+  })();
+  function resetTypewriter() {
+    typewriterStarted = false;
+    var lines = document.querySelectorAll('.storytelling-tips .st-line');
+    if (lines.length && origTypewriterTexts) {
+      for (var i = 0; i < lines.length; i++) {
+        lines[i].textContent = origTypewriterTexts[i];
+      }
+    }
   }
 
   // Animation loop
