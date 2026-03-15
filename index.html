@@ -514,56 +514,13 @@
     position: relative;
     width: 100%;
     max-width: 1200px;
-    aspect-ratio: 1200 / 750;
     margin-top: 8px;
   }
-  .fractal-lines {
-    position: absolute;
-    inset: 0;
+  .fractal-wrap svg {
     width: 100%;
-    height: 100%;
+    height: auto;
+    display: block;
   }
-  .fn {
-    position: absolute;
-    font-family: var(--font-mono);
-    font-size: clamp(0.75rem, 1.4vw, 1.05rem);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    padding: 12px 22px;
-    border-radius: 12px;
-    border: 2.5px solid rgba(0,0,0,0.25);
-    white-space: nowrap;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-  }
-  .fn-header {
-    position: absolute;
-    font-family: var(--font-mono);
-    font-size: clamp(0.6rem, 1vw, 0.8rem);
-    font-weight: 700;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.55);
-    letter-spacing: 0.12em;
-    transform: translate(-50%, -50%);
-    white-space: nowrap;
-  }
-  .fn-idea   { left: 7%; top: 50%; }
-  .fn-script { left: 20%; top: 50%; padding: 14px 24px; }
-  .fn-hdr-shot { left: 38%; top: 3%; }
-  .fn-hdr-img  { left: 58%; top: 3%; }
-  .fn-hdr-vid  { left: 78%; top: 3%; }
-  .fn-final  { left: 93%; top: 50%; padding: 14px 24px; font-size: clamp(0.75rem, 1.4vw, 1.05rem); }
-  .fn-shot { left: 38%; }
-  .fn-img  { left: 58%; }
-  .fn-vid  { left: 78%; }
-  .fn-r1 { top: 12%; }
-  .fn-r2 { top: 27%; }
-  .fn-r3 { top: 42%; }
-  .fn-r4 { top: 57%; }
-  .fn-r5 { top: 72%; }
-  .fn-r6 { top: 87%; }
 
   /* ---- Tips grid ---- */
   .tips-grid {
@@ -1303,66 +1260,102 @@
       <h2>The <span class="color-yellow">Process</span> — Expanded</h2>
       <div class="accent-bar yellow" style="margin: 12px auto 16px;"></div>
       <div class="fractal-wrap">
-        <svg class="fractal-lines" viewBox="0 0 1200 750" preserveAspectRatio="xMidYMid meet">
-          <!-- Idea to Script -->
-          <line x1="100" y1="375" x2="190" y2="375" stroke="var(--yellow)" stroke-width="2.5"/>
-          <!-- Script fan-out to shots (script at 20%=240, shots at 38%=456) -->
-          <line x1="300" y1="375" x2="400" y2="90" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="300" y1="375" x2="400" y2="202" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="300" y1="375" x2="400" y2="315" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="300" y1="375" x2="400" y2="428" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="300" y1="375" x2="400" y2="540" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="300" y1="375" x2="400" y2="652" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <!-- Shot to IMG arrows (38%=456 to 58%=696) -->
-          <line x1="510" y1="90" x2="640" y2="90" stroke="var(--lime)" stroke-width="2"/>
-          <line x1="510" y1="202" x2="640" y2="202" stroke="var(--lime)" stroke-width="2"/>
-          <line x1="510" y1="315" x2="640" y2="315" stroke="var(--lime)" stroke-width="2"/>
-          <line x1="510" y1="428" x2="640" y2="428" stroke="var(--lime)" stroke-width="2"/>
-          <line x1="510" y1="540" x2="640" y2="540" stroke="var(--lime)" stroke-width="2"/>
-          <line x1="510" y1="652" x2="640" y2="652" stroke="var(--lime)" stroke-width="2"/>
-          <!-- IMG to VID arrows (58%=696 to 78%=936) -->
-          <line x1="750" y1="90" x2="880" y2="90" stroke="var(--orange)" stroke-width="2"/>
-          <line x1="750" y1="202" x2="880" y2="202" stroke="var(--orange)" stroke-width="2"/>
-          <line x1="750" y1="315" x2="880" y2="315" stroke="var(--orange)" stroke-width="2"/>
-          <line x1="750" y1="428" x2="880" y2="428" stroke="var(--orange)" stroke-width="2"/>
-          <line x1="750" y1="540" x2="880" y2="540" stroke="var(--orange)" stroke-width="2"/>
-          <line x1="750" y1="652" x2="880" y2="652" stroke="var(--orange)" stroke-width="2"/>
-          <!-- VID converge to Sound & Edit (78%=936 to 93%=1116) -->
-          <line x1="990" y1="90" x2="1070" y2="375" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="990" y1="202" x2="1070" y2="375" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="990" y1="315" x2="1070" y2="375" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="990" y1="428" x2="1070" y2="375" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="990" y1="540" x2="1070" y2="375" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-          <line x1="990" y1="652" x2="1070" y2="375" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+        <svg viewBox="0 0 1200 760" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            .sv-box { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 17px; text-anchor: middle; dominant-baseline: central; text-transform: uppercase; letter-spacing: 0.04em; }
+            .sv-box-lg { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 16px; text-anchor: middle; dominant-baseline: central; text-transform: uppercase; letter-spacing: 0.04em; }
+            .sv-hdr { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 13px; text-anchor: middle; dominant-baseline: central; text-transform: uppercase; letter-spacing: 0.12em; fill: rgba(255,255,255,0.55); }
+          </style>
+          <!-- Connection lines -->
+          <line x1="110" y1="400" x2="138" y2="400" stroke="#FFD60A" stroke-width="2.5"/>
+          <!-- Script fan-out -->
+          <line x1="308" y1="400" x2="382" y2="120" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="308" y1="400" x2="382" y2="230" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="308" y1="400" x2="382" y2="340" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="308" y1="400" x2="382" y2="450" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="308" y1="400" x2="382" y2="560" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="308" y1="400" x2="382" y2="670" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <!-- Shot → IMG -->
+          <line x1="502" y1="120" x2="588" y2="120" stroke="#BFFF00" stroke-width="2"/>
+          <line x1="502" y1="230" x2="588" y2="230" stroke="#BFFF00" stroke-width="2"/>
+          <line x1="502" y1="340" x2="588" y2="340" stroke="#BFFF00" stroke-width="2"/>
+          <line x1="502" y1="450" x2="588" y2="450" stroke="#BFFF00" stroke-width="2"/>
+          <line x1="502" y1="560" x2="588" y2="560" stroke="#BFFF00" stroke-width="2"/>
+          <line x1="502" y1="670" x2="588" y2="670" stroke="#BFFF00" stroke-width="2"/>
+          <!-- IMG → VID -->
+          <line x1="692" y1="120" x2="788" y2="120" stroke="#FF9500" stroke-width="2"/>
+          <line x1="692" y1="230" x2="788" y2="230" stroke="#FF9500" stroke-width="2"/>
+          <line x1="692" y1="340" x2="788" y2="340" stroke="#FF9500" stroke-width="2"/>
+          <line x1="692" y1="450" x2="788" y2="450" stroke="#FF9500" stroke-width="2"/>
+          <line x1="692" y1="560" x2="788" y2="560" stroke="#FF9500" stroke-width="2"/>
+          <line x1="692" y1="670" x2="788" y2="670" stroke="#FF9500" stroke-width="2"/>
+          <!-- VID → Sound & Edit -->
+          <line x1="892" y1="120" x2="1018" y2="400" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="892" y1="230" x2="1018" y2="400" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="892" y1="340" x2="1018" y2="400" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="892" y1="450" x2="1018" y2="400" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="892" y1="560" x2="1018" y2="400" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <line x1="892" y1="670" x2="1018" y2="400" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+
+          <!-- Column headers -->
+          <text class="sv-hdr" x="442" y="55">Shotlist</text>
+          <text class="sv-hdr" x="640" y="55">Txt&#x2011;2&#x2011;Img</text>
+          <text class="sv-hdr" x="840" y="55">Img&#x2011;2&#x2011;Vid</text>
+
+          <!-- Idea -->
+          <rect x="18" y="376" width="92" height="48" rx="12" fill="#FFD60A" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box-lg" x="64" y="400" fill="#0d0d1a">Idea</text>
+
+          <!-- Script / Story -->
+          <rect x="138" y="372" width="170" height="56" rx="12" fill="#FFD60A" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box-lg" x="223" y="400" fill="#0d0d1a">Script / Story</text>
+
+          <!-- Shot column — center x=442, width=120 → x=382..502 -->
+          <rect x="382" y="99" width="120" height="42" rx="12" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="442" y="120" fill="#fff">Shot 1</text>
+          <rect x="382" y="209" width="120" height="42" rx="12" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="442" y="230" fill="#fff">Shot 2</text>
+          <rect x="382" y="319" width="120" height="42" rx="12" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="442" y="340" fill="#fff">Shot 3</text>
+          <rect x="382" y="429" width="120" height="42" rx="12" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="442" y="450" fill="#fff">Shot 4</text>
+          <rect x="382" y="539" width="120" height="42" rx="12" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="442" y="560" fill="#fff">Shot 5</text>
+          <rect x="382" y="649" width="120" height="42" rx="12" fill="#FF2D55" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="442" y="670" fill="#fff">Shot 6</text>
+
+          <!-- IMG column — center x=640, width=104 → x=588..692 -->
+          <rect x="588" y="99" width="104" height="42" rx="12" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="640" y="120" fill="#0d0d1a">IMG</text>
+          <rect x="588" y="209" width="104" height="42" rx="12" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="640" y="230" fill="#0d0d1a">IMG</text>
+          <rect x="588" y="319" width="104" height="42" rx="12" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="640" y="340" fill="#0d0d1a">IMG</text>
+          <rect x="588" y="429" width="104" height="42" rx="12" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="640" y="450" fill="#0d0d1a">IMG</text>
+          <rect x="588" y="539" width="104" height="42" rx="12" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="640" y="560" fill="#0d0d1a">IMG</text>
+          <rect x="588" y="649" width="104" height="42" rx="12" fill="#BFFF00" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="640" y="670" fill="#0d0d1a">IMG</text>
+
+          <!-- VID column — center x=840, width=104 → x=788..892 -->
+          <rect x="788" y="99" width="104" height="42" rx="12" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="840" y="120" fill="#fff">VID</text>
+          <rect x="788" y="209" width="104" height="42" rx="12" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="840" y="230" fill="#fff">VID</text>
+          <rect x="788" y="319" width="104" height="42" rx="12" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="840" y="340" fill="#fff">VID</text>
+          <rect x="788" y="429" width="104" height="42" rx="12" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="840" y="450" fill="#fff">VID</text>
+          <rect x="788" y="539" width="104" height="42" rx="12" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="840" y="560" fill="#fff">VID</text>
+          <rect x="788" y="649" width="104" height="42" rx="12" fill="#FF9500" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box" x="840" y="670" fill="#fff">VID</text>
+
+          <!-- Sound & Edit -->
+          <rect x="1018" y="372" width="168" height="56" rx="12" fill="#f5f5f7" stroke="rgba(0,0,0,0.25)" stroke-width="2.5"/>
+          <text class="sv-box-lg" x="1102" y="400" fill="#0d0d1a">Sound &amp; Edit</text>
         </svg>
-        <!-- Nodes -->
-        <div class="fn fn-idea" style="background:var(--yellow);color:var(--dark-navy);">Idea</div>
-        <div class="fn fn-script" style="background:var(--yellow);color:var(--dark-navy);">Script / Story</div>
-        <!-- Column headers -->
-        <div class="fn-header fn-hdr-shot">Shotlist</div>
-        <div class="fn-header fn-hdr-img">TXT&#8209;2&#8209;IMG</div>
-        <div class="fn-header fn-hdr-vid">IMG&#8209;2&#8209;VID</div>
-        <!-- Shot rows -->
-        <div class="fn fn-shot fn-r1" style="background:var(--pink);color:#fff;">Shot 1</div>
-        <div class="fn fn-img fn-r1" style="background:var(--lime);color:var(--dark-navy);">IMG</div>
-        <div class="fn fn-vid fn-r1" style="background:var(--orange);color:#fff;">VID</div>
-        <div class="fn fn-shot fn-r2" style="background:var(--pink);color:#fff;">Shot 2</div>
-        <div class="fn fn-img fn-r2" style="background:var(--lime);color:var(--dark-navy);">IMG</div>
-        <div class="fn fn-vid fn-r2" style="background:var(--orange);color:#fff;">VID</div>
-        <div class="fn fn-shot fn-r3" style="background:var(--pink);color:#fff;">Shot 3</div>
-        <div class="fn fn-img fn-r3" style="background:var(--lime);color:var(--dark-navy);">IMG</div>
-        <div class="fn fn-vid fn-r3" style="background:var(--orange);color:#fff;">VID</div>
-        <div class="fn fn-shot fn-r4" style="background:var(--pink);color:#fff;">Shot 4</div>
-        <div class="fn fn-img fn-r4" style="background:var(--lime);color:var(--dark-navy);">IMG</div>
-        <div class="fn fn-vid fn-r4" style="background:var(--orange);color:#fff;">VID</div>
-        <div class="fn fn-shot fn-r5" style="background:var(--pink);color:#fff;">Shot 5</div>
-        <div class="fn fn-img fn-r5" style="background:var(--lime);color:var(--dark-navy);">IMG</div>
-        <div class="fn fn-vid fn-r5" style="background:var(--orange);color:#fff;">VID</div>
-        <div class="fn fn-shot fn-r6" style="background:var(--pink);color:#fff;">Shot 6</div>
-        <div class="fn fn-img fn-r6" style="background:var(--lime);color:var(--dark-navy);">IMG</div>
-        <div class="fn fn-vid fn-r6" style="background:var(--orange);color:#fff;">VID</div>
-        <!-- Sound & Edit -->
-        <div class="fn fn-final" style="background:var(--bg-white);color:var(--dark-navy);">Sound &amp; Edit</div>
       </div>
     </div>
   </div>
