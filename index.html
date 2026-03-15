@@ -2830,49 +2830,7 @@
 
   // ---- Typewriter effect for storytelling tips ----
   var typewriterStarted = false;
-  function startTypewriter() {
-    if (typewriterStarted) return;
-    typewriterStarted = true;
-    var lines = document.querySelectorAll('.storytelling-tips .st-line');
-    if (!lines.length) return;
-    var lineTexts = [];
-    for (var i = 0; i < lines.length; i++) {
-      lineTexts.push(lines[i].textContent);
-      lines[i].textContent = '';
-      lines[i].style.opacity = '1';
-    }
-    var lineIdx = 0;
-    var charIdx = 0;
-    var cursorEl = document.createElement('span');
-    cursorEl.className = 'cursor';
-    cursorEl.innerHTML = '&nbsp;';
-
-    function typeNext() {
-      if (lineIdx >= lines.length) {
-        // Remove cursor at end
-        if (cursorEl.parentNode) cursorEl.parentNode.removeChild(cursorEl);
-        return;
-      }
-      var line = lines[lineIdx];
-      var text = lineTexts[lineIdx];
-      if (charIdx <= text.length) {
-        line.textContent = text.substring(0, charIdx);
-        line.appendChild(cursorEl);
-        charIdx++;
-        setTimeout(typeNext, 35 + Math.random() * 30);
-      } else {
-        // Move to next line
-        if (cursorEl.parentNode) cursorEl.parentNode.removeChild(cursorEl);
-        lineIdx++;
-        charIdx = 0;
-        setTimeout(typeNext, 400);
-      }
-    }
-    // Start after entrance animation
-    setTimeout(typeNext, 600);
-  }
-
-  // Reset typewriter when leaving storytelling slide
+  var typewriterTimer = null;
   var origTypewriterTexts = null;
   (function() {
     var lines = document.querySelectorAll('.storytelling-tips .st-line');
@@ -2883,8 +2841,50 @@
       }
     }
   })();
+
+  function startTypewriter() {
+    if (typewriterStarted) return;
+    typewriterStarted = true;
+    var lines = document.querySelectorAll('.storytelling-tips .st-line');
+    if (!lines.length) return;
+    // Always use the original captured texts to avoid corruption
+    var lineTexts = origTypewriterTexts.slice();
+    for (var i = 0; i < lines.length; i++) {
+      lines[i].textContent = '';
+      lines[i].style.opacity = '1';
+    }
+    var lineIdx = 0;
+    var charIdx = 0;
+    var cursorEl = document.createElement('span');
+    cursorEl.className = 'cursor';
+    cursorEl.innerHTML = '&nbsp;';
+
+    function typeNext() {
+      if (!typewriterStarted) return;
+      if (lineIdx >= lines.length) {
+        if (cursorEl.parentNode) cursorEl.parentNode.removeChild(cursorEl);
+        return;
+      }
+      var line = lines[lineIdx];
+      var text = lineTexts[lineIdx];
+      if (charIdx <= text.length) {
+        line.textContent = text.substring(0, charIdx);
+        line.appendChild(cursorEl);
+        charIdx++;
+        typewriterTimer = setTimeout(typeNext, 35 + Math.random() * 30);
+      } else {
+        if (cursorEl.parentNode) cursorEl.parentNode.removeChild(cursorEl);
+        lineIdx++;
+        charIdx = 0;
+        typewriterTimer = setTimeout(typeNext, 400);
+      }
+    }
+    typewriterTimer = setTimeout(typeNext, 600);
+  }
+
   function resetTypewriter() {
     typewriterStarted = false;
+    if (typewriterTimer) { clearTimeout(typewriterTimer); typewriterTimer = null; }
     var lines = document.querySelectorAll('.storytelling-tips .st-line');
     if (lines.length && origTypewriterTexts) {
       for (var i = 0; i < lines.length; i++) {
