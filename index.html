@@ -227,7 +227,7 @@
 
   /* ---- Staggered children animation ---- */
   .slide.active .stagger > * {
-    animation: springIn 0.6s cubic-bezier(.175,.885,.32,1.275) both;
+    animation: springIn 0.7s cubic-bezier(.25,.46,.45,.94) both;
   }
   .slide.active .stagger > *:nth-child(1) { animation-delay: 0.05s; }
   .slide.active .stagger > *:nth-child(2) { animation-delay: 0.12s; }
@@ -241,9 +241,7 @@
   .slide.active .stagger > *:nth-child(10) { animation-delay: 0.68s; }
   .slide.active .stagger > *:nth-child(11) { animation-delay: 0.75s; }
   @keyframes springIn {
-    0%   { opacity: 0; transform: translateY(40px) scale(0.92); }
-    60%  { opacity: 1; transform: translateY(-6px) scale(1.02); }
-    80%  { transform: translateY(2px) scale(0.99); }
+    0%   { opacity: 0; transform: translateY(30px) scale(0.96); }
     100% { opacity: 1; transform: translateY(0) scale(1); }
   }
   @keyframes fadeSlideUp {
@@ -260,7 +258,7 @@
 
   /* ---- Card pop-in animations ---- */
   .slide.active .cards .card {
-    animation: cardPop 0.5s cubic-bezier(.175,.885,.32,1.275) both;
+    animation: cardPop 0.6s cubic-bezier(.25,.46,.45,.94) both;
   }
   .slide.active .cards .card:nth-child(1) { animation-delay: 0.15s; }
   .slide.active .cards .card:nth-child(2) { animation-delay: 0.22s; }
@@ -272,27 +270,26 @@
   .slide.active .cards .card:nth-child(8) { animation-delay: 0.64s; }
   .slide.active .cards .card:nth-child(9) { animation-delay: 0.71s; }
   @keyframes cardPop {
-    0%   { opacity: 0; transform: translateY(30px) scale(0.8) rotate(-2deg); }
-    70%  { opacity: 1; transform: translateY(-4px) scale(1.03) rotate(0.5deg); }
-    100% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+    0%   { opacity: 0; transform: translateY(24px) scale(0.92); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
   }
 
   /* ---- Tag scatter-in ---- */
   .slide.active .tag-cloud .tag {
-    animation: tagScatter 0.5s cubic-bezier(.175,.885,.32,1.275) both;
+    animation: tagScatter 0.5s cubic-bezier(.25,.46,.45,.94) both;
   }
   .slide.active .tag-cloud .tag:nth-child(1) { animation-delay: 0.3s; }
   .slide.active .tag-cloud .tag:nth-child(2) { animation-delay: 0.38s; }
   .slide.active .tag-cloud .tag:nth-child(3) { animation-delay: 0.46s; }
   .slide.active .tag-cloud .tag:nth-child(4) { animation-delay: 0.54s; }
   @keyframes tagScatter {
-    0%   { opacity: 0; transform: scale(0.5) rotate(-8deg); }
-    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    0%   { opacity: 0; transform: scale(0.85) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
   }
 
   /* ---- Schedule list item slide-in ---- */
   .slide.active .schedule-list li {
-    animation: listSlideIn 0.4s cubic-bezier(.175,.885,.32,1.275) both;
+    animation: listSlideIn 0.45s cubic-bezier(.25,.46,.45,.94) both;
   }
   .slide.active .schedule-list li:nth-child(1) { animation-delay: 0.1s; }
   .slide.active .schedule-list li:nth-child(2) { animation-delay: 0.16s; }
@@ -310,7 +307,7 @@
 
   /* ---- Role card bounce ---- */
   .slide.active .role-grid .role-card {
-    animation: roleBounce 0.6s cubic-bezier(.175,.885,.32,1.275) both;
+    animation: roleBounce 0.6s cubic-bezier(.25,.46,.45,.94) both;
   }
   .slide.active .role-grid .role-card:nth-child(1) { animation-delay: 0.15s; }
   .slide.active .role-grid .role-card:nth-child(2) { animation-delay: 0.25s; }
@@ -318,15 +315,13 @@
   .slide.active .role-grid .role-card:nth-child(4) { animation-delay: 0.45s; }
   .slide.active .role-grid .role-card:nth-child(5) { animation-delay: 0.55s; }
   @keyframes roleBounce {
-    0%   { opacity: 0; transform: translateY(50px) rotate(-5deg) scale(0.7); }
-    50%  { opacity: 1; transform: translateY(-10px) rotate(1deg) scale(1.05); }
-    70%  { transform: translateY(4px) rotate(-0.5deg) scale(0.98); }
-    100% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+    0%   { opacity: 0; transform: translateY(30px) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
   }
 
   /* ---- Process flow step cascade ---- */
   .slide.active .process-flow > * {
-    animation: processCascade 0.45s cubic-bezier(.175,.885,.32,1.275) both;
+    animation: processCascade 0.5s cubic-bezier(.25,.46,.45,.94) both;
   }
   .slide.active .process-flow > *:nth-child(1) { animation-delay: 0.15s; }
   .slide.active .process-flow > *:nth-child(2) { animation-delay: 0.25s; }
@@ -344,7 +339,7 @@
 
   /* ---- Tips tile stagger ---- */
   .slide.active .tips-grid .tip {
-    animation: tipFlip 0.5s cubic-bezier(.175,.885,.32,1.275) both;
+    animation: tipFlip 0.5s cubic-bezier(.25,.46,.45,.94) both;
   }
   .slide.active .tips-grid .tip:nth-child(1) { animation-delay: 0.1s; }
   .slide.active .tips-grid .tip:nth-child(2) { animation-delay: 0.17s; }
@@ -357,13 +352,13 @@
   .slide.active .tips-grid .tip:nth-child(9) { animation-delay: 0.66s; }
   .slide.active .tips-grid .tip:nth-child(10) { animation-delay: 0.73s; }
   @keyframes tipFlip {
-    0%   { opacity: 0; transform: perspective(600px) rotateX(-15deg) translateY(20px); }
-    100% { opacity: 1; transform: perspective(600px) rotateX(0deg) translateY(0); }
+    0%   { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
 
   /* ---- Story world card pop-in ---- */
   .slide.active .sw-grid .sw-card {
-    animation: cardPopIn 0.5s cubic-bezier(.175,.885,.32,1.275) both;
+    animation: cardPopIn 0.5s cubic-bezier(.25,.46,.45,.94) both;
   }
   .slide.active .sw-grid .sw-card:nth-child(1) { animation-delay: 0.1s; }
   .slide.active .sw-grid .sw-card:nth-child(2) { animation-delay: 0.2s; }
@@ -392,7 +387,7 @@
 
   /* ---- Discussion list items ---- */
   .slide.active .discussion-list li {
-    animation: listSlideIn 0.4s cubic-bezier(.175,.885,.32,1.275) both;
+    animation: listSlideIn 0.45s cubic-bezier(.25,.46,.45,.94) both;
   }
   .slide.active .discussion-list li:nth-child(1) { animation-delay: 0.2s; }
   .slide.active .discussion-list li:nth-child(2) { animation-delay: 0.3s; }
@@ -401,7 +396,7 @@
 
   /* ---- Bio card stagger ---- */
   .slide.active .bio-card {
-    animation: cardPop 0.6s cubic-bezier(.175,.885,.32,1.275) both;
+    animation: cardPop 0.6s cubic-bezier(.25,.46,.45,.94) both;
   }
   .slide.active .bio-card:nth-child(1) { animation-delay: 0.2s; }
   .slide.active .bio-card:nth-child(2) { animation-delay: 0.35s; }
@@ -856,7 +851,7 @@
       <img src="black5.png" alt="Machine Cinema" style="max-width: 400px; width: 80%; margin-bottom: 20px;">
       <span class="pill pill-pink">GenJam @ NVIDIA GTC</span>
       <div class="accent-bar pink" style="margin: 12px auto 22px;"></div>
-      <h2 style="font-size: clamp(1.8rem, 4vw, 3rem); margin-bottom: 8px;">Let's Play a <span class="color-pink">Game!</span></h2>
+      <h2 style="font-size: clamp(1.8rem, 4vw, 3rem); margin-bottom: 8px;">Let's Make a <span class="color-pink">Short Film!</span></h2>
       <p style="max-width: 500px; text-align: center; font-size: clamp(0.95rem, 1.3vw, 1.1rem); margin-bottom: 20px;">
         Create short films using local AI on Dell laptops
       </p>
@@ -914,7 +909,7 @@
       <span class="pill" style="background:#76B900;color:#fff;">NVIDIA GTC</span>
       <img src="nvidia-logo.svg" alt="NVIDIA" style="max-width: 350px; width: 60%; margin: 10px auto;">
       <div class="accent-bar" style="background:#76B900; margin: 12px auto 20px;"></div>
-      <h2 style="font-size: clamp(1.5rem, 3.5vw, 2.8rem); color: #fff; margin-bottom: 16px;">GPU Technology <span style="color:#76B900;">Conference</span></h2>
+      <h2 style="font-size: clamp(1.5rem, 3.5vw, 2.8rem); color: #fff; margin-bottom: 16px;">Generating AI Films <span style="color:#76B900;">Locally and with API</span></h2>
       <p style="max-width: 650px; text-align: center; font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: #c0c0d8; line-height: 1.75;">
         Welcome to GenJam at NVIDIA GTC &mdash; the premier AI conference where breakthroughs are born. Today we're harnessing the power of NVIDIA GPUs running locally on Dell laptops to create AI-generated short films in real time.
       </p>
@@ -1063,31 +1058,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 9: Mentors & Judges -->
-  <div class="slide slide-dark centered" data-slide="9" data-dots="light">
-    <div class="stagger" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-      <span class="pill pill-yellow">Special Guests</span>
-      <h2 style="text-align: center;">Mentors &amp; <span class="color-pink">Judges</span></h2>
-      <div class="accent-bar pink" style="margin: 12px auto 20px;"></div>
-      <div style="display: grid; grid-template-columns: repeat(4, 1fr); max-width: 900px; gap: 24px; margin-top: 10px;">
-        <div class="card card-dark centered" style="padding: 24px 16px;">
-          <h4 style="color: var(--yellow); margin-bottom: 4px;">Matt Daly</h4>
-        </div>
-        <div class="card card-dark centered" style="padding: 24px 16px;">
-          <h4 style="color: var(--lime); margin-bottom: 4px;">Matisse Tolin</h4>
-        </div>
-        <div class="card card-dark centered" style="padding: 24px 16px;">
-          <h4 style="color: var(--orange); margin-bottom: 4px;">Eric Shamlin</h4>
-        </div>
-        <div class="card card-dark centered" style="padding: 24px 16px;">
-          <h4 style="color: var(--purple); margin-bottom: 4px;">Michael Wise</h4>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 10: Join the Community -->
-  <div class="slide centered" data-slide="10">
+  <!-- SLIDE 9: Join the Community -->
+  <div class="slide centered" data-slide="9">
     <div class="deco-circle" style="width:200px;height:200px;bottom:5%;left:-3%;border-color:var(--lime);opacity:0.12;"></div>
     <div class="stagger">
       <span class="pill pill-lime">Get Involved</span>
@@ -1133,7 +1105,7 @@
   </div>
 
   <!-- SLIDE 11: Past GenJams -->
-  <div class="slide slide-dark centered" data-slide="11" data-dots="light" id="past-genjams-slide">
+  <div class="slide slide-dark centered" data-slide="10" data-dots="light" id="past-genjams-slide">
     <div class="past-genjams-gallery" id="past-genjams-gallery"></div>
     <div class="stagger" style="position: relative; z-index: 3; text-align: center;">
       <span class="pill pill-yellow">Our Journey</span>
@@ -1148,62 +1120,10 @@
     </div>
   </div>
 
-  <!-- SLIDE 12: Partner — NVIDIA -->
-  <div class="slide slide-dark centered" data-slide="12" data-dots="light">
-    <div class="deco-dot" style="top:12%;right:10%;background:#76B900;width:26px;height:26px;opacity:0.4;"></div>
-    <div class="deco-dot" style="bottom:18%;left:12%;background:var(--lime);width:20px;height:20px;opacity:0.4;"></div>
-    <div class="stagger">
-      <span class="pill" style="background:#76B900;color:#fff;">Presenting Partner</span>
-      <img src="nvidia-logo.svg" alt="NVIDIA" style="max-width: 600px; width: 80%; margin: 20px auto;">
-      <div class="accent-bar" style="background:#76B900; margin: 16px auto 20px;"></div>
-      <p style="max-width: 700px; text-align: center; font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: #c0c0d8; line-height: 1.75;">
-        NVIDIA is the world leader in accelerated computing. Their GPUs power the AI revolution &mdash; from data centers to creative workstations. Today, NVIDIA RTX technology enables us to generate images and video locally, right on the laptops in front of you.
-      </p>
-      <div style="display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; justify-content: center;">
-        <span class="tag" style="background:#76B900; color:#fff; border-color:#76B900;">RTX GPUs</span>
-        <span class="tag tag-yellow">TensorRT</span>
-        <span class="tag tag-lime">Local AI Inference</span>
-        <span class="tag tag-pink">CUDA</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 13: Partner — Dell -->
-  <div class="slide centered" data-slide="13" style="background: #007DB8; color: #fff;">
-    <div class="deco-dot" style="top:15%;left:8%;background:var(--yellow);width:24px;height:24px;opacity:0.5;"></div>
-    <div class="deco-dot" style="bottom:12%;right:14%;background:var(--lime);width:18px;height:18px;opacity:0.5;"></div>
-    <div class="stagger">
-      <span class="pill pill-white">Partner</span>
-      <img src="dell-logo.svg" alt="Dell Technologies" style="max-width: 500px; width: 70%; margin: 20px auto;">
-      <div class="accent-bar white" style="margin: 16px auto 20px;"></div>
-      <p style="max-width: 650px; text-align: center; font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: rgba(255,255,255,0.9); line-height: 1.75;">
-        Dell is providing the powerful laptops we're using today, equipped with NVIDIA RTX GPUs. These machines let you run LTX Desktop to generate AI images and video entirely on-device &mdash; no cloud needed.
-      </p>
-    </div>
-  </div>
-
-  <!-- SLIDE 14: Partner — LTX Studio -->
-  <div class="slide slide-dark centered" data-slide="14" data-dots="light">
-    <div class="deco-dot" style="top:10%;right:12%;background:var(--pink);width:22px;height:22px;opacity:0.4;"></div>
-    <div class="deco-dot" style="bottom:15%;left:10%;background:var(--lime);width:20px;height:20px;opacity:0.3;"></div>
-    <div class="stagger">
-      <span class="pill pill-pink">Tool</span>
-      <img src="ltx-logo.svg" alt="LTX Studio" style="max-width: 450px; width: 65%; margin: 20px auto;">
-      <div class="accent-bar pink" style="margin: 16px auto 20px;"></div>
-      <p style="max-width: 650px; text-align: center; font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: #c0c0d8; line-height: 1.75;">
-        LTX Desktop is the AI-powered creative tool we'll use today. It runs locally on your Dell laptop with NVIDIA RTX, letting you generate stunning images and videos from text prompts &mdash; all processed on-device for speed and privacy.
-      </p>
-      <div style="display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; justify-content: center;">
-        <span class="tag tag-pink">Text-to-Image</span>
-        <span class="tag tag-yellow">Text-to-Video</span>
-        <span class="tag tag-lime">Image-to-Video</span>
-        <span class="tag tag-dark">100% Local</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 15: Your Setup Today -->
-  <div class="slide slide-dark centered" data-slide="15" data-dots="light">
+  <!-- SLIDE 11: Your Setup Today -->
+  <!-- (Dell partner slide removed) -->
+  <!-- (LTX Studio slide removed) -->
+  <div class="slide slide-dark centered" data-slide="11" data-dots="light">
     <div class="deco-dot" style="top:8%;left:6%;background:#76B900;width:22px;height:22px;opacity:0.4;"></div>
     <div class="deco-dot" style="bottom:8%;right:8%;background:var(--pink);width:18px;height:18px;opacity:0.4;"></div>
     <div class="stagger" style="text-align:center; width:90%; max-width:700px;">
@@ -1245,7 +1165,7 @@
   </div>
 
   <!-- SLIDE 16: Today's Challenge (Fireworks + Drumroll + Reveal) -->
-  <div class="slide slide-dark centered" data-slide="16" data-dots="light" id="challenge-slide">
+  <div class="slide slide-dark centered" data-slide="12" data-dots="light" id="challenge-slide">
     <canvas id="fireworks-canvas"></canvas>
     <div class="stagger" style="position: relative; z-index: 2; text-align: center;">
       <span class="pill pill-yellow">Challenge</span>
@@ -1255,37 +1175,34 @@
       <div id="drumroll-container" style="display: none; margin: 20px auto; width: 200px; height: 60px; position: relative;">
         <div id="drumroll-dots" style="display: flex; justify-content: center; align-items: center; gap: 16px; height: 100%;"></div>
       </div>
-      <h1 id="challenge-reveal" style="font-size: clamp(3rem, 8vw, 7rem); color: var(--yellow); font-weight: 900; text-shadow: 0 0 40px rgba(255,214,0,0.6), 0 0 80px rgba(255,214,0,0.3), 0 3px 10px rgba(0,0,0,0.9), 0 6px 30px rgba(0,0,0,0.5); opacity: 0; transform: translateY(120px) scale(0.3); transition: none; white-space: nowrap;">
+      <h1 id="challenge-reveal" style="font-size: clamp(2.5rem, 7vw, 6rem); color: var(--yellow); font-weight: 900; text-shadow: 0 0 40px rgba(255,214,0,0.6), 0 0 80px rgba(255,214,0,0.3), 0 3px 10px rgba(0,0,0,0.9), 0 6px 30px rgba(0,0,0,0.5); opacity: 0; transform: translateY(120px) scale(0.3); transition: none;">
         Hello Future World
       </h1>
     </div>
   </div>
 
   <!-- SLIDE 17: Theme - Hello Future World -->
-  <div class="slide slide-dark centered" data-slide="17" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="13" data-dots="light">
     <div class="deco-dot" style="top:8%;left:10%;background:var(--purple);width:26px;height:26px;opacity:0.4;"></div>
     <div class="deco-dot" style="bottom:14%;right:8%;background:var(--lime);width:22px;height:22px;opacity:0.4;"></div>
     <div class="deco-dot" style="top:20%;right:15%;background:var(--yellow);width:18px;height:18px;opacity:0.3;"></div>
     <div class="stagger">
       <span class="pill pill-yellow">Theme</span>
-      <h1 style="font-size: clamp(2.5rem, 6vw, 5rem); margin-bottom: 8px;">Hello <span class="color-yellow">Future</span> World</h1>
-      <div class="accent-bar yellow" style="margin: 12px auto 24px;"></div>
-      <p style="max-width: 650px; text-align: center; font-size: clamp(1rem, 1.5vw, 1.2rem); color: #c0c0d8; line-height: 1.75; margin-bottom: 24px;">
+      <h1 style="font-size: clamp(2.2rem, 5vw, 4.5rem); margin-bottom: 8px;">Hello <span class="color-yellow">Future</span> World</h1>
+      <div class="accent-bar yellow" style="margin: 10px auto 18px;"></div>
+      <p style="max-width: 620px; text-align: center; font-size: clamp(0.9rem, 1.3vw, 1.1rem); color: #c0c0d8; line-height: 1.7; margin-bottom: 18px;">
         Create a short film that features a <strong style="color: var(--yellow);">futuristic world</strong>. Imagine what the future looks like &mdash; utopian or dystopian, near or far, earth or beyond. What does humanity become? What does everyday life look like? Tell us a story set in that world.
       </p>
-      <div class="cards" style="max-width: 900px; grid-template-columns: repeat(3, 1fr);">
-        <div class="card card-dark centered" style="border-color: var(--purple); border-width: 2px;">
-          <div style="font-size: 2rem; margin-bottom: 8px;">&#x1F680;</div>
+      <div class="cards" style="max-width: 900px; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+        <div class="card card-dark centered" style="border-color: var(--purple); border-width: 2px; padding: 20px 18px;">
           <h4 style="color: var(--purple); margin-bottom: 6px;">Sci-Fi Futures</h4>
           <p style="font-size: 0.85rem; color: #b0b0c8;">Space colonies, AI companions, new civilizations</p>
         </div>
-        <div class="card card-dark centered" style="border-color: var(--lime); border-width: 2px;">
-          <div style="font-size: 2rem; margin-bottom: 8px;">&#x1F3D9;&#xFE0F;</div>
+        <div class="card card-dark centered" style="border-color: var(--lime); border-width: 2px; padding: 20px 18px;">
           <h4 style="color: var(--lime); margin-bottom: 6px;">Future Cities</h4>
           <p style="font-size: 0.85rem; color: #b0b0c8;">Neon skylines, flying cars, living architecture</p>
         </div>
-        <div class="card card-dark centered" style="border-color: var(--yellow); border-width: 2px;">
-          <div style="font-size: 2rem; margin-bottom: 8px;">&#x1F52E;</div>
+        <div class="card card-dark centered" style="border-color: var(--yellow); border-width: 2px; padding: 20px 18px;">
           <h4 style="color: var(--yellow); margin-bottom: 6px;">New Realities</h4>
           <p style="font-size: 0.85rem; color: #b0b0c8;">Virtual worlds, time travel, alternate dimensions</p>
         </div>
@@ -1294,7 +1211,7 @@
   </div>
 
   <!-- SLIDE 18: Prizes -->
-  <div class="slide slide-dark centered" data-slide="18" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="14" data-dots="light">
     <div class="deco-dot" style="top:10%;right:12%;background:var(--yellow);width:28px;height:28px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:12%;left:10%;background:#76B900;width:22px;height:22px;opacity:0.4;"></div>
     <div class="stagger">
@@ -1303,14 +1220,12 @@
       <div class="accent-bar yellow" style="margin: 12px auto 24px;"></div>
       <div class="cards" style="max-width: 800px; grid-template-columns: repeat(2, 1fr);">
         <div class="card card-dark centered" style="border-color: #76B900; border-width: 3px;">
-          <div style="font-size: 2.5rem; margin-bottom: 10px;">&#x1F4BB;</div>
           <h3 style="color: #76B900; margin-bottom: 8px;">Dell Laptop</h3>
           <p style="color: #c0c0d8;">A Dell laptop equipped with an <strong style="color: var(--yellow);">NVIDIA RTX GPU</strong> &mdash; ready for local AI generation</p>
         </div>
         <div class="card card-dark centered" style="border-color: var(--yellow); border-width: 3px;">
-          <div style="font-size: 2.5rem; margin-bottom: 10px;">&#x1F3C6;</div>
-          <h3 style="color: var(--yellow); margin-bottom: 8px;">NVIDIA DGX Signed by Jensen Huang</h3>
-          <p style="color: #c0c0d8;">A collectible <strong style="color:#76B900;">NVIDIA DGX</strong> part personally signed by NVIDIA CEO <strong style="color: var(--pink);">Jensen Huang</strong></p>
+          <h3 style="color: var(--yellow); margin-bottom: 8px;">NVIDIA DGX Spark Signed by Jensen Huang</h3>
+          <p style="color: #c0c0d8;">A collectible <strong style="color:#76B900;">NVIDIA DGX Spark</strong> personally signed by NVIDIA CEO <strong style="color: var(--pink);">Jensen Huang</strong></p>
         </div>
       </div>
       <p style="margin-top: 20px; font-family: var(--font-mono); font-size: 0.85rem; color: rgba(255,255,255,0.5);">Winners selected by our judges after the showcase</p>
@@ -1318,7 +1233,7 @@
   </div>
 
   <!-- SLIDE 19: Let's Dig In -->
-  <div class="slide slide-pink centered" data-slide="19" data-dots="light">
+  <div class="slide slide-pink centered" data-slide="15" data-dots="light">
     <div class="deco-dot" style="top:15%;right:15%;background:var(--yellow);width:30px;height:30px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:20%;left:10%;background:var(--lime);width:24px;height:24px;opacity:0.5;"></div>
     <div class="stagger">
@@ -1327,7 +1242,7 @@
   </div>
 
   <!-- SLIDE 20: Today's Workflow & Tools -->
-  <div class="slide slide-dark centered" data-slide="20" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="16" data-dots="light">
     <div class="stagger">
       <span class="pill pill-pink">Workshop</span>
       <h2 style="color: #fff;">Today's Workflow<br>&amp; <span style="color: var(--pink);">Tools</span></h2>
@@ -1358,30 +1273,25 @@
   </div>
 
   <!-- SLIDE 21: Roles -->
-  <div class="slide centered" data-slide="21">
+  <div class="slide centered" data-slide="17">
     <div class="stagger">
       <span class="pill pill-pink">Team Up</span>
       <h2><span class="color-pink">Roles</span></h2>
       <div class="accent-bar dark" style="margin: 12px auto 20px;"></div>
       <div class="role-grid">
         <div class="role-card" style="background: var(--yellow);">
-          <div class="role-icon">&#x2702;&#xFE0F;</div>
           <div class="role-name">Editor</div>
         </div>
         <div class="role-card" style="background: var(--pink); color: #fff;">
-          <div class="role-icon">&#x1F3B5;</div>
           <div class="role-name" style="color: #fff;">Sound &amp; Music</div>
         </div>
         <div class="role-card" style="background: var(--lime);">
-          <div class="role-icon">&#x1F5BC;&#xFE0F;</div>
           <div class="role-name">Imager</div>
         </div>
         <div class="role-card" style="background: var(--bg-white);">
-          <div class="role-icon">&#x1F3AC;</div>
           <div class="role-name">Video Prompter</div>
         </div>
         <div class="role-card" style="background: var(--orange); color: #fff;">
-          <div class="role-icon">&#x1F399;&#xFE0F;</div>
           <div class="role-name" style="color: #fff;">Voice Actor</div>
         </div>
       </div>
@@ -1392,7 +1302,7 @@
   </div>
 
   <!-- SLIDE 22: The Process -->
-  <div class="slide slide-dark centered" data-slide="22" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="18" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">The Method</span>
       <h2>The <span class="color-yellow">Process</span></h2>
@@ -1417,7 +1327,7 @@
   </div>
 
   <!-- SLIDE 23: The Process - Fractal -->
-  <div class="slide slide-dark centered" data-slide="23" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="19" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">The Method</span>
       <h2>The <span class="color-yellow">Process</span> — Expanded</h2>
@@ -1525,7 +1435,7 @@
   </div>
 
   <!-- SLIDE 24: Tips -->
-  <div class="slide slide-dark centered" data-slide="24" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="20" data-dots="light">
     <div class="stagger">
       <span class="pill pill-lime">Pro Tips</span>
       <h2><span class="color-lime">Tips</span></h2>
@@ -1545,7 +1455,7 @@
   </div>
 
   <!-- SLIDE 25: Story World -->
-  <div class="slide slide-dark story-world-slide" data-slide="25" data-dots="light">
+  <div class="slide slide-dark story-world-slide" data-slide="21" data-dots="light">
     <h1 class="sw-title" style="color: #fff;">Story <span class="color-pink">World</span></h1>
     <p class="sw-subtitle" style="color: #b0b0c8;">Discuss these things before AND during prompting for images and videos.</p>
     <div class="sw-grid">
@@ -1590,7 +1500,7 @@
   </div>
 
   <!-- SLIDE 26: Storytelling Tips -->
-  <div class="slide centered storytelling-tips" data-slide="26">
+  <div class="slide centered storytelling-tips" data-slide="22">
     <div class="stagger">
       <span class="pill pill-pink">Storytelling</span>
       <h2 style="font-family: 'Gaegu', cursive; margin-bottom: 20px;">Story <span class="color-pink">Structure</span></h2>
@@ -1607,14 +1517,14 @@
   </div>
 
   <!-- SLIDE 27: Any Questions? -->
-  <div class="slide slide-lime centered" data-slide="27">
+  <div class="slide slide-lime centered" data-slide="23">
     <div class="stagger">
       <h1 style="font-size: clamp(3rem, 8vw, 7rem);">Any<br>Questions?</h1>
     </div>
   </div>
 
   <!-- SLIDE 28: Watch Examples -->
-  <div class="slide slide-dark centered" data-slide="28" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="24" data-dots="light">
     <div class="deco-dot" style="top:12%;left:15%;background:var(--pink);width:26px;height:26px;opacity:0.4;"></div>
     <div class="deco-dot" style="bottom:15%;right:12%;background:var(--yellow);width:20px;height:20px;opacity:0.5;"></div>
     <div class="stagger">
@@ -1625,7 +1535,7 @@
   </div>
 
   <!-- SLIDE 29: Video Example 1 - Chess Tweet -->
-  <div class="slide slide-dark centered" data-slide="29" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="25" data-dots="light">
     <span class="pill pill-pink" style="position:absolute;top:30px;z-index:2;">Example 1</span>
     <div class="video-embed-full video-embed-tweet">
       <iframe scrolling="no" data-lazy-src="https://platform.twitter.com/embed/Tweet.html?id=2032617758416859163&theme=dark" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
@@ -1633,7 +1543,7 @@
   </div>
 
   <!-- SLIDE 30: Video Example 2 - Mark Gadala -->
-  <div class="slide slide-dark centered" data-slide="30" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="26" data-dots="light">
     <span class="pill pill-yellow" style="position:absolute;top:30px;z-index:2;">Example 2</span>
     <div class="video-embed-full video-embed-tweet">
       <iframe scrolling="no" data-lazy-src="https://platform.twitter.com/embed/Tweet.html?id=2029461912585383938&theme=dark" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
@@ -1641,7 +1551,7 @@
   </div>
 
   <!-- SLIDE 31: Video Example 3 - Instagram Reel -->
-  <div class="slide slide-dark centered" data-slide="31" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="27" data-dots="light">
     <span class="pill pill-pink" style="position:absolute;top:30px;z-index:2;">Example 3</span>
     <div class="video-embed-full video-embed-tweet">
       <iframe scrolling="no" data-lazy-src="https://www.instagram.com/reel/DVLwSD_gVpI/embed/" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
@@ -1649,7 +1559,7 @@
   </div>
 
   <!-- SLIDE 32: Video Example 4 - YouTube -->
-  <div class="slide slide-dark centered" data-slide="32" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="28" data-dots="light">
     <span class="pill pill-yellow" style="position:absolute;top:30px;z-index:2;">Example 4</span>
     <div class="video-embed-full video-embed-16x9">
       <iframe data-lazy-src="https://www.youtube.com/embed/QetEEZQcV-U" style="width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -1657,23 +1567,15 @@
   </div>
 
   <!-- SLIDE 33: Video Example 5 - Aiden Guo -->
-  <div class="slide slide-dark centered" data-slide="33" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="29" data-dots="light">
     <span class="pill pill-pink" style="position:absolute;top:30px;z-index:2;">Example 5</span>
     <div class="video-embed-full video-embed-tweet">
       <iframe scrolling="no" data-lazy-src="https://platform.twitter.com/embed/Tweet.html?id=2026375487665353167&theme=dark" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
     </div>
   </div>
 
-  <!-- SLIDE 34: Video Example 6 - NACHOS2D -->
-  <div class="slide slide-dark centered" data-slide="34" data-dots="light">
-    <span class="pill pill-yellow" style="position:absolute;top:30px;z-index:2;">Example 6</span>
-    <div class="video-embed-full video-embed-tweet">
-      <iframe scrolling="no" data-lazy-src="https://platform.twitter.com/embed/Tweet.html?id=2033126071151837491&theme=dark" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
-    </div>
-  </div>
-
-  <!-- SLIDE 35: Showcase & Discussion -->
-  <div class="slide slide-dark centered" data-slide="35" data-dots="light">
+  <!-- SLIDE 30: Showcase & Discussion -->
+  <div class="slide slide-dark centered" data-slide="30" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">Reflect</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 5rem);">Show<span class="color-pink">case</span></h1>
@@ -1689,7 +1591,7 @@
   </div>
 
   <!-- SLIDE 36: Submissions -->
-  <div class="slide centered" data-slide="36">
+  <div class="slide centered" data-slide="31">
     <div class="stagger">
       <span class="pill pill-pink">Submit</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem);">Sub<span class="color-pink">missions</span></h1>
@@ -1716,7 +1618,7 @@
   </div>
 
   <!-- SLIDE 37: Goodbye / Community -->
-  <div class="slide slide-dark centered" data-slide="37" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="32" data-dots="light">
     <div class="deco-dot" style="top:10%;left:8%;background:var(--pink);width:28px;height:28px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:20%;right:10%;background:var(--lime);width:22px;height:22px;opacity:0.5;"></div>
     <div class="deco-dot" style="top:25%;right:18%;background:var(--yellow);width:18px;height:18px;opacity:0.4;"></div>
@@ -1755,7 +1657,7 @@
   </div>
 
   <!-- SLIDE 38: Connect With Us -->
-  <div class="slide slide-dark centered" data-slide="38" data-dots="light" id="connect-slide">
+  <div class="slide slide-dark centered" data-slide="33" data-dots="light" id="connect-slide">
     <canvas id="connect-particles-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
     <div class="stagger" style="position:relative;z-index:1;">
       <img src="w4.png" alt="Machine Cinema" style="max-width: 180px; width: 40%; margin-bottom: 10px;">
@@ -2062,13 +1964,13 @@
     updateProgress();
 
     // Confetti burst on certain fun slides
-    var confettiSlides = ['6','7','16','17','18','26'];
+    var confettiSlides = ['6','7','12','13','14','22'];
     if (confettiSlides.indexOf(next.dataset.slide) !== -1) {
       spawnConfetti();
     }
 
     // Typewriter on storytelling slide
-    if (next.dataset.slide === '24') {
+    if (next.dataset.slide === '20') {
       startTypewriter();
     }
 
@@ -2099,17 +2001,17 @@
     }
 
     // Start challenge animations on slide 14
-    if (next.dataset.slide === '14') {
+    if (next.dataset.slide === '12') {
       startChallengeSequence();
     }
 
     // Start past genjams animation on slide 10
     if (next.dataset.slide === '10') {
-      startPastGenjamsSequence();
+      startPastGenjamsSequence();  // past genjams (was slide 11, now 10)
     }
 
     // Reset past genjams when leaving
-    if (prev.dataset.slide === '10' && index !== 10) {
+    if (prev.dataset.slide === '10' && index !== 10) {  // past genjams
       pastGenjamsStarted = false;
       var gjStat = document.getElementById('genjam-stat');
       var gjCountries = document.getElementById('genjam-countries');
@@ -2119,7 +2021,7 @@
     }
 
     // Reset challenge when leaving
-    if (prev.dataset.slide === '14' && index !== 14) {
+    if (prev.dataset.slide === '12' && index !== 12) {
       challengeStarted = false;
       fwRunning = false;
       if (fwCtx) fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
@@ -2128,7 +2030,7 @@
     }
 
     // Reset typewriter when leaving storytelling slide
-    if (prev.dataset.slide === '24' && index !== 24) {
+    if (prev.dataset.slide === '20' && index !== 20) {
       resetTypewriter();
     }
 
@@ -3705,47 +3607,42 @@
     startFxLoop();
   }
 
-  // === MASTER: Map slide numbers to diverse effects ===
+  // === MASTER: Map slide numbers to diverse effects (no emojis — sleek & flowy) ===
   var slideEffects = {
-    '0': function() { fxEmojis(['🎮','🕹️','🎲','🏆','🎯','⚡','🎪']); },    // Welcome: game emojis
-    '1': function() { fxEmojis(['✨','🌟','💫','⚡']); },                     // Title: sparkle emojis
-    '2': function() { fxAurora(); },                                           // NVIDIA GTC: aurora
-    '3': function() { fxTextRain(['0','1',':','0','0','▶','◀','●']); },       // Schedule: clock chars rain
-    '4': function() { fxDNAHelix(); },                                         // AIRL Model: DNA helix
-    '5': function() { fxPulseRings(); },                                       // Machine Cinema Is: pulse rings
-    '6': function() { fxEmojis(['👋','🎉','🙌','😎','🤩','💥']); },         // Icebreaker: party emojis
-    '7': function() { fxSpiral(); },                                           // Schnozzo: spiral burst
-    '8': function() { fxPixelDissolve(); },                                    // Meet Team: pixel dissolve
-    '9': function() { fxGravityWell(); },                                      // Mentors & Judges: gravity well
-    '10': function() { fxBubbles(); },                                         // Join Community: bubbles
-    '11': function() { fxMeteors(); },                                         // Past GenJams: meteors
-    '12': function() { fxLightning(); },                                       // Partner NVIDIA: lightning
-    '13': function() { fxPulseRings(); },                                      // Partner Dell: pulse
-    '14': function() { fxAurora(); },                                          // Partner LTX: aurora
-    '15': function() { fxTextRain(['⚙','🔧','💻','🛠','📐','✏']); },       // Setup: tool rain
-    '16': function() { fxEmojis(['🎬','🎥','🎞️','🍿','🎭']); },            // Challenge: film emojis
-    '17': function() { fxEmojis(['🚀','🌌','🔮','🏙️','✨']); },            // Theme - Hello Future World: sci-fi emojis
-    '18': function() { fxEmojis(['🏆','💻','🎁','⚡','🎯']); },             // Prizes: trophy emojis
-    '19': function() { fxEmojis(['🚀','🔥','💪','⚡','🎯']); },             // Let's Dig In: energy emojis
-    '20': function() { fxSpiral(); },                                          // Workflow: spiral
-    '21': function() { fxGravityWell(); },                                     // Roles: gravity well
-    '22': function() { fxDNAHelix(); },                                        // Process: DNA
-    '23': function() { fxSpiral(); },                                          // Process Fractal: spiral
-    '24': function() { fxSnowfall(); },                                        // Tips: gentle snowfall
-    '25': function() { fxAurora(); },                                          // Story World: aurora
-    '26': function() { fxTextRain(['A','B','C','a','b','c','…','.','!']); },  // Storytelling: letter rain
-    '27': function() { fxLightning(); },                                       // Questions: lightning
-    '28': function() { fxMeteors(); },                                         // Watch Examples: meteors
-    '29': function() { fxPixelDissolve(); },                                   // Video 1
-    '30': function() { fxBubbles(); },                                         // Video 2
-    '31': function() { fxSpiral(); },                                          // Video 3
-    '32': function() { fxPulseRings(); },                                      // Video 4
-    '33': function() { fxSnowfall(); },                                        // Video 5
-    '34': function() { fxMeteors(); },                                         // Video 6
-    '35': function() { fxEmojis(['🏆','🎬','👏','🌟','🎉']); },             // Showcase: trophy emojis
-    '36': function() { fxGravityWell(); },                                     // Submissions: gravity well
-    '37': function() { fxEmojis(['❤️','🙏','✨','🌈','🎊']); },             // Goodbye: heart emojis
-    '38': function() { fxAurora(); }                                           // Connect: aurora
+    '0': function() { fxPulseRings(); },          // Welcome
+    '1': function() { fxAurora(); },              // Title
+    '2': function() { fxAurora(); },              // NVIDIA GTC
+    '3': function() { fxTextRain(['0','1',':','0','0']); }, // Schedule
+    '4': function() { fxDNAHelix(); },            // AIRL Model
+    '5': function() { fxPulseRings(); },          // Machine Cinema Is
+    '6': function() { fxSpiral(); },              // Icebreaker
+    '7': function() { fxBubbles(); },             // Schnozzo
+    '8': function() { fxPixelDissolve(); },       // Meet Team
+    '9': function() { fxBubbles(); },             // Join Community
+    '10': function() { fxMeteors(); },            // Past GenJams
+    '11': function() { fxSnowfall(); },           // Your Setup
+    '12': function() { fxLightning(); },          // Challenge
+    '13': function() { fxAurora(); },             // Hello Future World
+    '14': function() { fxSpiral(); },             // Prizes
+    '15': function() { fxGravityWell(); },        // Let's Dig In
+    '16': function() { fxSpiral(); },             // Workflow
+    '17': function() { fxGravityWell(); },        // Roles
+    '18': function() { fxDNAHelix(); },           // Process
+    '19': function() { fxSpiral(); },             // Process Fractal
+    '20': function() { fxSnowfall(); },           // Tips
+    '21': function() { fxAurora(); },             // Story World
+    '22': function() { fxTextRain(['A','B','C','a','b','c']); }, // Storytelling
+    '23': function() { fxLightning(); },          // Questions
+    '24': function() { fxMeteors(); },            // Watch Examples
+    '25': function() { fxPixelDissolve(); },      // Video 1
+    '26': function() { fxBubbles(); },            // Video 2
+    '27': function() { fxSpiral(); },             // Video 3
+    '28': function() { fxPulseRings(); },         // Video 4
+    '29': function() { fxSnowfall(); },           // Video 5
+    '30': function() { fxPulseRings(); },         // Showcase
+    '31': function() { fxGravityWell(); },        // Submissions
+    '32': function() { fxAurora(); },             // Goodbye
+    '33': function() { fxAurora(); }              // Connect
   };
 
   // Single unified observer for per-slide effects
@@ -3800,7 +3697,7 @@
     .style('overflow', 'hidden');
 
   var geoShapes = [];
-  var GEO_COUNT = 18;
+  var GEO_COUNT = 10;
 
   function createGeoShape(i) {
     var type = i % 3; // 0=circle, 1=triangle, 2=diamond
@@ -4144,7 +4041,7 @@
       if (m.target.classList && m.target.classList.contains('slide') && m.target.classList.contains('active')) {
         var slideNum = m.target.dataset.slide;
         // Trigger ring burst on key transition slides
-        if (['1','5','14','16','24','34','35'].indexOf(slideNum) !== -1) {
+        if (['1','5','12','16','20','30'].indexOf(slideNum) !== -1) {
           spawnRingBurst();
         }
       }

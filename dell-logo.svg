@@ -1,10 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 150">
-  <rect width="600" height="150" fill="none"/>
-  <!-- Dell Logo Circle -->
+  <!-- Dell Logo - Modern circular mark with wordmark -->
   <g transform="translate(75, 75)">
-    <circle cx="0" cy="0" r="55" fill="none" stroke="#007DB8" stroke-width="6"/>
-    <text x="0" y="12" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="52" fill="#007DB8">DELL</text>
+    <!-- Outer circle -->
+    <circle cx="0" cy="0" r="52" fill="none" stroke="#007DB8" stroke-width="4.5"/>
+    <!-- Inner DELL text (tilted E is signature Dell style) -->
+    <text x="0" y="8" text-anchor="middle" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="bold" font-size="40" fill="#007DB8" letter-spacing="2">DELL</text>
   </g>
-  <!-- Dell Technologies text -->
-  <text x="160" y="88" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="48" fill="#007DB8">Technologies</text>
+  <!-- Technologies wordmark -->
+  <text x="155" y="84" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="300" font-size="42" fill="#007DB8" letter-spacing="1">Technologies</text>
 </svg>
