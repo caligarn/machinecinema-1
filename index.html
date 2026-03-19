@@ -836,6 +836,23 @@
     0%, 100% { text-shadow: 0 0 40px rgba(200,255,0,0.4), 0 0 80px rgba(200,255,0,0.15); }
     50% { text-shadow: 0 0 60px rgba(200,255,0,0.6), 0 0 120px rgba(200,255,0,0.25), 0 0 200px rgba(203,107,230,0.15); }
   }
+  @keyframes scenarioGlow {
+    0%, 100% { text-shadow: 0 0 30px rgba(203,107,230,0.4), 0 0 60px rgba(203,107,230,0.15); }
+    50% { text-shadow: 0 0 50px rgba(203,107,230,0.6), 0 0 100px rgba(200,255,0,0.2); }
+  }
+  #future-scenarios-slide.active .scenarios-title {
+    animation: scenarioGlow 3s ease-in-out infinite;
+  }
+  #scenario-dots .sdot {
+    width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2);
+    cursor: pointer; transition: all 0.3s;
+  }
+  #scenario-dots .sdot.active-dot {
+    background: var(--purple); box-shadow: 0 0 10px var(--purple);
+    transform: scale(1.4);
+  }
+  #scenario-dots .sdot:hover { background: rgba(255,255,255,0.5); }
+
   #future-world-slide.active .future-title {
     animation: futureGlow 3s ease-in-out infinite;
   }
@@ -1521,8 +1538,24 @@
     </div>
   </div>
 
+  <!-- SLIDE: Future World Scenarios -->
+  <div class="slide slide-dark centered" data-slide="22" data-dots="light" id="future-scenarios-slide" style="overflow:hidden;">
+    <canvas id="future-scenarios-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;"></canvas>
+    <div class="stagger" style="position:relative;z-index:2;">
+      <span class="pill pill-purple">Inspiration</span>
+      <h1 class="scenarios-title" style="font-size: clamp(1.8rem, 4vw, 3.2rem); margin-bottom: 12px; text-shadow: 0 0 30px rgba(203,107,230,0.4);">Future <span class="color-purple">Scenarios</span></h1>
+      <div class="accent-bar purple" style="margin: 8px auto 16px;"></div>
+      <div id="scenario-carousel" style="max-width: 700px; text-align: center; min-height: 160px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <h3 id="scenario-title" style="color: var(--lime); font-size: clamp(1.1rem, 2.2vw, 1.6rem); margin-bottom: 10px; transition: opacity 0.5s;"></h3>
+        <p id="scenario-desc" style="color: #c0c0d8; font-size: clamp(0.85rem, 1.2vw, 1rem); line-height: 1.7; max-width: 600px; transition: opacity 0.5s;"></p>
+      </div>
+      <div id="scenario-dots" style="display:flex; gap:6px; justify-content:center; margin-top:16px; flex-wrap:wrap; max-width:400px;"></div>
+      <p style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.75rem; color: rgba(255,255,255,0.35);">Auto-cycling &bull; Click dots to explore</p>
+    </div>
+  </div>
+
   <!-- SLIDE 26: Storytelling Tips -->
-  <div class="slide centered storytelling-tips" data-slide="22">
+  <div class="slide centered storytelling-tips" data-slide="23">
     <div class="stagger">
       <span class="pill pill-pink">Storytelling</span>
       <h2 style="font-family: 'Gaegu', cursive; margin-bottom: 20px;">Story <span class="color-pink">Structure</span></h2>
@@ -1539,7 +1572,7 @@
   </div>
 
   <!-- SLIDE 27: Any Questions? -->
-  <div class="slide slide-lime centered" data-slide="23">
+  <div class="slide slide-lime centered" data-slide="24">
     <div class="stagger">
       <h1 style="font-size: clamp(3rem, 8vw, 7rem);">Any<br>Questions?</h1>
     </div>
@@ -1547,7 +1580,7 @@
 
   <!-- SLIDE 28: Watch Examples -->
   <!-- SLIDE 24: Showcase & Discussion -->
-  <div class="slide slide-dark centered" data-slide="24" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="25" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">Reflect</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 5rem);">Show<span class="color-pink">case</span></h1>
@@ -1563,7 +1596,7 @@
   </div>
 
   <!-- SLIDE 36: Submissions -->
-  <div class="slide centered" data-slide="25">
+  <div class="slide centered" data-slide="26">
     <div class="stagger">
       <span class="pill pill-pink">Submit</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem);">Sub<span class="color-pink">missions</span></h1>
@@ -1590,7 +1623,7 @@
   </div>
 
   <!-- SLIDE 37: Goodbye / Community -->
-  <div class="slide slide-dark centered" data-slide="26" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="27" data-dots="light">
     <div class="deco-dot" style="top:10%;left:8%;background:var(--pink);width:28px;height:28px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:20%;right:10%;background:var(--lime);width:22px;height:22px;opacity:0.5;"></div>
     <div class="deco-dot" style="top:25%;right:18%;background:var(--yellow);width:18px;height:18px;opacity:0.4;"></div>
@@ -1629,7 +1662,7 @@
   </div>
 
   <!-- SLIDE 38: Connect With Us -->
-  <div class="slide slide-dark centered" data-slide="27" data-dots="light" id="connect-slide">
+  <div class="slide slide-dark centered" data-slide="28" data-dots="light" id="connect-slide">
     <canvas id="connect-particles-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
     <div class="stagger" style="position:relative;z-index:1;">
       <img src="w4.png" alt="Machine Cinema" style="max-width: 180px; width: 40%; margin-bottom: 10px;">
@@ -1921,6 +1954,7 @@
 
     prev.classList.remove('active');
     if (prev.dataset.slide === '13') stopFutureWorld();
+    if (prev.dataset.slide === '22') stopFutureScenarios();
     if (direction > 0) prev.classList.add('exit-up');
 
     var staggerEls = next.querySelectorAll('.stagger > *');
@@ -3580,6 +3614,360 @@
     startFxLoop();
   }
 
+  // === EFFECT 14: Future Scenarios – Neural Network + Floating Orbs + Data Streams ===
+  var futureScenarioData = [
+    { title: 'Post-Scarcity Civilization', desc: 'Energy, food, and material needs are effectively free, shifting human focus to purpose, creativity, and coordination.', color: '#C8FF00' },
+    { title: 'AI-Augmented Humanity', desc: 'Individuals operate with personal AI systems that extend memory, intelligence, and decision-making.', color: '#CB6BE6' },
+    { title: 'Network State World', desc: 'People opt into digitally-native nations with distinct governance, economies, and cultural values.', color: '#0074B1' },
+    { title: 'Regenerative Earth', desc: 'Technology actively restores ecosystems, reversing climate damage and enhancing biodiversity.', color: '#6ACB9D' },
+    { title: 'Longevity Society', desc: 'Humans live for centuries, restructuring identity, relationships, and long-term planning.', color: '#FFD600' },
+    { title: 'Interstellar Cultural Exchange', desc: 'Humanity explores space by sending art, intelligence, and adaptive signals rather than colonizers.', color: '#FF904D' },
+    { title: 'Fully Automated Luxury Civilization', desc: 'Machines handle all labor, enabling humans to pursue leisure, exploration, and self-actualization.', color: '#FF2D55' },
+    { title: 'Collective Intelligence Network', desc: 'Human and AI minds link together into shared cognitive systems for solving complex problems.', color: '#CB6BE6' },
+    { title: 'Simulation-Aware Society', desc: 'People knowingly live within layered simulations and use them for experimentation and growth.', color: '#0074B1' },
+    { title: 'Open Creative Renaissance', desc: 'Millions of creators collaborate with AI to produce culture at unprecedented scale and speed.', color: '#C8FF00' },
+    { title: 'Decentralized Autonomous World', desc: 'Governance and institutions are run by transparent, programmable systems rather than centralized authorities.', color: '#FFD600' },
+    { title: 'Bioengineered Ecosystems', desc: 'Nature is redesigned with synthetic biology to be more resilient, adaptive, and symbiotic with humans.', color: '#6ACB9D' },
+    { title: 'Multi-Planetary Civilization', desc: 'Humanity expands across planets, each developing distinct cultures, economies, and identities.', color: '#FF904D' },
+    { title: 'Abundance-Driven Economy', desc: 'Markets shift from scarcity pricing to allocating attention, reputation, and meaning.', color: '#C8FF00' },
+    { title: 'Human-AI Symbiosis', desc: 'Boundaries blur as humans and AI co-evolve into hybrid forms of intelligence and identity.', color: '#CB6BE6' },
+    { title: 'Memory-Externalized Society', desc: 'Personal and collective memory is stored, searchable, and shareable beyond biological limits.', color: '#0074B1' },
+    { title: 'Hyper-Personalized Reality', desc: 'Environments, media, and experiences dynamically adapt to each individual\'s preferences and psychology.', color: '#FF2D55' },
+    { title: 'Moral Technology Civilization', desc: 'Systems are built to enhance empathy, fairness, and ethical reasoning at scale.', color: '#6ACB9D' },
+    { title: 'Temporal Freedom World', desc: 'With extended lifespans and automation, people design lives across multiple distinct "phases" or identities.', color: '#FFD600' },
+    { title: 'Transparent Governance World', desc: 'Institutions are fully auditable in real time, making corruption and opacity difficult to sustain.', color: '#0074B1' },
+    { title: 'Planetary-Scale Computation', desc: 'Earth operates as a coordinated computational system optimizing resources, logistics, and knowledge.', color: '#CB6BE6' },
+    { title: 'Exploration-First Civilization', desc: 'Humanity prioritizes scientific discovery and curiosity as its primary organizing principle.', color: '#FF904D' },
+    { title: 'Post-Work Culture', desc: 'Traditional jobs disappear, replaced by self-directed contribution, learning, and play.', color: '#C8FF00' },
+    { title: 'Hybrid Physical-Digital Cities', desc: 'Urban life exists simultaneously in physical space and persistent digital layers.', color: '#FF2D55' },
+    { title: 'Consciousness Expansion Era', desc: 'Technologies allow direct exploration and manipulation of subjective experience and awareness.', color: '#CB6BE6' }
+  ];
+
+  var scenarioAnimId = null;
+  var scenarioCycleTimer = null;
+  var currentScenario = 0;
+
+  function initScenarioDots() {
+    var container = document.getElementById('scenario-dots');
+    if (!container || container.children.length > 0) return;
+    for (var i = 0; i < futureScenarioData.length; i++) {
+      var dot = document.createElement('div');
+      dot.className = 'sdot' + (i === 0 ? ' active-dot' : '');
+      dot.dataset.idx = i;
+      dot.addEventListener('click', function() {
+        showScenario(parseInt(this.dataset.idx));
+      });
+      container.appendChild(dot);
+    }
+  }
+
+  function showScenario(idx) {
+    currentScenario = idx;
+    var s = futureScenarioData[idx];
+    var titleEl = document.getElementById('scenario-title');
+    var descEl = document.getElementById('scenario-desc');
+    if (!titleEl || !descEl) return;
+
+    titleEl.style.opacity = '0';
+    descEl.style.opacity = '0';
+    setTimeout(function() {
+      titleEl.textContent = s.title;
+      titleEl.style.color = s.color;
+      descEl.textContent = s.desc;
+      titleEl.style.opacity = '1';
+      descEl.style.opacity = '1';
+    }, 300);
+
+    var dots = document.querySelectorAll('#scenario-dots .sdot');
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].classList.toggle('active-dot', i === idx);
+    }
+  }
+
+  function startScenarioCycle() {
+    if (scenarioCycleTimer) clearInterval(scenarioCycleTimer);
+    scenarioCycleTimer = setInterval(function() {
+      currentScenario = (currentScenario + 1) % futureScenarioData.length;
+      showScenario(currentScenario);
+    }, 5000);
+  }
+
+  function fxFutureScenarios() {
+    var canvas = document.getElementById('future-scenarios-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W, H, cx, cy;
+
+    function resize() {
+      W = canvas.width = canvas.offsetWidth * (window.devicePixelRatio || 1);
+      H = canvas.height = canvas.offsetHeight * (window.devicePixelRatio || 1);
+      cx = W / 2; cy = H / 2;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Init carousel
+    initScenarioDots();
+    showScenario(0);
+    startScenarioCycle();
+
+    // Neural network nodes
+    var nodes = [];
+    var NODE_COUNT = 60;
+    for (var i = 0; i < NODE_COUNT; i++) {
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6,
+        r: 2 + Math.random() * 3,
+        color: futureScenarioData[i % futureScenarioData.length].color,
+        pulse: Math.random() * Math.PI * 2
+      });
+    }
+
+    // Data stream particles (vertical rising streams)
+    var streams = [];
+    for (var s = 0; s < 8; s++) {
+      streams.push({
+        x: W * (0.05 + s * 0.13),
+        chars: [],
+        speed: 0.8 + Math.random() * 1.2
+      });
+    }
+
+    // Floating orbs
+    var orbs = [];
+    for (var o = 0; o < 6; o++) {
+      orbs.push({
+        x: cx + (Math.random() - 0.5) * W * 0.6,
+        y: cy + (Math.random() - 0.5) * H * 0.4,
+        r: 20 + Math.random() * 40,
+        color: futureScenarioData[o * 4 % futureScenarioData.length].color,
+        phase: Math.random() * Math.PI * 2,
+        orbitR: 50 + Math.random() * 150,
+        orbitSpeed: 0.0003 + Math.random() * 0.0005,
+        baseX: cx + (Math.random() - 0.5) * W * 0.4,
+        baseY: cy + (Math.random() - 0.5) * H * 0.3
+      });
+    }
+
+    // Hexagonal grid overlay
+    function drawHexGrid(t) {
+      ctx.save();
+      var hexSize = 40;
+      var cols = Math.ceil(W / (hexSize * 1.5)) + 1;
+      var rows = Math.ceil(H / (hexSize * Math.sqrt(3))) + 1;
+      ctx.strokeStyle = '#CB6BE6';
+      ctx.lineWidth = 0.5;
+
+      for (var r = 0; r < rows; r++) {
+        for (var c = 0; c < cols; c++) {
+          var hx = c * hexSize * 1.5;
+          var hy = r * hexSize * Math.sqrt(3) + (c % 2 ? hexSize * Math.sqrt(3) / 2 : 0);
+          var dist = Math.sqrt((hx - cx) * (hx - cx) + (hy - cy) * (hy - cy));
+          var wave = Math.sin(dist * 0.005 - t * 0.002) * 0.5 + 0.5;
+          ctx.globalAlpha = 0.03 + wave * 0.04;
+          ctx.beginPath();
+          for (var k = 0; k < 6; k++) {
+            var angle = Math.PI / 3 * k + Math.PI / 6;
+            var px = hx + hexSize * 0.4 * Math.cos(angle);
+            var py = hy + hexSize * 0.4 * Math.sin(angle);
+            if (k === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+          }
+          ctx.closePath();
+          ctx.stroke();
+        }
+      }
+      ctx.restore();
+    }
+
+    function drawNeuralNet(t) {
+      // Update nodes
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > W) n.vx *= -1;
+        if (n.y < 0 || n.y > H) n.vy *= -1;
+        n.x = Math.max(0, Math.min(W, n.x));
+        n.y = Math.max(0, Math.min(H, n.y));
+      }
+
+      // Draw connections
+      ctx.save();
+      var connDist = 150;
+      for (var i = 0; i < nodes.length; i++) {
+        for (var j = i + 1; j < nodes.length; j++) {
+          var dx = nodes[i].x - nodes[j].x;
+          var dy = nodes[i].y - nodes[j].y;
+          var d = Math.sqrt(dx * dx + dy * dy);
+          if (d < connDist) {
+            var alpha = (1 - d / connDist) * 0.15;
+            ctx.globalAlpha = alpha;
+            ctx.strokeStyle = nodes[i].color;
+            ctx.lineWidth = 0.8;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+
+            // Traveling pulse along connection
+            if (Math.random() < 0.002) {
+              var mx = (nodes[i].x + nodes[j].x) / 2;
+              var my = (nodes[i].y + nodes[j].y) / 2;
+              ctx.globalAlpha = 0.6;
+              ctx.fillStyle = '#fff';
+              ctx.beginPath();
+              ctx.arc(mx, my, 1.5, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          }
+        }
+      }
+
+      // Draw nodes
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        var pulseR = n.r + Math.sin(t * 0.003 + n.pulse) * 1.5;
+        ctx.globalAlpha = 0.3 + Math.sin(t * 0.002 + n.pulse) * 0.15;
+        ctx.fillStyle = n.color;
+        ctx.shadowColor = n.color;
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, pulseR, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    function drawDataStreams(t) {
+      ctx.save();
+      ctx.font = '10px monospace';
+      var chars = '01アイウエオカキクケコ∞∑∫λΩ';
+      for (var s = 0; s < streams.length; s++) {
+        var stream = streams[s];
+        // Spawn new characters
+        if (Math.random() < 0.15) {
+          stream.chars.push({
+            y: H + 10,
+            ch: chars[Math.floor(Math.random() * chars.length)],
+            alpha: 0.5 + Math.random() * 0.3,
+            speed: stream.speed + Math.random() * 0.5
+          });
+        }
+        // Update and draw
+        for (var c = stream.chars.length - 1; c >= 0; c--) {
+          var ch = stream.chars[c];
+          ch.y -= ch.speed;
+          ch.alpha -= 0.002;
+          if (ch.y < -20 || ch.alpha <= 0) {
+            stream.chars.splice(c, 1);
+            continue;
+          }
+          ctx.globalAlpha = ch.alpha * 0.25;
+          ctx.fillStyle = futureScenarioData[currentScenario].color;
+          ctx.fillText(ch.ch, stream.x, ch.y);
+        }
+      }
+      ctx.restore();
+    }
+
+    function drawOrbs(t) {
+      ctx.save();
+      for (var i = 0; i < orbs.length; i++) {
+        var o = orbs[i];
+        o.x = o.baseX + Math.cos(t * o.orbitSpeed + o.phase) * o.orbitR;
+        o.y = o.baseY + Math.sin(t * o.orbitSpeed * 0.7 + o.phase) * o.orbitR * 0.5;
+
+        // Outer glow
+        var grad = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.r);
+        grad.addColorStop(0, o.color);
+        grad.addColorStop(0.4, o.color + '44');
+        grad.addColorStop(1, 'transparent');
+        ctx.globalAlpha = 0.08 + 0.04 * Math.sin(t * 0.002 + o.phase);
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Inner bright core
+        ctx.globalAlpha = 0.15 + 0.1 * Math.sin(t * 0.003 + o.phase);
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.arc(o.x, o.y, o.r * 0.15, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Orbiting ring
+        ctx.globalAlpha = 0.08;
+        ctx.strokeStyle = o.color;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        var ringTilt = Math.sin(t * 0.001 + o.phase) * 0.3;
+        ctx.ellipse(o.x, o.y, o.r * 1.3, o.r * 1.3 * Math.abs(ringTilt), t * 0.0005 + o.phase, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // Wormhole / portal effect in center background
+    function drawWormhole(t) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      for (var ring = 0; ring < 8; ring++) {
+        var r = 30 + ring * 25 + Math.sin(t * 0.002 + ring * 0.5) * 10;
+        var rot = t * 0.0003 * (ring % 2 === 0 ? 1 : -1);
+        ctx.globalAlpha = 0.03 + 0.015 * Math.sin(t * 0.003 + ring);
+        ctx.strokeStyle = ring % 2 === 0 ? '#CB6BE6' : '#C8FF00';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, r, r * (0.3 + 0.2 * Math.sin(t * 0.001 + ring)), rot, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function frame(t) {
+      ctx.clearRect(0, 0, W, H);
+
+      // Layer 1: Hex grid
+      drawHexGrid(t);
+
+      // Layer 2: Wormhole portal
+      drawWormhole(t);
+
+      // Layer 3: Data streams
+      drawDataStreams(t);
+
+      // Layer 4: Neural network
+      drawNeuralNet(t);
+
+      // Layer 5: Floating orbs
+      drawOrbs(t);
+
+      scenarioAnimId = requestAnimationFrame(frame);
+    }
+
+    scenarioAnimId = requestAnimationFrame(frame);
+  }
+
+  function stopFutureScenarios() {
+    if (scenarioAnimId) {
+      cancelAnimationFrame(scenarioAnimId);
+      scenarioAnimId = null;
+    }
+    if (scenarioCycleTimer) {
+      clearInterval(scenarioCycleTimer);
+      scenarioCycleTimer = null;
+    }
+    var canvas = document.getElementById('future-scenarios-canvas');
+    if (canvas) {
+      var ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+
   // === EFFECT 13: Hello Future World – 3D Starfield + Spaceships + Holo Grid ===
   var futureWorldAnim = null;
   function fxFutureWorld() {
@@ -3845,12 +4233,13 @@
     '19': function() { fxSpiral(); },             // Process Fractal
     '20': function() { fxSnowfall(); },           // Tips
     '21': function() { fxAurora(); },             // Story World
-    '22': function() { fxTextRain(['A','B','C','a','b','c']); }, // Storytelling
-    '23': function() { fxLightning(); },          // Questions
-    '24': function() { fxPulseRings(); },         // Showcase
-    '25': function() { fxGravityWell(); },        // Submissions
-    '26': function() { fxAurora(); },             // Goodbye
-    '27': function() { fxAurora(); }              // Connect
+    '22': function() { fxFutureScenarios(); },    // Future Scenarios
+    '23': function() { fxTextRain(['A','B','C','a','b','c']); }, // Storytelling
+    '24': function() { fxLightning(); },          // Questions
+    '25': function() { fxPulseRings(); },         // Showcase
+    '26': function() { fxGravityWell(); },        // Submissions
+    '27': function() { fxAurora(); },             // Goodbye
+    '28': function() { fxAurora(); }              // Connect
   };
 
   // Single unified observer for per-slide effects
