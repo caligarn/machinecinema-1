@@ -848,20 +848,22 @@
 
 <div id="deck">
 
-  <!-- SLIDE 0: Welcome / Wifi -->
+  <!-- SLIDE 0: Welcome -->
   <div class="slide active centered" data-slide="0">
     <div class="deco-dot" style="top:12%;left:8%;background:var(--pink);width:24px;height:24px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:18%;right:10%;background:var(--lime);width:20px;height:20px;opacity:0.5;"></div>
     <div class="stagger">
       <img src="black5.png" alt="Machine Cinema" style="max-width: 400px; width: 80%; margin-bottom: 20px;">
-      <span class="pill pill-pink">GenJam</span>
+      <span class="pill pill-pink">GenJam @ NVIDIA GTC</span>
       <div class="accent-bar pink" style="margin: 12px auto 22px;"></div>
       <h2 style="font-size: clamp(1.8rem, 4vw, 3rem); margin-bottom: 8px;">Let's Play a <span class="color-pink">Game!</span></h2>
       <p style="max-width: 500px; text-align: center; font-size: clamp(0.95rem, 1.3vw, 1.1rem); margin-bottom: 20px;">
-        Scan the QR code to get started
+        Create short films using local AI on Dell laptops
       </p>
-      <canvas id="qr-game" width="220" height="220" style="width: 220px; height: 220px; border-radius: 16px; border: 4px solid var(--pink); box-shadow: 0 0 30px rgba(255,45,85,0.3), 0 0 60px rgba(255,45,85,0.1);"></canvas>
-      <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--pink); margin-top: 12px; font-weight: 600;">gmi.genjam.ai</p>
+      <div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin-top: 10px;">
+        <img src="nvidia-logo.svg" alt="NVIDIA" style="max-width: 180px; width: 35%;">
+        <img src="dell-logo.svg" alt="Dell" style="max-width: 180px; width: 35%;">
+      </div>
     </div>
   </div>
 
@@ -871,7 +873,7 @@
     <div class="deco-dot" style="top:10%;right:12%;background:var(--pink);width:30px;height:30px;opacity:0.4;"></div>
     <div class="deco-dot" style="bottom:15%;left:8%;background:var(--lime);width:22px;height:22px;opacity:0.4;"></div>
     <div class="stagger">
-      <span class="pill pill-yellow">Movie Night</span>
+      <span class="pill pill-yellow">NVIDIA GTC</span>
       <img src="w4.png" alt="Machine Cinema" style="max-width: 350px; width: 70%; margin-top: 8px; margin-bottom: 4px;">
       <div class="accent-bar pink" style="margin: 16px auto 20px;"></div>
       <div id="lcp-container" style="display: flex; gap: 20px; justify-content: center; overflow: visible;">
@@ -882,34 +884,51 @@
     </div>
     <div class="marquee-wrap">
       <div class="marquee-track">
-        <span>Google</span><span class="dot">&#9679;</span>
-        <span>Luma AI</span><span class="dot">&#9679;</span>
-        <span>ElevenLabs</span><span class="dot">&#9679;</span>
-        <span>Runway</span><span class="dot">&#9679;</span>
-        <span>OpenAI</span><span class="dot">&#9679;</span>
-        <span>Midjourney</span><span class="dot">&#9679;</span>
-        <span>ByteDance</span><span class="dot">&#9679;</span>
-        <span>McCann</span><span class="dot">&#9679;</span>
-        <span>R/GA</span><span class="dot">&#9679;</span>
-        <span>VML</span><span class="dot">&#9679;</span>
-        <span>Curious Refuge</span><span class="dot">&#9679;</span>
-        <span>Google</span><span class="dot">&#9679;</span>
-        <span>Luma AI</span><span class="dot">&#9679;</span>
-        <span>ElevenLabs</span><span class="dot">&#9679;</span>
-        <span>Runway</span><span class="dot">&#9679;</span>
-        <span>OpenAI</span><span class="dot">&#9679;</span>
-        <span>Midjourney</span><span class="dot">&#9679;</span>
-        <span>ByteDance</span><span class="dot">&#9679;</span>
-        <span>McCann</span><span class="dot">&#9679;</span>
-        <span>R/GA</span><span class="dot">&#9679;</span>
-        <span>VML</span><span class="dot">&#9679;</span>
-        <span>Curious Refuge</span><span class="dot">&#9679;</span>
+        <span>NVIDIA</span><span class="dot">&#9679;</span>
+        <span>Dell</span><span class="dot">&#9679;</span>
+        <span>LTX Studio</span><span class="dot">&#9679;</span>
+        <span>RTX</span><span class="dot">&#9679;</span>
+        <span>Machine Cinema</span><span class="dot">&#9679;</span>
+        <span>GenJam</span><span class="dot">&#9679;</span>
+        <span>AIRL</span><span class="dot">&#9679;</span>
+        <span>GTC</span><span class="dot">&#9679;</span>
+        <span>Local AI</span><span class="dot">&#9679;</span>
+        <span>NVIDIA</span><span class="dot">&#9679;</span>
+        <span>Dell</span><span class="dot">&#9679;</span>
+        <span>LTX Studio</span><span class="dot">&#9679;</span>
+        <span>RTX</span><span class="dot">&#9679;</span>
+        <span>Machine Cinema</span><span class="dot">&#9679;</span>
+        <span>GenJam</span><span class="dot">&#9679;</span>
+        <span>AIRL</span><span class="dot">&#9679;</span>
+        <span>GTC</span><span class="dot">&#9679;</span>
+        <span>Local AI</span><span class="dot">&#9679;</span>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 2: Schedule -->
+  <!-- SLIDE 2: NVIDIA GTC -->
   <div class="slide slide-dark centered" data-slide="2" data-dots="light">
+    <div class="deco-dot" style="top:8%;right:10%;background:#76B900;width:30px;height:30px;opacity:0.5;"></div>
+    <div class="deco-dot" style="bottom:15%;left:8%;background:var(--lime);width:22px;height:22px;opacity:0.4;"></div>
+    <div class="stagger">
+      <span class="pill" style="background:#76B900;color:#fff;">NVIDIA GTC</span>
+      <img src="nvidia-logo.svg" alt="NVIDIA" style="max-width: 350px; width: 60%; margin: 10px auto;">
+      <div class="accent-bar" style="background:#76B900; margin: 12px auto 20px;"></div>
+      <h2 style="font-size: clamp(1.5rem, 3.5vw, 2.8rem); color: #fff; margin-bottom: 16px;">GPU Technology <span style="color:#76B900;">Conference</span></h2>
+      <p style="max-width: 650px; text-align: center; font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: #c0c0d8; line-height: 1.75;">
+        Welcome to GenJam at NVIDIA GTC &mdash; the premier AI conference where breakthroughs are born. Today we're harnessing the power of NVIDIA GPUs running locally on Dell laptops to create AI-generated short films in real time.
+      </p>
+      <div style="display: flex; gap: 14px; margin-top: 20px; flex-wrap: wrap; justify-content: center;">
+        <span class="tag" style="background:#76B900; color:#fff; border-color:#76B900;">AI Computing</span>
+        <span class="tag tag-yellow">Local Generation</span>
+        <span class="tag tag-pink">Creative AI</span>
+        <span class="tag tag-lime">RTX Powered</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: Schedule -->
+  <div class="slide slide-dark centered" data-slide="3" data-dots="light">
     <div class="stagger">
       <span class="pill pill-pink">The Plan</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 5rem);">Sched<span class="color-pink">ule</span></h1>
@@ -928,8 +947,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 3: Our Model - AIRL -->
-  <div class="slide slide-dark centered" data-slide="3" data-dots="light">
+  <!-- SLIDE 4: Our Model - AIRL -->
+  <div class="slide slide-dark centered" data-slide="4" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">Our Model</span>
       <h1 style="font-size: clamp(3rem, 8vw, 7rem);"><span class="color-yellow">&ldquo;</span>AIRL<span class="color-yellow">&rdquo;</span></h1>
@@ -941,8 +960,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 4: Machine Cinema Is -->
-  <div class="slide centered" data-slide="4">
+  <!-- SLIDE 5: Machine Cinema Is -->
+  <div class="slide centered" data-slide="5">
     <div class="deco-circle" style="width:250px;height:250px;top:-5%;right:-4%;border-color:var(--pink);"></div>
     <div class="stagger">
       <span class="pill pill-dark">Who We Are</span>
@@ -983,8 +1002,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 5: Who Are You / Icebreaker -->
-  <div class="slide slide-pink centered" data-slide="5" data-dots="light">
+  <!-- SLIDE 6: Who Are You / Icebreaker -->
+  <div class="slide slide-pink centered" data-slide="6" data-dots="light">
     <div class="deco-dot" style="top:10%;left:10%;background:var(--yellow);width:28px;height:28px;opacity:0.6;"></div>
     <div class="deco-dot" style="bottom:20%;right:12%;background:var(--lime);width:20px;height:20px;opacity:0.6;"></div>
     <div class="stagger">
@@ -1004,8 +1023,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 6: Schnozzo -->
-  <div class="slide slide-dark centered" data-slide="6" data-dots="light">
+  <!-- SLIDE 7: Schnozzo -->
+  <div class="slide slide-dark centered" data-slide="7" data-dots="light">
     <div class="stagger">
       <h1 style="font-size: clamp(3rem, 8vw, 7rem); color: #fff;">Schnozzo</h1>
       <div class="accent-bar pink" style="margin: 12px auto 20px;"></div>
@@ -1014,8 +1033,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 7: Meet the Team -->
-  <div class="slide" data-slide="7">
+  <!-- SLIDE 8: Meet the Team -->
+  <div class="slide" data-slide="8">
     <div class="stagger" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
       <span class="pill pill-dark">Your Hosts</span>
       <h2 style="text-align: center;">Meet the <span class="color-pink">Team</span></h2>
@@ -1044,8 +1063,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 8: Mentors & Judges -->
-  <div class="slide slide-dark centered" data-slide="8" data-dots="light">
+  <!-- SLIDE 9: Mentors & Judges -->
+  <div class="slide slide-dark centered" data-slide="9" data-dots="light">
     <div class="stagger" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
       <span class="pill pill-yellow">Special Guests</span>
       <h2 style="text-align: center;">Mentors &amp; <span class="color-pink">Judges</span></h2>
@@ -1067,8 +1086,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 9: Join the Community -->
-  <div class="slide centered" data-slide="9">
+  <!-- SLIDE 10: Join the Community -->
+  <div class="slide centered" data-slide="10">
     <div class="deco-circle" style="width:200px;height:200px;bottom:5%;left:-3%;border-color:var(--lime);opacity:0.12;"></div>
     <div class="stagger">
       <span class="pill pill-lime">Get Involved</span>
@@ -1113,8 +1132,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 10: Past GenJams -->
-  <div class="slide slide-dark centered" data-slide="10" data-dots="light" id="past-genjams-slide">
+  <!-- SLIDE 11: Past GenJams -->
+  <div class="slide slide-dark centered" data-slide="11" data-dots="light" id="past-genjams-slide">
     <div class="past-genjams-gallery" id="past-genjams-gallery"></div>
     <div class="stagger" style="position: relative; z-index: 3; text-align: center;">
       <span class="pill pill-yellow">Our Journey</span>
@@ -1129,89 +1148,96 @@
     </div>
   </div>
 
-  <!-- SLIDE 11: Partner — Koyal -->
-  <div class="slide slide-dark centered" data-slide="11" data-dots="light">
-    <div class="deco-dot" style="top:12%;right:10%;background:var(--pink);width:26px;height:26px;opacity:0.4;"></div>
+  <!-- SLIDE 12: Partner — NVIDIA -->
+  <div class="slide slide-dark centered" data-slide="12" data-dots="light">
+    <div class="deco-dot" style="top:12%;right:10%;background:#76B900;width:26px;height:26px;opacity:0.4;"></div>
     <div class="deco-dot" style="bottom:18%;left:12%;background:var(--lime);width:20px;height:20px;opacity:0.4;"></div>
     <div class="stagger">
-      <span class="pill pill-pink">Presented By</span>
-      <img src="koyal.svg" alt="Koyal" style="max-width: 800px; width: 90%;">
+      <span class="pill" style="background:#76B900;color:#fff;">Presenting Partner</span>
+      <img src="nvidia-logo.svg" alt="NVIDIA" style="max-width: 600px; width: 80%; margin: 20px auto;">
+      <div class="accent-bar" style="background:#76B900; margin: 16px auto 20px;"></div>
+      <p style="max-width: 700px; text-align: center; font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: #c0c0d8; line-height: 1.75;">
+        NVIDIA is the world leader in accelerated computing. Their GPUs power the AI revolution &mdash; from data centers to creative workstations. Today, NVIDIA RTX technology enables us to generate images and video locally, right on the laptops in front of you.
+      </p>
+      <div style="display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; justify-content: center;">
+        <span class="tag" style="background:#76B900; color:#fff; border-color:#76B900;">RTX GPUs</span>
+        <span class="tag tag-yellow">TensorRT</span>
+        <span class="tag tag-lime">Local AI Inference</span>
+        <span class="tag tag-pink">CUDA</span>
+      </div>
     </div>
   </div>
 
-  <!-- SLIDE 12: Partner — PixVerse -->
-  <div class="slide slide-pink centered" data-slide="12" data-dots="light">
+  <!-- SLIDE 13: Partner — Dell -->
+  <div class="slide centered" data-slide="13" style="background: #007DB8; color: #fff;">
     <div class="deco-dot" style="top:15%;left:8%;background:var(--yellow);width:24px;height:24px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:12%;right:14%;background:var(--lime);width:18px;height:18px;opacity:0.5;"></div>
     <div class="stagger">
       <span class="pill pill-white">Partner</span>
-      <img src="pixverse-logo-1.svg" alt="PixVerse" style="max-width: 4800px; width: 285%; display: block; margin-left: auto; margin-right: auto; position: relative; left: -96px;">
+      <img src="dell-logo.svg" alt="Dell Technologies" style="max-width: 500px; width: 70%; margin: 20px auto;">
+      <div class="accent-bar white" style="margin: 16px auto 20px;"></div>
+      <p style="max-width: 650px; text-align: center; font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: rgba(255,255,255,0.9); line-height: 1.75;">
+        Dell is providing the powerful laptops we're using today, equipped with NVIDIA RTX GPUs. These machines let you run LTX Desktop to generate AI images and video entirely on-device &mdash; no cloud needed.
+      </p>
     </div>
   </div>
 
-  <!-- SLIDE 13: PixVerse Video -->
-  <div class="slide slide-dark centered" data-slide="13" data-dots="light">
-    <div class="stagger" style="width: 100%; max-width: 900px;">
-      <iframe src="https://drive.google.com/file/d/144Ba5kt_Up2DPG9hhBPHixgDR13dqpHO/preview" width="100%" height="500" allow="autoplay" allowfullscreen style="border: none; border-radius: 12px;"></iframe>
-    </div>
-  </div>
-
-  <!-- SLIDE 14: Partner — GMI Cloud -->
-  <div class="slide slide-yellow centered" data-slide="14">
+  <!-- SLIDE 14: Partner — LTX Studio -->
+  <div class="slide slide-dark centered" data-slide="14" data-dots="light">
     <div class="deco-dot" style="top:10%;right:12%;background:var(--pink);width:22px;height:22px;opacity:0.4;"></div>
-    <div class="deco-dot" style="bottom:15%;left:10%;background:var(--dark-navy);width:20px;height:20px;opacity:0.3;"></div>
+    <div class="deco-dot" style="bottom:15%;left:10%;background:var(--lime);width:20px;height:20px;opacity:0.3;"></div>
     <div class="stagger">
-      <span class="pill pill-dark">Partner</span>
-      <img src="gmi-cloud-logo.svg" alt="GMI Cloud" style="max-width: 1600px; width: 95%;">
+      <span class="pill pill-pink">Tool</span>
+      <img src="ltx-logo.svg" alt="LTX Studio" style="max-width: 450px; width: 65%; margin: 20px auto;">
+      <div class="accent-bar pink" style="margin: 16px auto 20px;"></div>
+      <p style="max-width: 650px; text-align: center; font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: #c0c0d8; line-height: 1.75;">
+        LTX Desktop is the AI-powered creative tool we'll use today. It runs locally on your Dell laptop with NVIDIA RTX, letting you generate stunning images and videos from text prompts &mdash; all processed on-device for speed and privacy.
+      </p>
+      <div style="display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; justify-content: center;">
+        <span class="tag tag-pink">Text-to-Image</span>
+        <span class="tag tag-yellow">Text-to-Video</span>
+        <span class="tag tag-lime">Image-to-Video</span>
+        <span class="tag tag-dark">100% Local</span>
+      </div>
     </div>
   </div>
 
-  <!-- SLIDE: Partner Credits -->
+  <!-- SLIDE 15: Your Setup Today -->
   <div class="slide slide-dark centered" data-slide="15" data-dots="light">
-    <div class="deco-dot" style="top:8%;left:6%;background:var(--yellow);width:22px;height:22px;opacity:0.4;"></div>
+    <div class="deco-dot" style="top:8%;left:6%;background:#76B900;width:22px;height:22px;opacity:0.4;"></div>
     <div class="deco-dot" style="bottom:8%;right:8%;background:var(--pink);width:18px;height:18px;opacity:0.4;"></div>
     <div class="stagger" style="text-align:center; width:90%; max-width:700px;">
-      <span class="pill pill-yellow">Free Credits &amp; Access</span>
+      <span class="pill" style="background:#76B900;color:#fff;">Your Setup</span>
+      <h2 style="margin-bottom: 16px;">What's on Your <span class="color-pink">Laptop</span></h2>
 
       <!-- Logos row -->
       <div style="display:flex; justify-content:center; align-items:center; gap:clamp(20px,4vw,48px); margin-bottom:clamp(16px,3vw,32px); flex-wrap:wrap;">
-        <img src="koyal.svg" alt="Koyal" style="height:clamp(28px,5vw,50px);">
-        <img src="pixverse-logo-1.svg" alt="PixVerse" style="height:clamp(28px,5vw,50px);">
-        <img src="gmi-cloud-logo.svg" alt="GMI Cloud" style="height:clamp(28px,5vw,50px);">
+        <img src="dell-logo.svg" alt="Dell" style="height:clamp(28px,5vw,50px);">
+        <img src="nvidia-logo.svg" alt="NVIDIA" style="height:clamp(28px,5vw,50px);">
+        <img src="ltx-logo.svg" alt="LTX Studio" style="height:clamp(28px,5vw,50px); background: rgba(255,255,255,0.1); padding: 4px 12px; border-radius: 8px;">
       </div>
 
-      <!-- Koyal -->
+      <!-- Dell Laptop -->
       <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:clamp(12px,2vw,18px) clamp(16px,3vw,28px); margin-bottom:clamp(10px,1.5vw,16px); text-align:left;">
         <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-          <span style="font-family:var(--font-mono); font-size:clamp(0.85rem,1.8vw,1.1rem); color:var(--pink); font-weight:700;">beta.koyal.ai</span>
-          <span style="color:#b0b0c0; font-size:clamp(0.8rem,1.5vw,1rem);">— redeem code</span>
-          <span style="background:var(--pink); color:#fff; font-family:var(--font-mono); font-weight:900; font-size:clamp(0.9rem,1.8vw,1.15rem); padding:4px 14px; border-radius:8px; letter-spacing:0.08em;">26GENJAM</span>
-          <span style="color:#b0b0c0; font-size:clamp(0.8rem,1.5vw,1rem);">when buying credits</span>
+          <span style="font-family:var(--font-mono); font-size:clamp(0.85rem,1.8vw,1.1rem); color:#007DB8; font-weight:700;">Dell Laptop</span>
+          <span style="color:#b0b0c0; font-size:clamp(0.8rem,1.5vw,1rem);">— equipped with NVIDIA RTX GPU</span>
         </div>
       </div>
 
-      <!-- PixVerse -->
+      <!-- LTX Desktop -->
       <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:clamp(12px,2vw,18px) clamp(16px,3vw,28px); margin-bottom:clamp(10px,1.5vw,16px); text-align:left;">
         <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-          <span style="font-family:var(--font-mono); font-size:clamp(0.85rem,1.8vw,1.1rem); color:var(--lime); font-weight:700;">pixverse.ai</span>
-          <span style="color:#b0b0c0; font-size:clamp(0.8rem,1.5vw,1rem);">— redeem codes from the Machine Cinema team</span>
+          <span style="font-family:var(--font-mono); font-size:clamp(0.85rem,1.8vw,1.1rem); color:var(--pink); font-weight:700;">LTX Desktop</span>
+          <span style="color:#b0b0c0; font-size:clamp(0.8rem,1.5vw,1rem);">— pre-installed for local image &amp; video generation</span>
         </div>
       </div>
 
-      <!-- GMI Cloud -->
+      <!-- Local Generation -->
       <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:clamp(12px,2vw,18px) clamp(16px,3vw,28px); text-align:left;">
         <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-          <span style="font-family:var(--font-mono); font-size:clamp(0.85rem,1.8vw,1.1rem); color:var(--yellow); font-weight:700;">console.gmicloud.ai</span>
-          <span style="color:#b0b0c0; font-size:clamp(0.8rem,1.5vw,1rem);">— redeem code</span>
-          <span style="background:var(--yellow); color:var(--dark-navy); font-family:var(--font-mono); font-weight:900; font-size:clamp(0.9rem,1.8vw,1.15rem); padding:4px 14px; border-radius:8px; letter-spacing:0.08em;">GMISXSW</span>
-        </div>
-      </div>
-
-      <!-- GMI GenJam -->
-      <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:clamp(12px,2vw,18px) clamp(16px,3vw,28px); margin-top:clamp(10px,1.5vw,16px); text-align:left;">
-        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-          <span style="font-family:var(--font-mono); font-size:clamp(0.85rem,1.8vw,1.1rem); color:var(--yellow); font-weight:700;">gmi.genjam.ai</span>
-          <span style="color:#b0b0c0; font-size:clamp(0.8rem,1.5vw,1rem);">— 100 credits already included</span>
+          <span style="font-family:var(--font-mono); font-size:clamp(0.85rem,1.8vw,1.1rem); color:#76B900; font-weight:700;">100% Local</span>
+          <span style="color:#b0b0c0; font-size:clamp(0.8rem,1.5vw,1rem);">— all AI runs on-device, no cloud or credits needed</span>
         </div>
       </div>
 
@@ -1235,8 +1261,32 @@
     </div>
   </div>
 
-  <!-- SLIDE 17: Let's Dig In -->
-  <div class="slide slide-pink centered" data-slide="17" data-dots="light">
+  <!-- SLIDE 17: Prizes -->
+  <div class="slide slide-dark centered" data-slide="17" data-dots="light">
+    <div class="deco-dot" style="top:10%;right:12%;background:var(--yellow);width:28px;height:28px;opacity:0.5;"></div>
+    <div class="deco-dot" style="bottom:12%;left:10%;background:#76B900;width:22px;height:22px;opacity:0.4;"></div>
+    <div class="stagger">
+      <span class="pill pill-yellow">Prizes</span>
+      <h1 style="font-size: clamp(2.5rem, 6vw, 5rem);">What You Can <span class="color-yellow">Win</span></h1>
+      <div class="accent-bar yellow" style="margin: 12px auto 24px;"></div>
+      <div class="cards" style="max-width: 800px; grid-template-columns: repeat(2, 1fr);">
+        <div class="card card-dark centered" style="border-color: #76B900; border-width: 3px;">
+          <div style="font-size: 2.5rem; margin-bottom: 10px;">&#x1F4BB;</div>
+          <h3 style="color: #76B900; margin-bottom: 8px;">Dell Laptop</h3>
+          <p style="color: #c0c0d8;">A Dell laptop equipped with an <strong style="color: var(--yellow);">NVIDIA RTX GPU</strong> &mdash; ready for local AI generation</p>
+        </div>
+        <div class="card card-dark centered" style="border-color: var(--yellow); border-width: 3px;">
+          <div style="font-size: 2.5rem; margin-bottom: 10px;">&#x1F3C6;</div>
+          <h3 style="color: var(--yellow); margin-bottom: 8px;">NVIDIA DGX Signed by Jensen Huang</h3>
+          <p style="color: #c0c0d8;">A collectible <strong style="color:#76B900;">NVIDIA DGX</strong> part personally signed by NVIDIA CEO <strong style="color: var(--pink);">Jensen Huang</strong></p>
+        </div>
+      </div>
+      <p style="margin-top: 20px; font-family: var(--font-mono); font-size: 0.85rem; color: rgba(255,255,255,0.5);">Winners selected by our judges after the showcase</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 18: Let's Dig In -->
+  <div class="slide slide-pink centered" data-slide="18" data-dots="light">
     <div class="deco-dot" style="top:15%;right:15%;background:var(--yellow);width:30px;height:30px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:20%;left:10%;background:var(--lime);width:24px;height:24px;opacity:0.5;"></div>
     <div class="stagger">
@@ -1244,8 +1294,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 18: Today's Workflow & Tools -->
-  <div class="slide slide-dark centered" data-slide="18" data-dots="light">
+  <!-- SLIDE 19: Today's Workflow & Tools -->
+  <div class="slide slide-dark centered" data-slide="19" data-dots="light">
     <div class="stagger">
       <span class="pill pill-pink">Workshop</span>
       <h2 style="color: #fff;">Today's Workflow<br>&amp; <span style="color: var(--pink);">Tools</span></h2>
@@ -1257,7 +1307,7 @@
         </div>
         <div class="card card-yellow centered">
           <h4 style="margin-bottom: 4px; color: #0d0d1a;">T2V &amp; I2V</h4>
-          <p style="font-size: 0.85rem; color: #0d0d1a;">Text/Image to Video</p>
+          <p style="font-size: 0.85rem; color: #0d0d1a;">Text/Image to Video via LTX</p>
         </div>
         <div class="card card-lime centered">
           <h4 style="margin-bottom: 4px; color: #0d0d1a;">Sound &amp; Edit</h4>
@@ -1265,17 +1315,18 @@
         </div>
       </div>
       <div style="margin-top: 24px; text-align: center;">
-        <img src="koyal.svg" alt="Koyal" style="max-width: 220px; width: 40%; display: block; margin: 0 auto 12px;">
-        <div style="display: flex; justify-content: center; align-items: center; gap: 24px;">
-          <img src="pixverse-logo-1.svg" alt="PixVerse" style="max-width: 130px; width: 25%;">
-          <img src="gmi-cloud-logo.svg" alt="GMI Cloud" style="max-width: 130px; width: 25%;">
+        <div style="display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap;">
+          <img src="ltx-logo.svg" alt="LTX Studio" style="max-width: 160px; width: 30%; background: rgba(255,255,255,0.08); padding: 6px 14px; border-radius: 10px;">
+          <img src="dell-logo.svg" alt="Dell" style="max-width: 160px; width: 30%;">
+          <img src="nvidia-logo.svg" alt="NVIDIA" style="max-width: 160px; width: 30%;">
         </div>
+        <p style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.8rem; color: rgba(255,255,255,0.5);">All generation runs locally on your Dell laptop with NVIDIA RTX</p>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 19: Roles -->
-  <div class="slide centered" data-slide="19">
+  <!-- SLIDE 20: Roles -->
+  <div class="slide centered" data-slide="20">
     <div class="stagger">
       <span class="pill pill-pink">Team Up</span>
       <h2><span class="color-pink">Roles</span></h2>
@@ -1308,8 +1359,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 20: The Process -->
-  <div class="slide slide-dark centered" data-slide="20" data-dots="light">
+  <!-- SLIDE 21: The Process -->
+  <div class="slide slide-dark centered" data-slide="21" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">The Method</span>
       <h2>The <span class="color-yellow">Process</span></h2>
@@ -1333,8 +1384,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 21: The Process - Fractal -->
-  <div class="slide slide-dark centered" data-slide="21" data-dots="light">
+  <!-- SLIDE 22: The Process - Fractal -->
+  <div class="slide slide-dark centered" data-slide="22" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">The Method</span>
       <h2>The <span class="color-yellow">Process</span> — Expanded</h2>
@@ -1441,8 +1492,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 22: Tips -->
-  <div class="slide slide-dark centered" data-slide="22" data-dots="light">
+  <!-- SLIDE 23: Tips -->
+  <div class="slide slide-dark centered" data-slide="23" data-dots="light">
     <div class="stagger">
       <span class="pill pill-lime">Pro Tips</span>
       <h2><span class="color-lime">Tips</span></h2>
@@ -1461,8 +1512,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 23: Story World -->
-  <div class="slide slide-dark story-world-slide" data-slide="23" data-dots="light">
+  <!-- SLIDE 24: Story World -->
+  <div class="slide slide-dark story-world-slide" data-slide="24" data-dots="light">
     <h1 class="sw-title" style="color: #fff;">Story <span class="color-pink">World</span></h1>
     <p class="sw-subtitle" style="color: #b0b0c8;">Discuss these things before AND during prompting for images and videos.</p>
     <div class="sw-grid">
@@ -1506,8 +1557,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 24: Storytelling Tips -->
-  <div class="slide centered storytelling-tips" data-slide="24">
+  <!-- SLIDE 25: Storytelling Tips -->
+  <div class="slide centered storytelling-tips" data-slide="25">
     <div class="stagger">
       <span class="pill pill-pink">Storytelling</span>
       <h2 style="font-family: 'Gaegu', cursive; margin-bottom: 20px;">Story <span class="color-pink">Structure</span></h2>
@@ -1523,15 +1574,15 @@
     </div>
   </div>
 
-  <!-- SLIDE 25: Any Questions? -->
-  <div class="slide slide-lime centered" data-slide="25">
+  <!-- SLIDE 26: Any Questions? -->
+  <div class="slide slide-lime centered" data-slide="26">
     <div class="stagger">
       <h1 style="font-size: clamp(3rem, 8vw, 7rem);">Any<br>Questions?</h1>
     </div>
   </div>
 
-  <!-- SLIDE 26: Watch Examples -->
-  <div class="slide slide-dark centered" data-slide="26" data-dots="light">
+  <!-- SLIDE 27: Watch Examples -->
+  <div class="slide slide-dark centered" data-slide="27" data-dots="light">
     <div class="deco-dot" style="top:12%;left:15%;background:var(--pink);width:26px;height:26px;opacity:0.4;"></div>
     <div class="deco-dot" style="bottom:15%;right:12%;background:var(--yellow);width:20px;height:20px;opacity:0.5;"></div>
     <div class="stagger">
@@ -1541,56 +1592,56 @@
     </div>
   </div>
 
-  <!-- SLIDE 27: Video Example 1 - Chess Tweet -->
-  <div class="slide slide-dark centered" data-slide="27" data-dots="light">
+  <!-- SLIDE 28: Video Example 1 - Chess Tweet -->
+  <div class="slide slide-dark centered" data-slide="28" data-dots="light">
     <span class="pill pill-pink" style="position:absolute;top:30px;z-index:2;">Example 1</span>
     <div class="video-embed-full video-embed-tweet">
       <iframe scrolling="no" data-lazy-src="https://platform.twitter.com/embed/Tweet.html?id=2032617758416859163&theme=dark" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
     </div>
   </div>
 
-  <!-- SLIDE 28: Video Example 2 - Mark Gadala -->
-  <div class="slide slide-dark centered" data-slide="28" data-dots="light">
+  <!-- SLIDE 29: Video Example 2 - Mark Gadala -->
+  <div class="slide slide-dark centered" data-slide="29" data-dots="light">
     <span class="pill pill-yellow" style="position:absolute;top:30px;z-index:2;">Example 2</span>
     <div class="video-embed-full video-embed-tweet">
       <iframe scrolling="no" data-lazy-src="https://platform.twitter.com/embed/Tweet.html?id=2029461912585383938&theme=dark" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
     </div>
   </div>
 
-  <!-- SLIDE 29: Video Example 3 - Instagram Reel -->
-  <div class="slide slide-dark centered" data-slide="29" data-dots="light">
+  <!-- SLIDE 30: Video Example 3 - Instagram Reel -->
+  <div class="slide slide-dark centered" data-slide="30" data-dots="light">
     <span class="pill pill-pink" style="position:absolute;top:30px;z-index:2;">Example 3</span>
     <div class="video-embed-full video-embed-tweet">
       <iframe scrolling="no" data-lazy-src="https://www.instagram.com/reel/DVLwSD_gVpI/embed/" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
     </div>
   </div>
 
-  <!-- SLIDE 30: Video Example 4 - YouTube -->
-  <div class="slide slide-dark centered" data-slide="30" data-dots="light">
+  <!-- SLIDE 31: Video Example 4 - YouTube -->
+  <div class="slide slide-dark centered" data-slide="31" data-dots="light">
     <span class="pill pill-yellow" style="position:absolute;top:30px;z-index:2;">Example 4</span>
     <div class="video-embed-full video-embed-16x9">
       <iframe data-lazy-src="https://www.youtube.com/embed/QetEEZQcV-U" style="width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
   </div>
 
-  <!-- SLIDE 31: Video Example 5 - Aiden Guo -->
-  <div class="slide slide-dark centered" data-slide="31" data-dots="light">
+  <!-- SLIDE 32: Video Example 5 - Aiden Guo -->
+  <div class="slide slide-dark centered" data-slide="32" data-dots="light">
     <span class="pill pill-pink" style="position:absolute;top:30px;z-index:2;">Example 5</span>
     <div class="video-embed-full video-embed-tweet">
       <iframe scrolling="no" data-lazy-src="https://platform.twitter.com/embed/Tweet.html?id=2026375487665353167&theme=dark" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
     </div>
   </div>
 
-  <!-- SLIDE 32: Video Example 6 - NACHOS2D -->
-  <div class="slide slide-dark centered" data-slide="32" data-dots="light">
+  <!-- SLIDE 33: Video Example 6 - NACHOS2D -->
+  <div class="slide slide-dark centered" data-slide="33" data-dots="light">
     <span class="pill pill-yellow" style="position:absolute;top:30px;z-index:2;">Example 6</span>
     <div class="video-embed-full video-embed-tweet">
       <iframe scrolling="no" data-lazy-src="https://platform.twitter.com/embed/Tweet.html?id=2033126071151837491&theme=dark" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>
     </div>
   </div>
 
-  <!-- SLIDE 33: Showcase & Discussion -->
-  <div class="slide slide-dark centered" data-slide="33" data-dots="light">
+  <!-- SLIDE 34: Showcase & Discussion -->
+  <div class="slide slide-dark centered" data-slide="34" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">Reflect</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 5rem);">Show<span class="color-pink">case</span></h1>
@@ -1605,8 +1656,8 @@
     </div>
   </div>
 
-  <!-- SLIDE 34: Submissions -->
-  <div class="slide centered" data-slide="34">
+  <!-- SLIDE 35: Submissions -->
+  <div class="slide centered" data-slide="35">
     <div class="stagger">
       <span class="pill pill-pink">Submit</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem);">Sub<span class="color-pink">missions</span></h1>
@@ -1629,22 +1680,6 @@
         <p style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; margin-bottom: 10px;">Scan to upload to Google Drive</p>
         <canvas id="qr-submissions" width="180" height="180" style="width: 180px; height: 180px; border-radius: 12px; border: 3px solid var(--pink);"></canvas>
       </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 35: Futuro QR Code -->
-  <div class="slide slide-dark centered" data-slide="35" data-dots="light">
-    <div class="stagger">
-      <span class="pill pill-pink">Scan</span>
-      <h1 style="font-size: clamp(2rem, 5vw, 4rem);">futuro.so/<span class="color-pink">sxsw</span></h1>
-      <div class="accent-bar pink" style="margin: 12px auto 20px;"></div>
-      <p style="font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: #b0b0c8; max-width: 500px; text-align: center; margin-bottom: 20px;">
-        Scan the QR code to visit us
-      </p>
-      <div style="text-align: center;">
-        <canvas id="qr-futuro" width="220" height="220" style="width: 220px; height: 220px; border-radius: 14px; border: 3px solid var(--pink); background: #fff;"></canvas>
-      </div>
-      <p style="margin-top: 16px; font-family: var(--font-mono); font-size: 0.95rem; color: var(--lime); font-weight: 600;">futuro.so/sxsw</p>
     </div>
   </div>
 
@@ -1995,7 +2030,7 @@
     updateProgress();
 
     // Confetti burst on certain fun slides
-    var confettiSlides = ['5','6','14','16','24'];
+    var confettiSlides = ['6','7','16','17','25'];
     if (confettiSlides.indexOf(next.dataset.slide) !== -1) {
       spawnConfetti();
     }
@@ -3042,33 +3077,6 @@
     }
   }
 
-  // ---- QR Code: Game (slide 0) ----
-  (function generateGameQR() {
-    var canvas = document.getElementById('qr-game');
-    if (!canvas) return;
-    var ctx = canvas.getContext('2d');
-    var url = 'https://gmi.genjam.ai';
-    var img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = function() {
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(0, 0, 220, 220);
-      ctx.drawImage(img, 10, 10, 200, 200);
-    };
-    img.onerror = function() {
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(0, 0, 220, 220);
-      ctx.fillStyle = '#FF2D55';
-      ctx.font = 'bold 18px "Space Grotesk", sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('SCAN ME', 110, 100);
-      ctx.font = '13px "JetBrains Mono", monospace';
-      ctx.fillStyle = '#1a1a2e';
-      ctx.fillText('gmi.genjam.ai', 110, 130);
-    };
-    img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(url) + '&bgcolor=FFFFFF&color=1a1a2e&format=png';
-  })();
-
   // ---- QR Code: LinkedIn (connect slide) ----
   (function generateQR() {
     var canvas = document.getElementById('qr-canvas');
@@ -3125,33 +3133,6 @@
       ctx.fillText('Google Drive', 90, 105);
     };
     img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=' + encodeURIComponent(url) + '&bgcolor=FFFFFF&color=1a1a2e&format=png';
-  })();
-
-  // ---- QR Code for Futuro SXSW ----
-  (function generateFuturoQR() {
-    var canvas = document.getElementById('qr-futuro');
-    if (!canvas) return;
-    var ctx = canvas.getContext('2d');
-    var url = 'https://futuro.so/sxsw';
-    var img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = function() {
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(0, 0, 220, 220);
-      ctx.drawImage(img, 10, 10, 200, 200);
-    };
-    img.onerror = function() {
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(0, 0, 220, 220);
-      ctx.fillStyle = '#FF2D55';
-      ctx.font = 'bold 16px "Space Grotesk", sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('SCAN ME', 110, 100);
-      ctx.font = '12px "JetBrains Mono", monospace';
-      ctx.fillStyle = '#1a1a2e';
-      ctx.fillText('futuro.so/sxsw', 110, 125);
-    };
-    img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(url) + '&bgcolor=FFFFFF&color=1a1a2e&format=png';
   })();
 
   // ---- Sparkle Trail on Mouse Move ----
@@ -3696,40 +3677,42 @@
   var slideEffects = {
     '0': function() { fxEmojis(['🎮','🕹️','🎲','🏆','🎯','⚡','🎪']); },    // Welcome: game emojis
     '1': function() { fxEmojis(['✨','🌟','💫','⚡']); },                     // Title: sparkle emojis
-    '2': function() { fxTextRain(['0','1',':','0','0','▶','◀','●']); },       // Schedule: clock chars rain
-    '3': function() { fxDNAHelix(); },                                         // AIRL Model: DNA helix
-    '4': function() { fxPulseRings(); },                                       // Machine Cinema Is: pulse rings
-    '5': function() { fxEmojis(['👋','🎉','🙌','😎','🤩','💥']); },         // Icebreaker: party emojis
-    '6': function() { fxSpiral(); },                                           // Schnozzo: spiral burst
-    '7': function() { fxPixelDissolve(); },                                    // Meet Team: pixel dissolve
-    '8': function() { fxGravityWell(); },                                      // Mentors & Judges: gravity well
-    '9': function() { fxBubbles(); },                                          // Join Community: bubbles
-    '10': function() { fxMeteors(); },                                         // Past GenJams: meteors
-    '11': function() { fxAurora(); },                                          // Partner Koyal: aurora
-    '12': function() { fxPulseRings(); },                                      // Partner PixVerse: pulse
-    '13': function() { fxLightning(); },                                       // Partner GMI: lightning
-    '14': function() { fxEmojis(['🎬','🎥','🎞️','🍿','🎭']); },            // Challenge: film emojis
-    '16': function() { fxTextRain(['⚙','🔧','💻','🛠','📐','✏']); },       // Workflow: tool rain
-    '17': function() { fxGravityWell(); },                                     // Roles: gravity well
-    '18': function() { fxSpiral(); },                                          // Process: spiral
-    '19': function() { fxDNAHelix(); },                                        // Process Fractal: DNA
-    '16': function() { fxEmojis(['🚀','🔥','💪','⚡','🎯']); },             // Let's Dig In: energy emojis
-    '21': function() { fxSnowfall(); },                                        // Tips: gentle snowfall
-    '22': function() { fxAurora(); },                                          // Story World: aurora
-    '23': function() { fxTextRain(['A','B','C','a','b','c','…','.','!']); },  // Storytelling: letter rain
-    '24': function() { fxLightning(); },                                       // Questions: lightning
-    '25': function() { fxMeteors(); },                                         // Watch Examples: meteors
-    '26': function() { fxPixelDissolve(); },                                   // Video 1
-    '27': function() { fxBubbles(); },                                         // Video 2
-    '28': function() { fxSpiral(); },                                          // Video 3
-    '29': function() { fxPulseRings(); },                                      // Video 4
-    '30': function() { fxSnowfall(); },                                        // Video 5
-    '31': function() { fxMeteors(); },                                         // Video 6
-    '32': function() { fxEmojis(['🏆','🎬','👏','🌟','🎉']); },             // Showcase: trophy emojis
-    '33': function() { fxGravityWell(); },                                     // Submissions: gravity well
-    '34': function() { fxPulseRings(); },                                      // Futuro QR: pulse rings
-    '35': function() { fxEmojis(['❤️','🙏','✨','🌈','🎊']); },             // Goodbye: heart emojis
-    '36': function() { fxAurora(); }                                           // Connect: aurora
+    '2': function() { fxAurora(); },                                           // NVIDIA GTC: aurora
+    '3': function() { fxTextRain(['0','1',':','0','0','▶','◀','●']); },       // Schedule: clock chars rain
+    '4': function() { fxDNAHelix(); },                                         // AIRL Model: DNA helix
+    '5': function() { fxPulseRings(); },                                       // Machine Cinema Is: pulse rings
+    '6': function() { fxEmojis(['👋','🎉','🙌','😎','🤩','💥']); },         // Icebreaker: party emojis
+    '7': function() { fxSpiral(); },                                           // Schnozzo: spiral burst
+    '8': function() { fxPixelDissolve(); },                                    // Meet Team: pixel dissolve
+    '9': function() { fxGravityWell(); },                                      // Mentors & Judges: gravity well
+    '10': function() { fxBubbles(); },                                         // Join Community: bubbles
+    '11': function() { fxMeteors(); },                                         // Past GenJams: meteors
+    '12': function() { fxLightning(); },                                       // Partner NVIDIA: lightning
+    '13': function() { fxPulseRings(); },                                      // Partner Dell: pulse
+    '14': function() { fxAurora(); },                                          // Partner LTX: aurora
+    '15': function() { fxTextRain(['⚙','🔧','💻','🛠','📐','✏']); },       // Setup: tool rain
+    '16': function() { fxEmojis(['🎬','🎥','🎞️','🍿','🎭']); },            // Challenge: film emojis
+    '17': function() { fxEmojis(['🏆','💻','🎁','⚡','🎯']); },             // Prizes: trophy emojis
+    '18': function() { fxEmojis(['🚀','🔥','💪','⚡','🎯']); },             // Let's Dig In: energy emojis
+    '19': function() { fxSpiral(); },                                          // Workflow: spiral
+    '20': function() { fxGravityWell(); },                                     // Roles: gravity well
+    '21': function() { fxDNAHelix(); },                                        // Process: DNA
+    '22': function() { fxSpiral(); },                                          // Process Fractal: spiral
+    '23': function() { fxSnowfall(); },                                        // Tips: gentle snowfall
+    '24': function() { fxAurora(); },                                          // Story World: aurora
+    '25': function() { fxTextRain(['A','B','C','a','b','c','…','.','!']); },  // Storytelling: letter rain
+    '26': function() { fxLightning(); },                                       // Questions: lightning
+    '27': function() { fxMeteors(); },                                         // Watch Examples: meteors
+    '28': function() { fxPixelDissolve(); },                                   // Video 1
+    '29': function() { fxBubbles(); },                                         // Video 2
+    '30': function() { fxSpiral(); },                                          // Video 3
+    '31': function() { fxPulseRings(); },                                      // Video 4
+    '32': function() { fxSnowfall(); },                                        // Video 5
+    '33': function() { fxMeteors(); },                                         // Video 6
+    '34': function() { fxEmojis(['🏆','🎬','👏','🌟','🎉']); },             // Showcase: trophy emojis
+    '35': function() { fxGravityWell(); },                                     // Submissions: gravity well
+    '36': function() { fxEmojis(['❤️','🙏','✨','🌈','🎊']); },             // Goodbye: heart emojis
+    '37': function() { fxAurora(); }                                           // Connect: aurora
   };
 
   // Single unified observer for per-slide effects
