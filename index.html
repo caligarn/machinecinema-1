@@ -836,6 +836,23 @@
     0%, 100% { text-shadow: 0 0 40px rgba(200,255,0,0.4), 0 0 80px rgba(200,255,0,0.15); }
     50% { text-shadow: 0 0 60px rgba(200,255,0,0.6), 0 0 120px rgba(200,255,0,0.25), 0 0 200px rgba(203,107,230,0.15); }
   }
+  @keyframes scenarioGlow {
+    0%, 100% { text-shadow: 0 0 30px rgba(203,107,230,0.4), 0 0 60px rgba(203,107,230,0.15); }
+    50% { text-shadow: 0 0 50px rgba(203,107,230,0.6), 0 0 100px rgba(200,255,0,0.2); }
+  }
+  #future-scenarios-slide.active .scenarios-title {
+    animation: scenarioGlow 3s ease-in-out infinite;
+  }
+  #scenario-dots .sdot {
+    width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2);
+    cursor: pointer; transition: all 0.3s;
+  }
+  #scenario-dots .sdot.active-dot {
+    background: var(--purple); box-shadow: 0 0 10px var(--purple);
+    transform: scale(1.4);
+  }
+  #scenario-dots .sdot:hover { background: rgba(255,255,255,0.5); }
+
   #future-world-slide.active .future-title {
     animation: futureGlow 3s ease-in-out infinite;
   }
@@ -886,8 +903,37 @@
     </div>
   </div>
 
-  <!-- SLIDE 1: Title -->
-  <div class="slide slide-dark centered" data-slide="1" data-dots="light" id="title-slide">
+  <!-- SLIDE 1: WiFi Info -->
+  <div class="slide slide-dark centered" data-slide="1" data-dots="light" id="wifi-slide" style="overflow:hidden;">
+    <canvas id="wifi-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;"></canvas>
+    <div class="stagger" style="position:relative;z-index:2;">
+      <div style="margin-bottom: 16px;">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#C8FF00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 20px rgba(200,255,0,0.5));">
+          <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+          <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+          <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+          <circle cx="12" cy="20" r="1" fill="#C8FF00"/>
+        </svg>
+      </div>
+      <span class="pill pill-lime">Connect</span>
+      <h1 style="font-size: clamp(2.2rem, 5vw, 4rem); margin-bottom: 6px;">Get <span class="color-lime">Online</span></h1>
+      <div class="accent-bar lime" style="margin: 10px auto 28px;"></div>
+      <div style="display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; max-width: 700px;">
+        <div class="card card-dark centered" style="border-color: var(--lime); border-width: 2px; padding: 30px 40px; min-width: 260px; backdrop-filter: blur(6px); background: rgba(20,20,40,0.75);">
+          <p style="font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.5); margin-bottom: 8px;">WiFi Network</p>
+          <h2 style="color: var(--lime); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; text-shadow: 0 0 20px rgba(200,255,0,0.3);">Dell Tech Hub</h2>
+        </div>
+        <div class="card card-dark centered" style="border-color: var(--yellow); border-width: 2px; padding: 30px 40px; min-width: 260px; backdrop-filter: blur(6px); background: rgba(20,20,40,0.75);">
+          <p style="font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.5); margin-bottom: 8px;">Password</p>
+          <h2 style="color: var(--yellow); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; font-family: var(--font-mono); text-shadow: 0 0 20px rgba(255,214,0,0.3);">DellGTC2026</h2>
+        </div>
+      </div>
+      <p style="margin-top: 24px; font-family: var(--font-mono); font-size: 0.8rem; color: rgba(255,255,255,0.4);">Connect now &mdash; you'll need internet for the session</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: Title -->
+  <div class="slide slide-dark centered" data-slide="2" data-dots="light" id="title-slide">
     <canvas id="glass-canvas"></canvas>
     <div class="deco-dot" style="top:10%;right:12%;background:var(--pink);width:30px;height:30px;opacity:0.4;"></div>
     <div class="deco-dot" style="bottom:15%;left:8%;background:var(--lime);width:22px;height:22px;opacity:0.4;"></div>
@@ -926,7 +972,7 @@
   </div>
 
   <!-- SLIDE 2: NVIDIA GTC -->
-  <div class="slide slide-dark centered" data-slide="2" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="3" data-dots="light">
     <div class="deco-dot" style="top:8%;right:10%;background:#76B900;width:30px;height:30px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:15%;left:8%;background:var(--lime);width:22px;height:22px;opacity:0.4;"></div>
     <div class="stagger">
@@ -947,7 +993,7 @@
   </div>
 
   <!-- SLIDE 3: Schedule -->
-  <div class="slide slide-dark centered" data-slide="3" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="4" data-dots="light">
     <div class="stagger">
       <span class="pill pill-pink">The Plan</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 5rem);">Sched<span class="color-pink">ule</span></h1>
@@ -967,7 +1013,7 @@
   </div>
 
   <!-- SLIDE 4: Our Model - AIRL -->
-  <div class="slide slide-dark centered" data-slide="4" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="5" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">Our Model</span>
       <h1 style="font-size: clamp(3rem, 8vw, 7rem);"><span class="color-yellow">&ldquo;</span>AIRL<span class="color-yellow">&rdquo;</span></h1>
@@ -980,7 +1026,7 @@
   </div>
 
   <!-- SLIDE 5: Machine Cinema Is -->
-  <div class="slide centered" data-slide="5">
+  <div class="slide centered" data-slide="6">
     <div class="deco-circle" style="width:250px;height:250px;top:-5%;right:-4%;border-color:var(--pink);"></div>
     <div class="stagger">
       <span class="pill pill-dark">Who We Are</span>
@@ -1022,7 +1068,7 @@
   </div>
 
   <!-- SLIDE 6: Who Are You / Icebreaker -->
-  <div class="slide slide-pink centered" data-slide="6" data-dots="light">
+  <div class="slide slide-pink centered" data-slide="7" data-dots="light">
     <div class="deco-dot" style="top:10%;left:10%;background:var(--yellow);width:28px;height:28px;opacity:0.6;"></div>
     <div class="deco-dot" style="bottom:20%;right:12%;background:var(--lime);width:20px;height:20px;opacity:0.6;"></div>
     <div class="stagger">
@@ -1043,7 +1089,7 @@
   </div>
 
   <!-- SLIDE 7: Schnozzo -->
-  <div class="slide slide-dark centered" data-slide="7" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="8" data-dots="light">
     <div class="stagger">
       <h1 style="font-size: clamp(3rem, 8vw, 7rem); color: #fff;">Schnozzo</h1>
       <div class="accent-bar pink" style="margin: 12px auto 20px;"></div>
@@ -1053,7 +1099,7 @@
   </div>
 
   <!-- SLIDE 8: Meet the Team -->
-  <div class="slide" data-slide="8">
+  <div class="slide" data-slide="9">
     <div class="stagger" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
       <span class="pill pill-dark">Your Hosts</span>
       <h2 style="text-align: center;">Meet the <span class="color-pink">Team</span></h2>
@@ -1083,7 +1129,7 @@
   </div>
 
   <!-- SLIDE 9: Join the Community -->
-  <div class="slide centered" data-slide="9">
+  <div class="slide centered" data-slide="10">
     <div class="deco-circle" style="width:200px;height:200px;bottom:5%;left:-3%;border-color:var(--lime);opacity:0.12;"></div>
     <div class="stagger">
       <span class="pill pill-lime">Get Involved</span>
@@ -1129,7 +1175,7 @@
   </div>
 
   <!-- SLIDE 11: Past GenJams -->
-  <div class="slide slide-dark centered" data-slide="10" data-dots="light" id="past-genjams-slide">
+  <div class="slide slide-dark centered" data-slide="11" data-dots="light" id="past-genjams-slide">
     <div class="past-genjams-gallery" id="past-genjams-gallery"></div>
     <div class="stagger" style="position: relative; z-index: 3; text-align: center;">
       <span class="pill pill-yellow">Our Journey</span>
@@ -1147,7 +1193,7 @@
   <!-- SLIDE 11: Your Setup Today -->
   <!-- (Dell partner slide removed) -->
   <!-- (LTX Studio slide removed) -->
-  <div class="slide slide-dark centered" data-slide="11" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="12" data-dots="light">
     <div class="deco-dot" style="top:8%;left:6%;background:#76B900;width:22px;height:22px;opacity:0.4;"></div>
     <div class="deco-dot" style="bottom:8%;right:8%;background:var(--pink);width:18px;height:18px;opacity:0.4;"></div>
     <div class="stagger" style="text-align:center; width:90%; max-width:700px;">
@@ -1189,7 +1235,7 @@
   </div>
 
   <!-- SLIDE 16: Today's Challenge (Fireworks + Drumroll + Reveal) -->
-  <div class="slide slide-dark centered" data-slide="12" data-dots="light" id="challenge-slide">
+  <div class="slide slide-dark centered" data-slide="13" data-dots="light" id="challenge-slide">
     <canvas id="fireworks-canvas"></canvas>
     <div class="stagger" style="position: relative; z-index: 2; text-align: center;">
       <span class="pill pill-yellow">Challenge</span>
@@ -1206,7 +1252,7 @@
   </div>
 
   <!-- SLIDE 17: Theme - Hello Future World -->
-  <div class="slide slide-dark centered" data-slide="13" data-dots="light" id="future-world-slide" style="overflow:hidden;">
+  <div class="slide slide-dark centered" data-slide="14" data-dots="light" id="future-world-slide" style="overflow:hidden;">
     <canvas id="future-world-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;"></canvas>
     <div class="stagger" style="position:relative;z-index:2;">
       <span class="pill pill-yellow">Theme</span>
@@ -1233,7 +1279,7 @@
   </div>
 
   <!-- SLIDE 18: Prizes -->
-  <div class="slide slide-dark centered" data-slide="14" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="15" data-dots="light">
     <div class="deco-dot" style="top:10%;right:12%;background:var(--yellow);width:28px;height:28px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:12%;left:10%;background:#76B900;width:22px;height:22px;opacity:0.4;"></div>
     <div class="stagger">
@@ -1255,7 +1301,7 @@
   </div>
 
   <!-- SLIDE 19: Let's Dig In -->
-  <div class="slide slide-pink centered" data-slide="15" data-dots="light">
+  <div class="slide slide-pink centered" data-slide="16" data-dots="light">
     <div class="deco-dot" style="top:15%;right:15%;background:var(--yellow);width:30px;height:30px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:20%;left:10%;background:var(--lime);width:24px;height:24px;opacity:0.5;"></div>
     <div class="stagger">
@@ -1264,7 +1310,7 @@
   </div>
 
   <!-- SLIDE 20: Today's Workflow & Tools -->
-  <div class="slide slide-dark centered" data-slide="16" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="17" data-dots="light">
     <div class="stagger">
       <span class="pill pill-pink">Workshop</span>
       <h2 style="color: #fff;">Today's Workflow<br>&amp; <span style="color: var(--pink);">Tools</span></h2>
@@ -1295,7 +1341,7 @@
   </div>
 
   <!-- SLIDE 21: Roles -->
-  <div class="slide centered" data-slide="17">
+  <div class="slide centered" data-slide="18">
     <div class="stagger">
       <span class="pill pill-pink">Team Up</span>
       <h2><span class="color-pink">Roles</span></h2>
@@ -1324,7 +1370,7 @@
   </div>
 
   <!-- SLIDE 22: The Process -->
-  <div class="slide slide-dark centered" data-slide="18" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="19" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">The Method</span>
       <h2>The <span class="color-yellow">Process</span></h2>
@@ -1349,7 +1395,7 @@
   </div>
 
   <!-- SLIDE 23: The Process - Fractal -->
-  <div class="slide slide-dark centered" data-slide="19" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="20" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">The Method</span>
       <h2>The <span class="color-yellow">Process</span> — Expanded</h2>
@@ -1457,7 +1503,7 @@
   </div>
 
   <!-- SLIDE 24: Tips -->
-  <div class="slide slide-dark centered" data-slide="20" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="21" data-dots="light">
     <div class="stagger">
       <span class="pill pill-lime">Pro Tips</span>
       <h2><span class="color-lime">Tips</span></h2>
@@ -1477,7 +1523,7 @@
   </div>
 
   <!-- SLIDE 25: Story World -->
-  <div class="slide slide-dark story-world-slide" data-slide="21" data-dots="light">
+  <div class="slide slide-dark story-world-slide" data-slide="22" data-dots="light">
     <h1 class="sw-title" style="color: #fff;">Story <span class="color-pink">World</span></h1>
     <p class="sw-subtitle" style="color: #b0b0c8;">Discuss these things before AND during prompting for images and videos.</p>
     <div class="sw-grid">
@@ -1521,8 +1567,24 @@
     </div>
   </div>
 
+  <!-- SLIDE: Future World Scenarios -->
+  <div class="slide slide-dark centered" data-slide="23" data-dots="light" id="future-scenarios-slide" style="overflow:hidden;">
+    <canvas id="future-scenarios-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;"></canvas>
+    <div class="stagger" style="position:relative;z-index:2;">
+      <span class="pill pill-purple">Inspiration</span>
+      <h1 class="scenarios-title" style="font-size: clamp(1.8rem, 4vw, 3.2rem); margin-bottom: 12px; text-shadow: 0 0 30px rgba(203,107,230,0.4);">Future <span class="color-purple">Scenarios</span></h1>
+      <div class="accent-bar purple" style="margin: 8px auto 16px;"></div>
+      <div id="scenario-carousel" style="max-width: 700px; text-align: center; min-height: 160px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <h3 id="scenario-title" style="color: var(--lime); font-size: clamp(1.1rem, 2.2vw, 1.6rem); margin-bottom: 10px; transition: opacity 0.5s;"></h3>
+        <p id="scenario-desc" style="color: #c0c0d8; font-size: clamp(0.85rem, 1.2vw, 1rem); line-height: 1.7; max-width: 600px; transition: opacity 0.5s;"></p>
+      </div>
+      <div id="scenario-dots" style="display:flex; gap:6px; justify-content:center; margin-top:16px; flex-wrap:wrap; max-width:400px;"></div>
+      <p style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.75rem; color: rgba(255,255,255,0.35);">Auto-cycling &bull; Click dots to explore</p>
+    </div>
+  </div>
+
   <!-- SLIDE 26: Storytelling Tips -->
-  <div class="slide centered storytelling-tips" data-slide="22">
+  <div class="slide centered storytelling-tips" data-slide="24">
     <div class="stagger">
       <span class="pill pill-pink">Storytelling</span>
       <h2 style="font-family: 'Gaegu', cursive; margin-bottom: 20px;">Story <span class="color-pink">Structure</span></h2>
@@ -1539,7 +1601,7 @@
   </div>
 
   <!-- SLIDE 27: Any Questions? -->
-  <div class="slide slide-lime centered" data-slide="23">
+  <div class="slide slide-lime centered" data-slide="25">
     <div class="stagger">
       <h1 style="font-size: clamp(3rem, 8vw, 7rem);">Any<br>Questions?</h1>
     </div>
@@ -1547,7 +1609,7 @@
 
   <!-- SLIDE 28: Watch Examples -->
   <!-- SLIDE 24: Showcase & Discussion -->
-  <div class="slide slide-dark centered" data-slide="24" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="26" data-dots="light">
     <div class="stagger">
       <span class="pill pill-yellow">Reflect</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 5rem);">Show<span class="color-pink">case</span></h1>
@@ -1563,7 +1625,7 @@
   </div>
 
   <!-- SLIDE 36: Submissions -->
-  <div class="slide centered" data-slide="25">
+  <div class="slide centered" data-slide="27">
     <div class="stagger">
       <span class="pill pill-pink">Submit</span>
       <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem);">Sub<span class="color-pink">missions</span></h1>
@@ -1590,7 +1652,7 @@
   </div>
 
   <!-- SLIDE 37: Goodbye / Community -->
-  <div class="slide slide-dark centered" data-slide="26" data-dots="light">
+  <div class="slide slide-dark centered" data-slide="28" data-dots="light">
     <div class="deco-dot" style="top:10%;left:8%;background:var(--pink);width:28px;height:28px;opacity:0.5;"></div>
     <div class="deco-dot" style="bottom:20%;right:10%;background:var(--lime);width:22px;height:22px;opacity:0.5;"></div>
     <div class="deco-dot" style="top:25%;right:18%;background:var(--yellow);width:18px;height:18px;opacity:0.4;"></div>
@@ -1629,7 +1691,7 @@
   </div>
 
   <!-- SLIDE 38: Connect With Us -->
-  <div class="slide slide-dark centered" data-slide="27" data-dots="light" id="connect-slide">
+  <div class="slide slide-dark centered" data-slide="29" data-dots="light" id="connect-slide">
     <canvas id="connect-particles-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
     <div class="stagger" style="position:relative;z-index:1;">
       <img src="w4.png" alt="Machine Cinema" style="max-width: 180px; width: 40%; margin-bottom: 10px;">
@@ -1920,7 +1982,9 @@
     var next = slides[index];
 
     prev.classList.remove('active');
-    if (prev.dataset.slide === '13') stopFutureWorld();
+    if (prev.dataset.slide === '14') stopFutureWorld();
+    if (prev.dataset.slide === '1') stopWifiSignal();
+    if (prev.dataset.slide === '23') stopFutureScenarios();
     if (direction > 0) prev.classList.add('exit-up');
 
     var staggerEls = next.querySelectorAll('.stagger > *');
@@ -1937,13 +2001,13 @@
     updateProgress();
 
     // Confetti burst on certain fun slides
-    var confettiSlides = ['6','7','12','13','14','22'];
+    var confettiSlides = ['7','8','13','14','15','23'];
     if (confettiSlides.indexOf(next.dataset.slide) !== -1) {
       spawnConfetti();
     }
 
     // Typewriter on storytelling slide
-    if (next.dataset.slide === '20') {
+    if (next.dataset.slide === '21') {
       startTypewriter();
     }
 
@@ -1954,12 +2018,12 @@
     }
 
     // Start title fly-in animation on slide 1
-    if (next.dataset.slide === '1') {
+    if (next.dataset.slide === '2') {
       startTitleAnimation();
     }
 
-    // Reset title animation when leaving slide 1
-    if (prev.dataset.slide === '1' && index !== 1) {
+    // Reset title animation when leaving slide 2
+    if (prev.dataset.slide === '2' && index !== 2) {
       titleAnimStarted = false;
       glassShards = [];
       glassRunning = false;
@@ -1974,17 +2038,17 @@
     }
 
     // Start challenge animations on slide 14
-    if (next.dataset.slide === '12') {
+    if (next.dataset.slide === '13') {
       startChallengeSequence();
     }
 
     // Start past genjams animation on slide 10
-    if (next.dataset.slide === '10') {
-      startPastGenjamsSequence();  // past genjams (was slide 11, now 10)
+    if (next.dataset.slide === '11') {
+      startPastGenjamsSequence();
     }
 
     // Reset past genjams when leaving
-    if (prev.dataset.slide === '10' && index !== 10) {  // past genjams
+    if (prev.dataset.slide === '11' && index !== 11) {
       pastGenjamsStarted = false;
       var gjStat = document.getElementById('genjam-stat');
       var gjCountries = document.getElementById('genjam-countries');
@@ -1994,7 +2058,7 @@
     }
 
     // Reset challenge when leaving
-    if (prev.dataset.slide === '12' && index !== 12) {
+    if (prev.dataset.slide === '13' && index !== 13) {
       challengeStarted = false;
       fwRunning = false;
       if (fwCtx) fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
@@ -2003,7 +2067,7 @@
     }
 
     // Reset typewriter when leaving storytelling slide
-    if (prev.dataset.slide === '20' && index !== 20) {
+    if (prev.dataset.slide === '21' && index !== 21) {
       resetTypewriter();
     }
 
@@ -3580,6 +3644,525 @@
     startFxLoop();
   }
 
+  // === EFFECT: WiFi Signal – Radiating waves + floating data packets ===
+  var wifiAnimId = null;
+  function fxWifiSignal() {
+    var canvas = document.getElementById('wifi-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W, H, cx, cy;
+
+    function resize() {
+      W = canvas.width = canvas.offsetWidth * (window.devicePixelRatio || 1);
+      H = canvas.height = canvas.offsetHeight * (window.devicePixelRatio || 1);
+      cx = W / 2; cy = H / 2;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Signal waves radiating from center
+    var waves = [];
+    var waveTimer = 0;
+
+    // Floating data packets
+    var packets = [];
+    for (var i = 0; i < 30; i++) {
+      packets.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 1.2,
+        vy: (Math.random() - 0.5) * 1.2,
+        size: 3 + Math.random() * 5,
+        char: ['0','1','WiFi','GET','POST','200','TCP','DNS','SSL'][Math.floor(Math.random() * 9)],
+        alpha: 0.2 + Math.random() * 0.3,
+        color: ['#C8FF00','#FFD600','#6ACB9D','#0074B1'][Math.floor(Math.random() * 4)]
+      });
+    }
+
+    // Grid of dots
+    var gridDots = [];
+    var spacing = 50;
+    for (var gx = 0; gx < W; gx += spacing) {
+      for (var gy = 0; gy < H; gy += spacing) {
+        gridDots.push({ x: gx, y: gy });
+      }
+    }
+
+    function frame(t) {
+      ctx.clearRect(0, 0, W, H);
+
+      // Spawn new waves periodically
+      waveTimer++;
+      if (waveTimer % 60 === 0) {
+        waves.push({ r: 0, alpha: 0.4, born: t });
+      }
+
+      // Draw dot grid with proximity glow
+      ctx.save();
+      for (var i = 0; i < gridDots.length; i++) {
+        var d = gridDots[i];
+        var dist = Math.sqrt((d.x - cx) * (d.x - cx) + (d.y - cy) * (d.y - cy));
+        // Check if any wave is passing through
+        var glow = 0;
+        for (var w = 0; w < waves.length; w++) {
+          var waveDist = Math.abs(dist - waves[w].r);
+          if (waveDist < 30) {
+            glow = Math.max(glow, (1 - waveDist / 30) * waves[w].alpha);
+          }
+        }
+        ctx.globalAlpha = 0.05 + glow * 0.6;
+        ctx.fillStyle = glow > 0.1 ? '#C8FF00' : '#556';
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, 1.5 + glow * 3, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // Draw radiating signal waves
+      ctx.save();
+      for (var w = waves.length - 1; w >= 0; w--) {
+        var wave = waves[w];
+        wave.r += 3;
+        wave.alpha -= 0.003;
+        if (wave.alpha <= 0) { waves.splice(w, 1); continue; }
+        ctx.globalAlpha = wave.alpha * 0.5;
+        ctx.strokeStyle = '#C8FF00';
+        ctx.lineWidth = 2;
+        ctx.shadowColor = '#C8FF00';
+        ctx.shadowBlur = 15;
+        // Draw arc segments (WiFi symbol style)
+        for (var arc = 0; arc < 3; arc++) {
+          var startAngle = -Math.PI * 0.75 + arc * 0.1;
+          var endAngle = -Math.PI * 0.25 - arc * 0.1;
+          ctx.beginPath();
+          ctx.arc(cx, cy, wave.r + arc * 8, startAngle, endAngle);
+          ctx.stroke();
+        }
+      }
+      ctx.restore();
+
+      // Connection lines between nearby packets
+      ctx.save();
+      for (var i = 0; i < packets.length; i++) {
+        for (var j = i + 1; j < packets.length; j++) {
+          var dx = packets[i].x - packets[j].x;
+          var dy = packets[i].y - packets[j].y;
+          var d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 120) {
+            ctx.globalAlpha = (1 - d / 120) * 0.08;
+            ctx.strokeStyle = '#C8FF00';
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(packets[i].x, packets[i].y);
+            ctx.lineTo(packets[j].x, packets[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      ctx.restore();
+
+      // Draw floating data packets
+      ctx.save();
+      ctx.font = '9px monospace';
+      for (var i = 0; i < packets.length; i++) {
+        var p = packets[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < -20) p.x = W + 20;
+        if (p.x > W + 20) p.x = -20;
+        if (p.y < -20) p.y = H + 20;
+        if (p.y > H + 20) p.y = -20;
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = p.color;
+        ctx.fillText(p.char, p.x, p.y);
+      }
+      ctx.restore();
+
+      // Central signal source glow
+      ctx.save();
+      var grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 80);
+      grad.addColorStop(0, 'rgba(200,255,0,0.08)');
+      grad.addColorStop(0.5, 'rgba(200,255,0,0.03)');
+      grad.addColorStop(1, 'transparent');
+      ctx.fillStyle = grad;
+      ctx.globalAlpha = 0.5 + 0.2 * Math.sin(t * 0.003);
+      ctx.beginPath();
+      ctx.arc(cx, cy, 80, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      wifiAnimId = requestAnimationFrame(frame);
+    }
+
+    wifiAnimId = requestAnimationFrame(frame);
+  }
+
+  function stopWifiSignal() {
+    if (wifiAnimId) {
+      cancelAnimationFrame(wifiAnimId);
+      wifiAnimId = null;
+    }
+    var canvas = document.getElementById('wifi-canvas');
+    if (canvas) {
+      var ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+
+  // === EFFECT 14: Future Scenarios – Neural Network + Floating Orbs + Data Streams ===
+  var futureScenarioData = [
+    { title: 'Post-Scarcity Civilization', desc: 'Energy, food, and material needs are effectively free, shifting human focus to purpose, creativity, and coordination.', color: '#C8FF00' },
+    { title: 'AI-Augmented Humanity', desc: 'Individuals operate with personal AI systems that extend memory, intelligence, and decision-making.', color: '#CB6BE6' },
+    { title: 'Network State World', desc: 'People opt into digitally-native nations with distinct governance, economies, and cultural values.', color: '#0074B1' },
+    { title: 'Regenerative Earth', desc: 'Technology actively restores ecosystems, reversing climate damage and enhancing biodiversity.', color: '#6ACB9D' },
+    { title: 'Longevity Society', desc: 'Humans live for centuries, restructuring identity, relationships, and long-term planning.', color: '#FFD600' },
+    { title: 'Interstellar Cultural Exchange', desc: 'Humanity explores space by sending art, intelligence, and adaptive signals rather than colonizers.', color: '#FF904D' },
+    { title: 'Fully Automated Luxury Civilization', desc: 'Machines handle all labor, enabling humans to pursue leisure, exploration, and self-actualization.', color: '#FF2D55' },
+    { title: 'Collective Intelligence Network', desc: 'Human and AI minds link together into shared cognitive systems for solving complex problems.', color: '#CB6BE6' },
+    { title: 'Simulation-Aware Society', desc: 'People knowingly live within layered simulations and use them for experimentation and growth.', color: '#0074B1' },
+    { title: 'Open Creative Renaissance', desc: 'Millions of creators collaborate with AI to produce culture at unprecedented scale and speed.', color: '#C8FF00' },
+    { title: 'Decentralized Autonomous World', desc: 'Governance and institutions are run by transparent, programmable systems rather than centralized authorities.', color: '#FFD600' },
+    { title: 'Bioengineered Ecosystems', desc: 'Nature is redesigned with synthetic biology to be more resilient, adaptive, and symbiotic with humans.', color: '#6ACB9D' },
+    { title: 'Multi-Planetary Civilization', desc: 'Humanity expands across planets, each developing distinct cultures, economies, and identities.', color: '#FF904D' },
+    { title: 'Abundance-Driven Economy', desc: 'Markets shift from scarcity pricing to allocating attention, reputation, and meaning.', color: '#C8FF00' },
+    { title: 'Human-AI Symbiosis', desc: 'Boundaries blur as humans and AI co-evolve into hybrid forms of intelligence and identity.', color: '#CB6BE6' },
+    { title: 'Memory-Externalized Society', desc: 'Personal and collective memory is stored, searchable, and shareable beyond biological limits.', color: '#0074B1' },
+    { title: 'Hyper-Personalized Reality', desc: 'Environments, media, and experiences dynamically adapt to each individual\'s preferences and psychology.', color: '#FF2D55' },
+    { title: 'Moral Technology Civilization', desc: 'Systems are built to enhance empathy, fairness, and ethical reasoning at scale.', color: '#6ACB9D' },
+    { title: 'Temporal Freedom World', desc: 'With extended lifespans and automation, people design lives across multiple distinct "phases" or identities.', color: '#FFD600' },
+    { title: 'Transparent Governance World', desc: 'Institutions are fully auditable in real time, making corruption and opacity difficult to sustain.', color: '#0074B1' },
+    { title: 'Planetary-Scale Computation', desc: 'Earth operates as a coordinated computational system optimizing resources, logistics, and knowledge.', color: '#CB6BE6' },
+    { title: 'Exploration-First Civilization', desc: 'Humanity prioritizes scientific discovery and curiosity as its primary organizing principle.', color: '#FF904D' },
+    { title: 'Post-Work Culture', desc: 'Traditional jobs disappear, replaced by self-directed contribution, learning, and play.', color: '#C8FF00' },
+    { title: 'Hybrid Physical-Digital Cities', desc: 'Urban life exists simultaneously in physical space and persistent digital layers.', color: '#FF2D55' },
+    { title: 'Consciousness Expansion Era', desc: 'Technologies allow direct exploration and manipulation of subjective experience and awareness.', color: '#CB6BE6' }
+  ];
+
+  var scenarioAnimId = null;
+  var scenarioCycleTimer = null;
+  var currentScenario = 0;
+
+  function initScenarioDots() {
+    var container = document.getElementById('scenario-dots');
+    if (!container || container.children.length > 0) return;
+    for (var i = 0; i < futureScenarioData.length; i++) {
+      var dot = document.createElement('div');
+      dot.className = 'sdot' + (i === 0 ? ' active-dot' : '');
+      dot.dataset.idx = i;
+      dot.addEventListener('click', function() {
+        showScenario(parseInt(this.dataset.idx));
+      });
+      container.appendChild(dot);
+    }
+  }
+
+  function showScenario(idx) {
+    currentScenario = idx;
+    var s = futureScenarioData[idx];
+    var titleEl = document.getElementById('scenario-title');
+    var descEl = document.getElementById('scenario-desc');
+    if (!titleEl || !descEl) return;
+
+    titleEl.style.opacity = '0';
+    descEl.style.opacity = '0';
+    setTimeout(function() {
+      titleEl.textContent = s.title;
+      titleEl.style.color = s.color;
+      descEl.textContent = s.desc;
+      titleEl.style.opacity = '1';
+      descEl.style.opacity = '1';
+    }, 300);
+
+    var dots = document.querySelectorAll('#scenario-dots .sdot');
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].classList.toggle('active-dot', i === idx);
+    }
+  }
+
+  function startScenarioCycle() {
+    if (scenarioCycleTimer) clearInterval(scenarioCycleTimer);
+    scenarioCycleTimer = setInterval(function() {
+      currentScenario = (currentScenario + 1) % futureScenarioData.length;
+      showScenario(currentScenario);
+    }, 5000);
+  }
+
+  function fxFutureScenarios() {
+    var canvas = document.getElementById('future-scenarios-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W, H, cx, cy;
+
+    function resize() {
+      W = canvas.width = canvas.offsetWidth * (window.devicePixelRatio || 1);
+      H = canvas.height = canvas.offsetHeight * (window.devicePixelRatio || 1);
+      cx = W / 2; cy = H / 2;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Init carousel
+    initScenarioDots();
+    showScenario(0);
+    startScenarioCycle();
+
+    // Neural network nodes
+    var nodes = [];
+    var NODE_COUNT = 60;
+    for (var i = 0; i < NODE_COUNT; i++) {
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6,
+        r: 2 + Math.random() * 3,
+        color: futureScenarioData[i % futureScenarioData.length].color,
+        pulse: Math.random() * Math.PI * 2
+      });
+    }
+
+    // Data stream particles (vertical rising streams)
+    var streams = [];
+    for (var s = 0; s < 8; s++) {
+      streams.push({
+        x: W * (0.05 + s * 0.13),
+        chars: [],
+        speed: 0.8 + Math.random() * 1.2
+      });
+    }
+
+    // Floating orbs
+    var orbs = [];
+    for (var o = 0; o < 6; o++) {
+      orbs.push({
+        x: cx + (Math.random() - 0.5) * W * 0.6,
+        y: cy + (Math.random() - 0.5) * H * 0.4,
+        r: 20 + Math.random() * 40,
+        color: futureScenarioData[o * 4 % futureScenarioData.length].color,
+        phase: Math.random() * Math.PI * 2,
+        orbitR: 50 + Math.random() * 150,
+        orbitSpeed: 0.0003 + Math.random() * 0.0005,
+        baseX: cx + (Math.random() - 0.5) * W * 0.4,
+        baseY: cy + (Math.random() - 0.5) * H * 0.3
+      });
+    }
+
+    // Hexagonal grid overlay
+    function drawHexGrid(t) {
+      ctx.save();
+      var hexSize = 40;
+      var cols = Math.ceil(W / (hexSize * 1.5)) + 1;
+      var rows = Math.ceil(H / (hexSize * Math.sqrt(3))) + 1;
+      ctx.strokeStyle = '#CB6BE6';
+      ctx.lineWidth = 0.5;
+
+      for (var r = 0; r < rows; r++) {
+        for (var c = 0; c < cols; c++) {
+          var hx = c * hexSize * 1.5;
+          var hy = r * hexSize * Math.sqrt(3) + (c % 2 ? hexSize * Math.sqrt(3) / 2 : 0);
+          var dist = Math.sqrt((hx - cx) * (hx - cx) + (hy - cy) * (hy - cy));
+          var wave = Math.sin(dist * 0.005 - t * 0.002) * 0.5 + 0.5;
+          ctx.globalAlpha = 0.03 + wave * 0.04;
+          ctx.beginPath();
+          for (var k = 0; k < 6; k++) {
+            var angle = Math.PI / 3 * k + Math.PI / 6;
+            var px = hx + hexSize * 0.4 * Math.cos(angle);
+            var py = hy + hexSize * 0.4 * Math.sin(angle);
+            if (k === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+          }
+          ctx.closePath();
+          ctx.stroke();
+        }
+      }
+      ctx.restore();
+    }
+
+    function drawNeuralNet(t) {
+      // Update nodes
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > W) n.vx *= -1;
+        if (n.y < 0 || n.y > H) n.vy *= -1;
+        n.x = Math.max(0, Math.min(W, n.x));
+        n.y = Math.max(0, Math.min(H, n.y));
+      }
+
+      // Draw connections
+      ctx.save();
+      var connDist = 150;
+      for (var i = 0; i < nodes.length; i++) {
+        for (var j = i + 1; j < nodes.length; j++) {
+          var dx = nodes[i].x - nodes[j].x;
+          var dy = nodes[i].y - nodes[j].y;
+          var d = Math.sqrt(dx * dx + dy * dy);
+          if (d < connDist) {
+            var alpha = (1 - d / connDist) * 0.15;
+            ctx.globalAlpha = alpha;
+            ctx.strokeStyle = nodes[i].color;
+            ctx.lineWidth = 0.8;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+
+            // Traveling pulse along connection
+            if (Math.random() < 0.002) {
+              var mx = (nodes[i].x + nodes[j].x) / 2;
+              var my = (nodes[i].y + nodes[j].y) / 2;
+              ctx.globalAlpha = 0.6;
+              ctx.fillStyle = '#fff';
+              ctx.beginPath();
+              ctx.arc(mx, my, 1.5, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          }
+        }
+      }
+
+      // Draw nodes
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        var pulseR = n.r + Math.sin(t * 0.003 + n.pulse) * 1.5;
+        ctx.globalAlpha = 0.3 + Math.sin(t * 0.002 + n.pulse) * 0.15;
+        ctx.fillStyle = n.color;
+        ctx.shadowColor = n.color;
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, pulseR, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    function drawDataStreams(t) {
+      ctx.save();
+      ctx.font = '10px monospace';
+      var chars = '01アイウエオカキクケコ∞∑∫λΩ';
+      for (var s = 0; s < streams.length; s++) {
+        var stream = streams[s];
+        // Spawn new characters
+        if (Math.random() < 0.15) {
+          stream.chars.push({
+            y: H + 10,
+            ch: chars[Math.floor(Math.random() * chars.length)],
+            alpha: 0.5 + Math.random() * 0.3,
+            speed: stream.speed + Math.random() * 0.5
+          });
+        }
+        // Update and draw
+        for (var c = stream.chars.length - 1; c >= 0; c--) {
+          var ch = stream.chars[c];
+          ch.y -= ch.speed;
+          ch.alpha -= 0.002;
+          if (ch.y < -20 || ch.alpha <= 0) {
+            stream.chars.splice(c, 1);
+            continue;
+          }
+          ctx.globalAlpha = ch.alpha * 0.25;
+          ctx.fillStyle = futureScenarioData[currentScenario].color;
+          ctx.fillText(ch.ch, stream.x, ch.y);
+        }
+      }
+      ctx.restore();
+    }
+
+    function drawOrbs(t) {
+      ctx.save();
+      for (var i = 0; i < orbs.length; i++) {
+        var o = orbs[i];
+        o.x = o.baseX + Math.cos(t * o.orbitSpeed + o.phase) * o.orbitR;
+        o.y = o.baseY + Math.sin(t * o.orbitSpeed * 0.7 + o.phase) * o.orbitR * 0.5;
+
+        // Outer glow
+        var grad = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.r);
+        grad.addColorStop(0, o.color);
+        grad.addColorStop(0.4, o.color + '44');
+        grad.addColorStop(1, 'transparent');
+        ctx.globalAlpha = 0.08 + 0.04 * Math.sin(t * 0.002 + o.phase);
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Inner bright core
+        ctx.globalAlpha = 0.15 + 0.1 * Math.sin(t * 0.003 + o.phase);
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.arc(o.x, o.y, o.r * 0.15, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Orbiting ring
+        ctx.globalAlpha = 0.08;
+        ctx.strokeStyle = o.color;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        var ringTilt = Math.sin(t * 0.001 + o.phase) * 0.3;
+        ctx.ellipse(o.x, o.y, o.r * 1.3, o.r * 1.3 * Math.abs(ringTilt), t * 0.0005 + o.phase, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // Wormhole / portal effect in center background
+    function drawWormhole(t) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      for (var ring = 0; ring < 8; ring++) {
+        var r = 30 + ring * 25 + Math.sin(t * 0.002 + ring * 0.5) * 10;
+        var rot = t * 0.0003 * (ring % 2 === 0 ? 1 : -1);
+        ctx.globalAlpha = 0.03 + 0.015 * Math.sin(t * 0.003 + ring);
+        ctx.strokeStyle = ring % 2 === 0 ? '#CB6BE6' : '#C8FF00';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, r, r * (0.3 + 0.2 * Math.sin(t * 0.001 + ring)), rot, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function frame(t) {
+      ctx.clearRect(0, 0, W, H);
+
+      // Layer 1: Hex grid
+      drawHexGrid(t);
+
+      // Layer 2: Wormhole portal
+      drawWormhole(t);
+
+      // Layer 3: Data streams
+      drawDataStreams(t);
+
+      // Layer 4: Neural network
+      drawNeuralNet(t);
+
+      // Layer 5: Floating orbs
+      drawOrbs(t);
+
+      scenarioAnimId = requestAnimationFrame(frame);
+    }
+
+    scenarioAnimId = requestAnimationFrame(frame);
+  }
+
+  function stopFutureScenarios() {
+    if (scenarioAnimId) {
+      cancelAnimationFrame(scenarioAnimId);
+      scenarioAnimId = null;
+    }
+    if (scenarioCycleTimer) {
+      clearInterval(scenarioCycleTimer);
+      scenarioCycleTimer = null;
+    }
+    var canvas = document.getElementById('future-scenarios-canvas');
+    if (canvas) {
+      var ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+
   // === EFFECT 13: Hello Future World – 3D Starfield + Spaceships + Holo Grid ===
   var futureWorldAnim = null;
   function fxFutureWorld() {
@@ -3824,33 +4407,35 @@
   // === MASTER: Map slide numbers to diverse effects (no emojis — sleek & flowy) ===
   var slideEffects = {
     '0': function() { fxPulseRings(); },          // Welcome
-    '1': function() { fxAurora(); },              // Title
-    '2': function() { fxAurora(); },              // NVIDIA GTC
-    '3': function() { fxTextRain(['0','1',':','0','0']); }, // Schedule
-    '4': function() { fxDNAHelix(); },            // AIRL Model
-    '5': function() { fxPulseRings(); },          // Machine Cinema Is
-    '6': function() { fxSpiral(); },              // Icebreaker
-    '7': function() { fxBubbles(); },             // Schnozzo
-    '8': function() { fxPixelDissolve(); },       // Meet Team
-    '9': function() { fxBubbles(); },             // Join Community
-    '10': function() { fxMeteors(); },            // Past GenJams
-    '11': function() { fxSnowfall(); },           // Your Setup
-    '12': function() { fxLightning(); },          // Challenge
-    '13': function() { fxFutureWorld(); },          // Hello Future World
-    '14': function() { fxSpiral(); },             // Prizes
-    '15': function() { fxGravityWell(); },        // Let's Dig In
-    '16': function() { fxSpiral(); },             // Workflow
-    '17': function() { fxGravityWell(); },        // Roles
-    '18': function() { fxDNAHelix(); },           // Process
-    '19': function() { fxSpiral(); },             // Process Fractal
-    '20': function() { fxSnowfall(); },           // Tips
-    '21': function() { fxAurora(); },             // Story World
-    '22': function() { fxTextRain(['A','B','C','a','b','c']); }, // Storytelling
-    '23': function() { fxLightning(); },          // Questions
-    '24': function() { fxPulseRings(); },         // Showcase
-    '25': function() { fxGravityWell(); },        // Submissions
-    '26': function() { fxAurora(); },             // Goodbye
-    '27': function() { fxAurora(); }              // Connect
+    '1': function() { fxWifiSignal(); },          // WiFi Info
+    '2': function() { fxAurora(); },              // Title
+    '3': function() { fxAurora(); },              // NVIDIA GTC
+    '4': function() { fxTextRain(['0','1',':','0','0']); }, // Schedule
+    '5': function() { fxDNAHelix(); },            // AIRL Model
+    '6': function() { fxPulseRings(); },          // Machine Cinema Is
+    '7': function() { fxSpiral(); },              // Icebreaker
+    '8': function() { fxBubbles(); },             // Schnozzo
+    '9': function() { fxPixelDissolve(); },       // Meet Team
+    '10': function() { fxBubbles(); },            // Join Community
+    '11': function() { fxMeteors(); },            // Past GenJams
+    '12': function() { fxSnowfall(); },           // Your Setup
+    '13': function() { fxLightning(); },          // Challenge
+    '14': function() { fxFutureWorld(); },        // Hello Future World
+    '15': function() { fxSpiral(); },             // Prizes
+    '16': function() { fxGravityWell(); },        // Let's Dig In
+    '17': function() { fxSpiral(); },             // Workflow
+    '18': function() { fxGravityWell(); },        // Roles
+    '19': function() { fxDNAHelix(); },           // Process
+    '20': function() { fxSpiral(); },             // Process Fractal
+    '21': function() { fxSnowfall(); },           // Tips
+    '22': function() { fxAurora(); },             // Story World
+    '23': function() { fxFutureScenarios(); },    // Future Scenarios
+    '24': function() { fxTextRain(['A','B','C','a','b','c']); }, // Storytelling
+    '25': function() { fxLightning(); },          // Questions
+    '26': function() { fxPulseRings(); },         // Showcase
+    '27': function() { fxGravityWell(); },        // Submissions
+    '28': function() { fxAurora(); },             // Goodbye
+    '29': function() { fxAurora(); }              // Connect
   };
 
   // Single unified observer for per-slide effects
