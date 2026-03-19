@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150">
-  <rect width="500" height="150" fill="none"/>
-  <!-- LTX Studio logo -->
-  <text x="250" y="80" text-anchor="middle" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="72" fill="#FFFFFF" letter-spacing="8">LTX</text>
-  <text x="250" y="120" text-anchor="middle" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="400" font-size="28" fill="#CCCCCC" letter-spacing="12">STUDIO</text>
+  <!-- LTX Studio Logo - Clean modern type -->
+  <text x="250" y="78" text-anchor="middle" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="68" fill="#FFFFFF" letter-spacing="10">LTX</text>
+  <text x="250" y="118" text-anchor="middle" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="300" font-size="24" fill="#CCCCCC" letter-spacing="14">STUDIO</text>
 </svg>
